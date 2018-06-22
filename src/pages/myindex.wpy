@@ -1,0 +1,182 @@
+<template>
+  <view class="myIndex myContainer">
+
+    <view class="choose_box">
+      <view class="left_box">
+        <view class='tab_box'>
+          <view class="tab">
+            <!-- 注意，使用for属性，而不是使用wx:for属性 -->
+              <repeat for="{{top_classify}}" key="index" index="index" item="item">
+                <view class="tab_a {{currentTcid==item.tcid ? 'tab0' : '' }}"
+                 @tap="bindViewTap('1','2')"><view class='tab_a_view'>{{item.tc_name}}</view></view>
+              </repeat>
+          </view>
+        </view>
+
+      </view>
+      
+      <view class="right_box">
+          <view class="img_box">
+            <image mode="aspectFill" src="../assets/images/index_search@2x.png" class="seachImag"/>
+          </view>
+      </view>
+    </view>
+    
+    <view class="my_container">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+       duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
+          <swiper-item wx:for="{{banner_list}}" wx:key="index">
+            <navigator url="/pages/product_detail/product_detail?gid={{item.git}}">
+              <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
+            </navigator>
+          </swiper-item>
+      </swiper>
+    </view>
+
+    <view class="notice_box">
+      <image mode="aspectFill" src="../assets/images/index_news@2x.png" class="slide-image"/>
+    </view>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class myIndex extends wepy.page {
+    config = {
+      "navigationBarTitleText": "99竞拍"
+    };
+
+    data = {
+      hello:'hello world',
+      banner_list:[
+        {banner:'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',git:'1'},
+        {banner:'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',git:'2'},
+        {banner:'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',git:'3'}
+      ],
+      indicatorDots: true,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000,
+      top_classify:[
+        {tc_name:'化妆品',tcid : '1'},
+        {tc_name:'香水',tcid : '2'},
+        {tc_name:'护肤品',tcid : '3'},
+        {tc_name:'奢侈品',tcid : '4'},
+        {tc_name:'生活用品',tcid : '5'},
+      ],
+      currentTcid:'1'
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      plus () {
+        this.mynum++
+      },
+      bindViewTap(p1, p2, event) {
+        console.log(p1);
+        console.log(p2);
+        console.log(event);
+      }
+    }
+
+    events = {
+
+    }
+}
+</script>
+
+<style lang="less" scoped>
+@color: #4D926F;
+.userinfo {
+    color: @color;
+}
+//轮播图
+.my_container{
+  padding: 20rpx;
+}
+//顶部选项样式
+.choose_box:after{
+  content:"";
+  height:0;
+  line-height:0;
+  display:block;
+  visibility:hidden;
+  clear:both;
+}
+.choose_box{
+  display: flex;
+  height: 80rpx;
+  // padding: 20rpx 0;
+  background-color: #d91f54;
+  font-size: 30rpx;
+  .left_box{
+    float: left;
+    color: rgba(255, 255, 255, 0.5);
+    width: 84%;
+    height: 100%;
+    line-height: 80rpx;
+    overflow: hidden;
+  }
+  
+  .right_box{
+    float: right;
+    width: 16%;
+    height: 100%;
+    position: relative;
+    .img_box{
+      width: 36rpx;
+      height: 39rpx;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      overflow: hidden;
+      -webkit-transition-property: -webkit-transform,opacity;
+      transition-property: transform,opacity;
+      transform: translate(-50%, -50%);
+      .seachImag{
+        width: 36rpx;
+        height: 39rpx;
+      }
+    }
+  }
+}
+
+.tab_box{
+  width: 100%;
+  overflow: hidden;
+} 
+.tab{
+  height: 78rpx;
+  line-height: 78rpx;
+  // border-bottom: 2rpx solid #E7E7E7;
+  opacity: 0.8;
+  font-size: 28rpx;
+  white-space:nowrap; 
+  overflow-y:hidden; 
+  overflow-x:auto; 
+  padding: 0px 0px 68rpx 0px;
+  -webkit-overflow-scrolling:touch;
+}
+.tab .tab_a{
+    /* width: 16.666%; */
+    padding:0 20rpx;
+    text-align: center;
+    float: left;
+    font-size: 30rpx;
+    display:inline-block; 
+    float:none; 
+}
+//提醒  恭喜别人
+.notice_box{
+  
+}
+
+
+</style>
+

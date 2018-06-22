@@ -1,0 +1,13 @@
+{
+  "description": "aaa",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "appid": "wx7ec98c44607aa75b",
+  "projectname": "paipaile",
+  "miniprogramRoot": "./dist"
+}

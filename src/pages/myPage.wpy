@@ -1,0 +1,40 @@
+<template>
+    <view class="userinfo">雨，它下的好安静 {{hello}}</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class myPage extends wepy.page {
+    config = {
+        "navigationBarTitleText": "个人中心"
+    };
+
+    data = {
+      hello:'hello world'
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      plus () {
+        this.mynum++
+      }
+    }
+
+    events = {
+        
+    }
+}
+</script>
+
+<style lang="less" scoped>
+@color: #4D926F;
+.userinfo {
+    color: @color;
+}
+</style>
+
