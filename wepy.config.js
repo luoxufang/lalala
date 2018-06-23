@@ -27,6 +27,10 @@ module.exports = {
     /*sass: {
       outputStyle: 'compressed'
     },*/
+    less: {
+      compress: true,
+      plugins: [new LessPluginAutoPrefix({browsers: ['Android >= 2.3', 'Chrome > 20', 'iOS >= 6']})]
+    },
     babel: {
       sourceMap: true,
       presets: [
