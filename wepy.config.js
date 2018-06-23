@@ -1,4 +1,5 @@
 const path = require('path');
+const LessPluginAutoPrefix = require('less-plugin-autoprefix');//less新增
 var prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -22,15 +23,13 @@ module.exports = {
   },
   compilers: {
     less: {
-      compress: prod
+      compress: prod,
+      compress: true,
+      plugins: [new LessPluginAutoPrefix({browsers: ['Android >= 2.3', 'Chrome > 20', 'iOS >= 6']})]
     },
     /*sass: {
       outputStyle: 'compressed'
     },*/
-    less: {
-      compress: true,
-      plugins: [new LessPluginAutoPrefix({browsers: ['Android >= 2.3', 'Chrome > 20', 'iOS >= 6']})]
-    },
     babel: {
       sourceMap: true,
       presets: [

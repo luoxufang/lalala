@@ -1,42 +1,63 @@
 <template>
   <view class="myIndex myContainer">
-
+    <!-- top  tabBar -->
     <view class="choose_box">
       <view class="left_box">
         <view class='tab_box'>
           <view class="tab">
             <!-- 注意，使用for属性，而不是使用wx:for属性 -->
               <repeat for="{{top_classify}}" key="index" index="index" item="item">
-                <view class="tab_a {{currentTcid==item.tcid ? 'tab0' : '' }}"
+                <view class="tab_a {{currentTcid ==item.tcid ? 'tab0' : '' }}"
                  @tap="bindViewTap('1','2')"><view class='tab_a_view'>{{item.tc_name}}</view></view>
               </repeat>
           </view>
         </view>
-
       </view>
-      
       <view class="right_box">
           <view class="img_box">
-            <image mode="aspectFill" src="../assets/images/index_search@2x.png" class="seachImag"/>
+            <image mode="aspectFill" src="../assets/images/index_search@3x.png" class="seachImag"/>
           </view>
       </view>
     </view>
-    
-    <view class="my_container">
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
-       duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
-          <swiper-item wx:for="{{banner_list}}" wx:key="index">
-            <navigator url="/pages/product_detail/product_detail?gid={{item.git}}">
-              <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
-            </navigator>
-          </swiper-item>
-      </swiper>
+    <!-- 轮播图 -->
+    <view class="big_box">
+      <view class="my_container">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+        duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
+            <swiper-item wx:for="{{banner_list}}" wx:key="index">
+              <navigator url="/pages/product_detail/product_detail?gid={{item.git}}">
+                <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
+              </navigator>
+            </swiper-item>
+        </swiper>
+      </view>
+      <view class="notice_box">
+        <image mode="aspectFill" src="../assets/images/index_news@2x.png" class="notice_user_img"/>
+        <text style="margin:0 26rpx;">恭喜</text>
+        <text>上嘀咕嘀咕的大概几点发给</text>
+      </view>
     </view>
+    <!-- 产品列表 -->
+    <view class="product_list_box">
+      <image mode="aspectFill" src="../assets/images/index_product@2x.png" class="product_banner"/>
+      <view class="product_info_btn">
+        <view class="line_change"></view>
+        <view class="is_info_btn">
 
-    <view class="notice_box">
-      <image mode="aspectFill" src="../assets/images/index_news@2x.png" class="slide-image"/>
+          <view class="left_view">
+            <view class="title">受到官方口径的功夫</view>
+            <view class="join_this"><view class="left">参与：{{number}}</view><view class="right">多个地方</view></view>
+            <view class="result">古天乐胜出。</view>
+            <view class="bottom_info"><view class="left">第二次</view><view class="right">￥{{money}}</view></view>
+          </view>
+
+          <view class="right_view">
+            <view class="publicStyle1">出价<text style="font-size:40rpx;">￥199</text></view>
+          </view>
+
+        </view>
+      </view>
     </view>
-
   </view>
 </template>
 
@@ -65,7 +86,9 @@ export default class myIndex extends wepy.page {
         {tc_name:'奢侈品',tcid : '4'},
         {tc_name:'生活用品',tcid : '5'},
       ],
-      currentTcid:'1'
+      currentTcid:'1',
+      number:'66',
+      money:'199'
     }
 
     computed = {
@@ -96,9 +119,18 @@ export default class myIndex extends wepy.page {
 .userinfo {
     color: @color;
 }
+.publicStyle1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
 //轮播图
 .my_container{
-  padding: 20rpx;
+  padding: 20rpx 30rpx 0 30rpx;
 }
 //顶部选项样式
 .choose_box:after{
@@ -172,11 +204,92 @@ export default class myIndex extends wepy.page {
     display:inline-block; 
     float:none; 
 }
+// 
+.big_box{
+  background-color:#fff;
+  box-shadow: 0 2px 5px 4rpx #eee;
+}
 //提醒  恭喜别人
 .notice_box{
-  
+  line-height: 80rpx;
+  padding: 0 30rpx;
+  .notice_user_img{
+    width: 36rpx;
+    height: 36rpx;
+    position: relative;
+    top: 6rpx;
+  }
+  text{
+    font-size: 26rpx;
+    color: rgb(102, 102, 102);
+  }
 }
+.product_list_box{
+  margin: 30rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2px 5px 4rpx #eee;
+  font-size: 0;
+  .product_banner{
+    width: 690rpx;
+    height: 552rpx;
+  }
+  .product_info_btn{
+    .line_change{
+      background-color: rgb(254, 192, 42);
+      height: 8rpx;
+    }
+    .is_info_btn{
+      height: 200rpx;
+      display: flex;
+      .left_view{
+        font-size: 28rpx;
+        color: rgb(153, 153, 153);
+        flex:3;
+        padding: 12rpx 20rpx;
+        .title{
+            font-size: 30rpx;
+            color: #333;
+          }
+        .join_this{
+          display: flex;
+          font-size: 26rpx;
+          .left{
+            flex: 1;
+            color: rgb(153, 153, 153);
+          }
+          .right{
+            flex: 1;
+            text-align: right;
+          }
+        }
+        .bottom_info{
+          display: flex;
+          font-size: 26rpx;
+          .left{
+            flex: 1;
+            color: rgb(254, 192, 42);
+          }
+          .right{
+            flex: 1;
+            text-align: right;
+          }
+        }
+      }
 
-
+      .right_view{
+        font-size: 28rpx;
+        color: #fff;
+        flex:2;
+        background-color: #d91f54;
+        position: relative;
+        view{
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
 </style>
 
