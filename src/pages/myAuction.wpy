@@ -81,18 +81,19 @@
       </view> -->
 
       <view class="product_list_wepy">
-        <!-- 注意，使用for属性，而不是使用wx:for属性 -->
-        <!-- <repeat for="{{list}}" key="index" index="index" item="item"> -->
-            <!-- 插入<script>脚本部分所声明的child组件，同时传入item  :product="item.id" :syncList.sync="item.title" :twoWayList="item.list" -->
-            <product :product="aaa" :syncList.sync="list" :item="item" :twoWayTitle.sync='mynum'></product>
-        <!-- </repeat>  -->
+        
+        <repeat for="{{list}}" key="index" index="index" item="item">
+            
+            <product :data1="item"></product>
+        </repeat> 
       </view>
+      
     </view>
 </template>
 
 <script>
 import wepy from 'wepy';
-import Product from '@/components/product'
+import Product from '@/components/product';
 export default class myAuction extends wepy.page {
   config = {
     navigationBarTitleText: '我的竞拍'
@@ -100,7 +101,7 @@ export default class myAuction extends wepy.page {
 
   data = {
     hello: 'hello world',
-    mynum:20,
+    mynum: 20,
     msg: {
       orders: [
         {
@@ -140,12 +141,59 @@ export default class myAuction extends wepy.page {
         }
       ]
     },
-    list: [{id: 1, title: 'title1'}, {id: 2, title: 'title2'}],
-    item:{
-      name:'tom',
-      addr:'usa',
-      age:22
-    },
+    list: [
+      {
+        id: 1,
+        title: 'title1',
+        attend: '11',
+        collection: '11',
+        xingxing: '4.0(1K+)',
+        tradeNotice: '古天乐1***领先',
+        second:'第一次',
+        money:'199',
+        stadus:'1',
+      },
+      {
+        id: 2,
+        title: 'title2',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '古天乐2***领先',
+        second:'第一次',
+        money:'99',
+        stadus:'2',
+      },
+      {
+        id: 3,
+        title: 'title3',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '刘德华1***领先',
+        second:'第一次',
+        money:'99',
+        stadus:'3',
+      },
+      {
+        id: 4,
+        title: 'title4',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '古天乐3***领先',
+        second:'',
+        money:'99',
+        stadus:'4',
+      },
+      {
+        id: 5,
+        title: 'title5',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '古天乐4***领先',
+        second:'第一次',
+        money:'99',
+        stadus:'5',
+      }
+    ]
   };
   components = {
     product: Product
@@ -329,7 +377,7 @@ export default class myAuction extends wepy.page {
 //气泡css样式
 
 //产品列表样式
-.product_list_wepy{
+.product_list_wepy {
   margin-top: 20rpx;
 }
 </style>

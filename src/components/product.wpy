@@ -6,15 +6,24 @@
     <view class="bbb">
       <view class="is_info_btn">
         <view class="left_view">
-          <view class="title">{{Title}}</view>
-          <view class="join_this"><view class="left">参与：666</view><view class="right">多个地方</view></view>
+          <view class="title">{{data1.title}}</view>
+          <view class="join_this">
+            <view class="left">参与：{{data1.attend}}</view>
+            <view class="right">
+              <image mode="aspectFill" src="../assets/images/comment_star@2x.png" class="xingxing"/>
+              {{data1.xingxing}}
+            </view>
+          </view>
           <view class="result">古天乐胜出。</view>
           <view class="bottom_info"><view class="left">第二次</view><view class="right">￥199</view></view>
 
           <view class="changeBtn">
             <view class="lineColor"></view>
-            <view class="clickChangeBtn"><text style="font-size:24rpx;">出价</text><text style="font-size:32rpx;">￥199</text></view>
-            <!-- <view class="clickChangeBtn"><text style="fcolor:rgba(255,255,255,0.3);">出价成功</text></view> -->
+            <view class="clickChangeBtn" wx:if="{{data1.stadus == 1}}"><text style="font-size:24rpx;">出价</text><text style="font-size:32rpx;">￥199</text></view>
+            <view class="clickChangeBtn chan2" wx:elif="{{data1.stadus == 2}}"><text style="color:rgba(255,255,255,0.3);">出价成功</text></view>
+            <view class="clickChangeBtn chan3" wx:elif="{{data1.stadus == 3}}"><text style="color:rgba(255,255,255,0.3);">出局</text></view>
+            <view class="clickChangeBtn chan4" wx:elif="{{data1.stadus == 4}}"><text style="color:rgb(153,153,153);">￥199卖出</text></view>
+            <view class="clickChangeBtn chan5" wx:elif="{{data1.stadus == 5}}"><text style="color:rgb(217,31,84);">竞拍成功</text></view>
           </view>
         </view>
 
@@ -29,18 +38,16 @@
 
   export default class Product extends wepy.component {
     data = {
-      Title: 'mytitle',
-      productList11:[]
+      Title: 'mytitle'
     }
     props = {
       //静态传值
-      item: Object,
-      product: String,
-      twoWayTitle:{
-        type: Number,
-        default: 'nothing',
-        twoWay: true
-      }
+      data1: {},
+      // twoWayTitle:{
+      //   type: Number,
+      //   default: 'nothing',
+      //   twoWay: true
+      // }
       // syncList: {
       //     type: Object, 
       //     default: 'null'
@@ -54,11 +61,11 @@
     };
 
     onLoad () {
-      let self = this
       // 父级传过来的静态值mytitle
-      console.log(this.twoWayTitle);
-      self.productList11 = this.syncList;
-      self.$apply()//类似于 告诉页面 我数据改变了
+      var data1 = this.data1;
+      console.log(data1); 
+      // self.productList11 = this.syncList;
+      this.$apply()//类似于 告诉页面 我数据改变了
     }
   }
 </script>
@@ -67,6 +74,7 @@
   .product_box_wepy {
     padding: 30rpx 22rpx;
     background-color: #fff;
+    border-bottom: 1rpx solid #e0e0e0;
     display: flex;
     .aaa{
       flex: 1;
@@ -101,6 +109,10 @@
             .right{
               flex: 1;
               text-align: right;
+              .xingxing{
+                width: 24rpx;
+                height: 22rpx;
+              }
             }
           }
           .bottom_info{
@@ -134,10 +146,22 @@
               text-align: center;
               color: #fff;
             }
+            .chan2{
+              background-color: rgb(30, 222, 202);
+            }
+            .chan3{
+              background-color: rgb(234, 50, 50);
+            }
+            .chan4,.chan5{
+              background-color: rgb(240, 235, 236);
+            }
           }
         }
 
       }
     }
+  }
+  .product_box_wepy:last-child{
+    border: 0;
   }
 </style>
