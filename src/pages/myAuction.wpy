@@ -23,7 +23,7 @@
           <view class="product_list" wx:for="{{item.orders_goods_list}}" wx:key="index">
               
               <view class="product_left">
-                  <image src="{{item.banner_list}}" mode="aspectFill"></image>
+                  <image src="{{item.banner_list}}" mode="aspectFill"/>
               </view>
               <view class="product_right">
                   <view class="title">{{item.goods_title}}</view>
@@ -79,197 +79,258 @@
         <view style="display:block;position:absolute;left:10px;top:10px;width:0;height:0;border-style:solid;border-width:20px;border-color:transparent #00f transparent transparent;"></view>
         <view style="display:block;position:absolute;left:16px;top:10px;;width:0;height:0;border-style:solid;border-width:20px;border-color:transparent #fff transparent transparent;"></view>
       </view> -->
+
+      <view class="product_list_wepy">
+        <!-- 注意，使用for属性，而不是使用wx:for属性 -->
+        <!-- <repeat for="{{list}}" key="index" index="index" item="item"> -->
+            <!-- 插入<script>脚本部分所声明的child组件，同时传入item  :product="item.id" :syncList.sync="item.title" :twoWayList="item.list" -->
+            <product :product="aaa" :syncList.sync="list" :item="item" :twoWayTitle.sync='mynum'></product>
+        <!-- </repeat>  -->
+      </view>
     </view>
 </template>
 
 <script>
-import wepy from 'wepy'
+import wepy from 'wepy';
+import Product from '@/components/product'
 export default class myAuction extends wepy.page {
-    config = {
-        "navigationBarTitleText": "我的竞拍"
-    };
+  config = {
+    navigationBarTitleText: '我的竞拍'
+  };
 
-    data = {
-      hello:'hello world',
-      "msg":{"orders":[{"oid":"386","orders_encode":"20180625001606671","orders_real_pay_price":"0.1","orders_sum_fare_price":"0","orders_discount_price":"0.1","orders_status":"1","orders_create_time":"2018-06-25 00:16:06","remarks":"","orders_goods_num":1,"orders_goods_list":[{"olid":"460","orders_id":"386","gid":"10000054","ssid":"279","msid":"10000322","goods_title":"MACHENIKE 机械师F117 F6 i7笔记本电脑GTX1060独显游戏本手提","goods_name":"","fare_price":"0","banner_list":"https:\/\/shop1.helpmake.cn\/upload\/images\/banner\/15046908614506.jpg","main_style_name":"套餐","sub_style_name":"颜色","main_style_tags":" 官方标配","sub_style_tags":"银色","rel_m_price":"0.1","discount_price":"0.1","commission":"0","buy_num":"1","create_time":"2018-06-25 00:16:06"}]}  ]}
-    }
+  data = {
+    hello: 'hello world',
+    mynum:20,
+    msg: {
+      orders: [
+        {
+          oid: '386',
+          orders_encode: '20180625001606671',
+          orders_real_pay_price: '0.1',
+          orders_sum_fare_price: '0',
+          orders_discount_price: '0.1',
+          orders_status: '1',
+          orders_create_time: '2018-06-25 00:16:06',
+          remarks: '',
+          orders_goods_num: 1,
+          orders_goods_list: [
+            {
+              olid: '460',
+              orders_id: '386',
+              gid: '10000054',
+              ssid: '279',
+              msid: '10000322',
+              goods_title:
+                'MACHENIKE 机械师F117 F6 i7笔记本电脑GTX1060独显游戏本手提',
+              goods_name: '',
+              fare_price: '0',
+              banner_list:
+                'https://shop1.helpmake.cn/upload/images/banner/15046908614506.jpg',
+              main_style_name: '套餐',
+              sub_style_name: '颜色',
+              main_style_tags: ' 官方标配',
+              sub_style_tags: '银色',
+              rel_m_price: '0.1',
+              discount_price: '0.1',
+              commission: '0',
+              buy_num: '1',
+              create_time: '2018-06-25 00:16:06'
+            }
+          ]
+        }
+      ]
+    },
+    list: [{id: 1, title: 'title1'}, {id: 2, title: 'title2'}],
+    item:{
+      name:'tom',
+      addr:'usa',
+      age:22
+    },
+  };
+  components = {
+    product: Product
+  };
 
-    computed = {
-      now () {
-        return +new Date()
-      }
+  computed = {
+    now() {
+      return +new Date();
     }
+  };
 
-    methods = {
-      plus () {
-        this.mynum++
-      }
+  methods = {
+    plus() {
+      this.mynum++;
     }
+  };
 
-    events = {
-        
-    }
+  events = {};
 }
 </script>
 
 <style lang="less" scoped>
-@color: #4D926F;
+@color: #4d926f;
 .userinfo {
-    color: @color;
+  color: @color;
 }
 
 /*全部  */
-.swiper-tab:after,.product_choose:after{
-    clear:both;
-    content:'.';
-    display:block;
-    width: 0;
-    height: 0;
-    visibility:hidden;
-} 
-.ddd{
-    padding-bottom: 48rpx;
+.swiper-tab:after,
+.product_choose:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }
-.orderList0{
-    background-color: #FFF;
-    margin-top: 24rpx;
+.ddd {
+  padding-bottom: 48rpx;
 }
-.orderList1{
-    background-color: #FFF;
-    margin-top: 24rpx;
+.orderList0 {
+  background-color: #fff;
+  margin-top: 24rpx;
 }
-.time_and_stadus:after{
-    clear:both;
-    content:'.';
-    display:block;
-    width: 0;
-    height: 0;
-    visibility:hidden;
+.orderList1 {
+  background-color: #fff;
+  margin-top: 24rpx;
 }
-.time_and_stadus{
-    height: 80rpx;
-    line-height: 80rpx;
-    padding: 0 24rpx;
+.time_and_stadus:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }
-.time_and_stadus .time{
-    float: left;
-    color: rgb(34, 34, 34);
-    font-size: 24rpx;
+.time_and_stadus {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 24rpx;
 }
-.time_and_stadus .stadus{
-    float: right;
-    color: rgb(254, 172, 42);
-    font-size: 24rpx;
+.time_and_stadus .time {
+  float: left;
+  color: rgb(34, 34, 34);
+  font-size: 24rpx;
+}
+.time_and_stadus .stadus {
+  float: right;
+  color: rgb(254, 172, 42);
+  font-size: 24rpx;
 }
 
-.product_list:after{
-    clear:both;
-    content:'.';
-    display:block;
-    width: 0;
-    height: 0;
-    visibility:hidden;
+.product_list:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }
-.product_list{
-    background-color: #f7f7f7;
-    padding: 26rpx 24rpx;
-    font-size: 0;
+.product_list {
+  background-color: #f7f7f7;
+  padding: 26rpx 24rpx;
+  font-size: 0;
 }
-.product_list:last-child{
-    /* border: 0; */
+.product_list:last-child {
+  /* border: 0; */
 }
-.product_left,.product_right{
-    float: left;
+.product_left,
+.product_right {
+  float: left;
 }
-.product_left image{
-    width: 142rpx;
-    height: 142rpx;
+.product_left image {
+  width: 142rpx;
+  height: 142rpx;
 }
-.product_right{
-    width: 520rpx;
-    padding-left: 30rpx;
+.product_right {
+  width: 520rpx;
+  padding-left: 30rpx;
 }
-.product_right .title{
-    font-size: 26rpx;
-    color: rgb(153, 153, 153);
+.product_right .title {
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
 
-    width:450rpx;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+  width: 450rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.product_right .colour{
-    margin-top: 6rpx;
-    font-size: 24rpx;
-    color: #999;
-    width:450rpx;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+.product_right .colour {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+  width: 450rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.product_right .money{
-    font-size: 24rpx;
-    color: rgb(153, 153, 153);
-    margin-top: 16rpx;
-    position: relative;
+.product_right .money {
+  font-size: 24rpx;
+  color: rgb(153, 153, 153);
+  margin-top: 16rpx;
+  position: relative;
 }
-.product_right .money .text{
-    font-size: 30rpx;
-}
-.product_right .money .number{
-    position: absolute;
-    bottom: 2rpx;
-    right: 0;
-    color: rgb(34, 34, 34);
-}
-.total{
-    height: 84rpx;
-    line-height: 84rpx;
-    color: #333;
-    text-align: right;
-    padding: 0 24rpx;
-}
-.total .num{
+.product_right .money .text {
   font-size: 30rpx;
 }
-.product_choose{
-    padding: 24rpx;
-    padding-bottom: 26rpx;
+.product_right .money .number {
+  position: absolute;
+  bottom: 2rpx;
+  right: 0;
+  color: rgb(34, 34, 34);
 }
-.product_choose .cancel{
-    width: 152rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    text-align: center;
-    border-radius: 32rpx;
-    font-size: 26rpx;
-    color: rgb(102, 102, 102);
-    border: 2rpx solid rgb(102, 102, 102);
-    display: inline-block;
-    float: right;
-    margin-right: 24rpx;
-    background-color: #FFF;
-    padding: 0 10rpx;
+.total {
+  height: 84rpx;
+  line-height: 84rpx;
+  color: #333;
+  text-align: right;
+  padding: 0 24rpx;
 }
-.product_choose .go_fuqian{
-    width: 152rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    text-align: center;
-    border-radius: 32rpx;
-    font-size: 26rpx;
-    color: #fff;
-    // border: 2rpx solid #ff3939;
-    display: inline-block;
-    float: right;
-    background-color: #d91f54;
-    padding: 0 10rpx;
+.total .num {
+  font-size: 30rpx;
 }
-.product_choose .cancel::after,.product_choose .go_fuqian::after{
-    border: 0;
+.product_choose {
+  padding: 24rpx;
+  padding-bottom: 26rpx;
+}
+.product_choose .cancel {
+  width: 152rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: rgb(102, 102, 102);
+  border: 2rpx solid rgb(102, 102, 102);
+  display: inline-block;
+  float: right;
+  margin-right: 24rpx;
+  background-color: #fff;
+  padding: 0 10rpx;
+}
+.product_choose .go_fuqian {
+  width: 152rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #fff;
+  // border: 2rpx solid #ff3939;
+  display: inline-block;
+  float: right;
+  background-color: #d91f54;
+  padding: 0 10rpx;
+}
+.product_choose .cancel::after,
+.product_choose .go_fuqian::after {
+  border: 0;
 }
 //气泡css样式
 
-
+//产品列表样式
+.product_list_wepy{
+  margin-top: 20rpx;
+}
 </style>
 

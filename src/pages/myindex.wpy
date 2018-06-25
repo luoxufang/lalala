@@ -24,14 +24,16 @@
     <!-- 轮播图 -->
     <view class="big_box">
       <view class="my_container">
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
-        duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
-            <swiper-item wx:for="{{banner_list}}" wx:key="index">
-              <navigator url="/pages/product_detail/product_detail?gid={{item.git}}">
-                <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
-              </navigator>
-            </swiper-item>
-        </swiper>
+        <view style="border-raduis:16rpx;overflow: hidden !important;font-size:0;">
+          <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+          duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
+              <swiper-item wx:for="{{banner_list}}" wx:key="index">
+                <navigator url="/pages/product_detail/product_detail?gid={{item.git}}">
+                  <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
+                </navigator>
+              </swiper-item>
+          </swiper>
+        </view>
       </view>
       <view class="notice_box">
         <image mode="aspectFill" src="../assets/images/index_news@2x.png" class="notice_user_img"/>
@@ -137,8 +139,16 @@ export default class myIndex extends wepy.page {
   transform: translate(-50%, -50%);
 }
 //轮播图
+.big_box{
+  background-color:#fff;
+  box-shadow: 0 2px 5px 4rpx #eee;
+  padding: 0 30rpx;
+  padding-top: 20rpx;
+}
 .my_container{
-  padding: 20rpx 30rpx 0 30rpx;
+  // margin: 0rpx 30rpx 0 30rpx;
+  overflow: hidden;
+  border-radius: 12rpx;
 }
 //顶部选项样式
 .fixed_box{
@@ -170,6 +180,8 @@ export default class myIndex extends wepy.page {
     color: rgba(255, 255, 255, 0.5);
     width: 84%;
     height: 100%;
+    padding-left: 30rpx;
+    box-sizing: border-box;
     line-height: 80rpx;
     overflow: hidden;
   }
@@ -215,7 +227,7 @@ export default class myIndex extends wepy.page {
 }
 .tab .tab_a{
     /* width: 16.666%; */
-    padding-left: 36rpx;
+    padding: 0 20rpx 0 4rpx;
     text-align: center;
     float: left;
     font-size: 30rpx;
@@ -225,15 +237,10 @@ export default class myIndex extends wepy.page {
 .tab_a.tab0{
   color: #fff;
 }
-// 
-.big_box{
-  background-color:#fff;
-  box-shadow: 0 2px 5px 4rpx #eee;
-}
+
 //提醒  恭喜别人
 .notice_box{
   line-height: 80rpx;
-  padding: 0 30rpx;
   .notice_user_img{
     width: 36rpx;
     height: 36rpx;
@@ -261,7 +268,7 @@ export default class myIndex extends wepy.page {
       height: 8rpx;
     }
     .is_info_btn{
-      height: 200rpx;
+      height: 178rpx;
       display: flex;
       .left_view{
         font-size: 28rpx;

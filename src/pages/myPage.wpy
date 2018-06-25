@@ -1,22 +1,22 @@
 <template>
   <view class="myContainer">
     <!-- <view class="header"> -->
-      <view class="header_box">
-        <view class="head">
-          <image mode="aspectFill" class="absolute_img" src="../assets/images/us_photo@2x.png"/>
-          <image mode="aspectFill" class="publicStyle1" src="../assets/images/us_image@3x.png"/>
-        </view>
-        <view class="name_bind">
-          <view style="font-size:42rpx;color:#fff;margin-top:12rpx;">MELODY</view>
-          <view style="font-size:24rpx;color:#fff;">买买买，错过了喜欢的你会很后悔的！！！</view>
-        </view>
-        <view class="right_img">
-          <image mode="aspectFill" class="publicStyle1" src="../assets/images/right.png"/>
-        </view>
+    <view class="header_box">
+      <view class="head">
+        <image mode="aspectFill" class="absolute_img" src="../assets/images/us_photo@2x.png"/>
+        <image mode="aspectFill" class="publicStyle1" src="../assets/images/us_image@3x.png"/>
       </view>
-      <view class="color_box">
-        <view class="radius_box"></view>
+      <view class="name_bind">
+        <view style="font-size:42rpx;color:#fff;margin-top:12rpx;">MELODY</view>
+        <view style="font-size:24rpx;color:#fff;">买买买，错过了喜欢的你会很后悔的！！！</view>
       </view>
+      <view class="right_img">
+        <image mode="aspectFill" class="publicStyle1" src="../assets/images/right.png"/>
+      </view>
+    </view>
+    <view class="color_box">
+      <view class="radius_box"></view>
+    </view>
 
     <!-- 全部订单 -->
     <view class="all_order_box">
