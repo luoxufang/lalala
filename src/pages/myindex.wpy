@@ -9,7 +9,10 @@
               <!-- 注意，使用for属性，而不是使用wx:for属性 -->
                 <repeat for="{{top_classify}}" key="index" index="index" item="item">
                   <view class="tab_a {{item.tcid == currentTcid ? 'tab0':''}}"
-                  @tap.stop="bindViewTap({{item.tcid}})"><view class='tab_a_view'>{{item.tc_name}}</view></view>
+                  @tap.stop="bindViewTap({{item.tcid}})">
+                    <view class='tab_a_view'>{{item.tc_name}}</view>
+                    <view wx:if="{{item.tcid == currentTcid}}" class="fff_view"></view>
+                  </view>
                 </repeat>
             </view>
           </view>
@@ -226,13 +229,27 @@ export default class myIndex extends wepy.page {
   -webkit-overflow-scrolling:touch;
 }
 .tab .tab_a{
-    /* width: 16.666%; */
-    padding: 0 20rpx 0 4rpx;
-    text-align: center;
-    float: left;
-    font-size: 30rpx;
-    display:inline-block; 
-    float:none; 
+  /* width: 16.666%; */
+  padding: 0 44rpx 0 4rpx;
+  text-align: center;
+  float: left;
+  font-size: 30rpx;
+  display:inline-block; 
+  float:none;
+  position: relative;
+  .fff_view{
+    width: 10rpx;
+    height: 10rpx;
+    border: 1rpx solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 14rpx;
+    right: 18rpx;
+    z-index: 1002;
+  }
+}
+.tab .tab_a:last-child{
+  padding-right: 0rpx;
 }
 .tab_a.tab0{
   color: #fff;

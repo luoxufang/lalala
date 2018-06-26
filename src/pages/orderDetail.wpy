@@ -6,7 +6,7 @@
         <view class="icon_title" wx:if="{{orders_info.orders_status == '1'}}">
             <view class="title_and_img">
                 <view class="top_box">
-                    <image src="/images/order_1.png" style="width:40rpx;height:45rpx;"></image>
+                    <image src="../assets/images/us_delivery@3x.png" style="width:40rpx;height:45rpx;"/>
                     <span>待支付</span>
                 </view>
                 <view class="count_down">剩余付款时间：{{wxTimer}}</view>
@@ -15,7 +15,7 @@
         <view class="icon_title" wx:elif="{{orders_info.orders_status == '2'}}">
             <view class="title_and_img">
                 <view class="top_box">
-                    <image src="/images/order_2.png" style="width:49rpx;height:39rpx;top:8rpx;"></image>
+                    <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
                     <span>待发货</span>
                 </view>
             </view>
@@ -23,7 +23,7 @@
         <view class="icon_title" wx:elif="{{orders_info.orders_status == '3'}}">
             <view class="title_and_img">
                 <view class="top_box">
-                    <image src="/images/order_3.png" style="width:42rpx;height:42rpx;"></image>
+                    <image src="../assets/images/us_delivery@3x.png" style="width:42rpx;height:42rpx;"/>
                     <span>待收货</span>
                 </view>
             </view>
@@ -31,7 +31,7 @@
         <view class="icon_title" wx:elif="{{orders_info.orders_status == '4'}}">
             <view class="title_and_img">
                 <view class="top_box">
-                    <image src="/images/order_4.png" style="width:44rpx;height:44rpx;"></image>
+                    <image src="../assets/images/us_delivery@3x.png" style="width:44rpx;height:44rpx;"/>
                     <span>交易完成</span>
                 </view>
             </view>
@@ -42,7 +42,7 @@
             <navigator url="/pages/my_address/my_address?aid={{item.aid}}">
                 <view class="aaa2" style="border:0;">
 
-                  <view class="address_box"><image src="/images/address.png" style="width:36rpx;height:48rpx;"></image></view>
+                  <view class="address_box"><image src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
                   
                   <view class="detail_address_box">
                       <view class="let_center">
@@ -52,7 +52,7 @@
                   </view>
 
                   <view class="bbb" >
-                      <image src="/images/right.png" style="width:14rpx;height:24rpx;"></image>
+                      <image src="../assets/images/right.png" style="width:14rpx;height:24rpx;"/>
                   </view>
 
                 </view>
@@ -64,7 +64,7 @@
           <!-- <block wx:for="{{address_stadus}}"> -->
                 <view class="aaa2" style="border:0;">
 
-                  <view class="address_box"><image src="/images/address.png" style="width:36rpx;height:48rpx;"></image></view>
+                  <view class="address_box"><image src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
                   
                   <view class="detail_address_box">
                       <view class="let_center">
@@ -74,7 +74,7 @@
                   </view>
 
                   <view class="bbb" >
-                      <image src="/images/right.png" style="width:14rpx;height:24rpx;"></image>
+                      <image src="../assets/images/right.png" style="width:14rpx;height:24rpx;"/>
                   </view>
 
                 </view>
@@ -83,11 +83,11 @@
 
         <!-- 商品信息 -->
         <view class="product_list2_box">
-          <block wx:for="{{orders_info.orders_goods_list}}"> 
+          <repeat for="{{orders_info.orders_goods_list}}" key="index" index="index" item="item"> 
             <navigator url='/pages/product_detail/product_detail?gid={{item.gid}}'>
               <view class="product_list2">
                   <view class="product_left">
-                      <image src="{{item.banner_list}}" mode="aspectFill"></image>
+                      <image src="{{item.banner_list}}" mode="aspectFill"/>
                   </view>
                   <view class="product_right">
                       <view class="title">{{item.goods_title}}</view>
@@ -96,7 +96,7 @@
                   </view>
               </view>
             </navigator>
-          </block> 
+          </repeat> 
         </view>
 
         <!--我是订单信息  -->
@@ -167,58 +167,265 @@
 </template>
 
 <script lang="">
+import wepy from 'wepy';
+export default class orderDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '订单详情'
+  };
 
+  data = {
+    orders_info: {
+      oid: '375',
+      orders_encode: '20170928212319461',
+      orders_status: '2',
+      orders_receiver_name: '罗旭昉',
+      orders_receiver_phone: '18878554085',
+      orders_receiver_address: '广东省深圳市宝安区正海华府',
+      orders_sum_fare_price: '0',
+      orders_sum_price: '0.1',
+      orders_real_pay_price: '0.1',
+      remarks: '',
+      orders_create_time: '2017-09-28 21:23:19',
+      orders_payment_time: '2017-09-28 21:23:45',
+      orders_reduced_amount: 0,
+      orders_goods_list: [
+        {
+          olid: '449',
+          gid: '10000056',
+          goods_title: '罗技无线鼠标m280 笔记本台式机光电无线鼠标罗技M280鼠标',
+          fare_price: '0',
+          banner_list:
+            'https://shop1.helpmake.cn/upload/images/banner/15046918058438.jpg',
+          main_style_name: '套餐',
+          sub_style_name: '颜色',
+          main_style_tags: '官方标配',
+          sub_style_tags: '红色-送鼠标垫',
+          discount_price: '0.1',
+          buy_num: '1',
+          create_time: '2017-09-28 21:23:19'
+        }
+      ]
+    }
+  };
+  methods = {};
+}
 </script>
 
 <style lang="less" scoped>
-.my_container{
-    width: 100%;
-    /* height: 100%; */
-    position: relative;
-    padding-bottom: 124rpx;
-    background-color: #F7F7F7;
+.my_container {
+  width: 100%;
+  /* height: 100%; */
+  position: relative;
+  padding-bottom: 124rpx;
+  background-color: #f7f7f7;
 }
-.icon_title{
-    width: 100%;
-    background-color: #FFF;
-    height: 148rpx;
-    border-bottom: 2rpx solid #E7E7E7;
-    text-align: center;
-    position: relative;
+.icon_title {
+  width: 100%;
+  background-color: #fff;
+  height: 148rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+  text-align: center;
+  position: relative;
 }
-.icon_title .title_and_img{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    -webkit-transition-property: -webkit-transform,opacity;
-    transition-property: transform,opacity;
-    transform: translate(-50%, -50%);
+.icon_title .title_and_img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
 }
-.title_and_img .top_box{
-    font-size: 0;
-    margin-bottom: 6rpx;
+.title_and_img .top_box {
+  font-size: 0;
+  margin-bottom: 6rpx;
 }
-.title_and_img .top_box image{
-    font-size: 0;
-    position: relative;
-    top: 12rpx;
+.title_and_img .top_box image {
+  font-size: 0;
+  position: relative;
+  top: 12rpx;
 }
-.title_and_img span{
-    color: #333;
-    font-size: 32rpx;
-    margin-left: 12rpx;
+.title_and_img span {
+  color: #333;
+  font-size: 32rpx;
+  margin-left: 12rpx;
 }
-.title_and_img .count_down{
-    font-size: 24rpx;
-    color: #333;
+.title_and_img .count_down {
+  font-size: 24rpx;
+  color: #333;
 }
 /*地址  */
-.click_right2{
-    padding: 0 24rpx;
-    background-color: #FFF;
+.click_right2 {
+  padding: 0 24rpx;
+  background-color: #fff;
 }
-.aaa2:after{
+.aaa2:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.address_box {
+  float: left;
+  margin-right: 32rpx;
+  position: relative;
+  height: 138rpx;
+  width: 36rpx;
+}
+
+.address_box image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+.aaa2 .bbb {
+  float: right;
+  width: 14rpx;
+  height: 138rpx;
+  position: relative;
+}
+.aaa2 .bbb image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+
+.detail_address_box {
+  float: left;
+  width: 510rpx;
+  height: 138rpx;
+  position: relative;
+}
+.detail_address_box .let_center {
+  width: 510rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+/*取消订单和支付  */
+.order_cont {
+  margin-top: 24rpx;
+  background-color: #fff;
+  padding: 16rpx 24rpx;
+  position: relative;
+}
+.order_cont .number_top,
+.order_cont .order_time {
+  width: 100%;
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+.order_time.addclass {
+  position: relative;
+}
+.order_time.addclass .span {
+  position: absolute;
+  right: 0;
+  top: 2rpx;
+  /* border: 2rpx solid #999;
+    border-radius: 10rpx; */
+  width: 162rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  color: #999;
+  background-color: #fff;
+}
+.order_cont .cancel_btn {
+  position: absolute;
+  right: 24rpx;
+  top: 44rpx;
+
+  width: 162rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  color: #999;
+  background-color: #fff;
+}
+.payMoneyBtn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
+  /* color: #ff3939; */
+  font-size: 32rpx;
+  margin-top: 24rpx;
+}
+.payMoneyBtn::after {
+  border: 0;
+}
+/*确认收货  */
+.confirm_btn {
+  width: 100%;
+  height: 100rpx;
+  background-color: pink;
+  position: fixed;
+  bottom: 0;
+}
+.confirm_btn .confirm_btn_left,
+.confirm_btn .confirm_btn_right {
+  float: left;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  line-height: 100rpx;
+}
+.confirm_btn .confirm_btn_left {
+  color: #ff3939;
+  background-color: #fff;
+}
+.confirm_btn_left .btn {
+  width: 330rpx;
+  height: 98rpx;
+  font-size: 28rpx;
+  background-color: #fff;
+  line-height: 98rpx;
+  /* color: #ff3939; */
+}
+.confirm_btn_left .btn::after {
+  border: 0;
+}
+.confirm_btn .confirm_btn_right {
+  color: #fff;
+  background-color: #ff3939;
+}
+.confirm_btn_right .btn2 {
+  /* background-color: #ff3939; */
+  font-size: 28rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #fff;
+}
+.confirm_btn_right .btn2::after {
+  border: 0;
+}
+/*产品列表二，占手机界面全部  */
+.product_list2:after,.list_box:after{
     clear:both;
     content:'.';
     display:block;
@@ -226,159 +433,100 @@
     height: 0;
     visibility:hidden;
 }
-
-.address_box{
-    float: left;
-    margin-right: 32rpx;
-    position: relative;
-    height:138rpx;
-    width: 36rpx;
-}
-
-.address_box image{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    -webkit-transition-property: -webkit-transform,opacity;
-    transition-property: transform,opacity;
-    transform: translate(-50%, -50%);
-}
-.aaa2 .bbb{
-    float: right;
-    width: 14rpx;
-    height:138rpx;
-    position: relative
-}
-.aaa2 .bbb image{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    -webkit-transition-property: -webkit-transform,opacity;
-    transition-property: transform,opacity;
-    transform: translate(-50%, -50%);
-}
-
-.detail_address_box{
-    float: left;
-    width: 510rpx;
-    height: 138rpx;
-    position: relative;
-}
-.detail_address_box .let_center{
-    width: 510rpx;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    -webkit-transition-property: -webkit-transform,opacity;
-    transition-property: transform,opacity;
-    transform: translate(-50%, -50%);
-}
-/*取消订单和支付  */
-.order_cont{
+.product_list2_box{
     margin-top: 24rpx;
-    background-color: #FFF;
-    padding: 16rpx 24rpx;
-    position: relative;
 }
-.order_cont .number_top,.order_cont .order_time{
-    width: 100%;
-    height: 48rpx;
-    line-height: 48rpx;
+.product_list2{
+    padding: 24rpx;
+    background-color: #FFF;
+    border-bottom: 1rpx solid #F7F7F7;
+}
+.product_list2:last-child{
+     border: 0; 
+}
+.product_list2 .product_left image{
+    width: 142rpx;
+    height: 142rpx;
+}
+.product_list2 .product_left{
+    width: 24%;
+    font-size: 0;
+}
+.product_list2 .product_right{
+    width: 76%;
+}
+.product_list2 .product_left,.product_list2 .product_right{
+    float: left;
+}
+.product_list2 .product_right .title{
     font-size: 28rpx;
+    color: #333333;
+    width:450rpx;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.product_list2 .product_right .colour{
+    margin-top: 6rpx;
+    font-size: 24rpx;
     color: #999;
-}
-.order_time.addclass{
-    position: relative;
-}
-.order_time.addclass .span{
-    position: absolute;
-    right: 0;
-    top: 2rpx;
-    /* border: 2rpx solid #999;
-    border-radius: 10rpx; */
-    width:162rpx;
-    height:52rpx;
-    line-height:52rpx;
-    text-align:center;
-    border-radius:10rpx;
-    font-size:26rpx;
-    color:#999;
-    background-color: #FFF;
-}
-.order_cont .cancel_btn{
-    position: absolute;
-    right: 24rpx;
-    top: 44rpx;
+    width:450rpx;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 
-    width:162rpx;
-    height:52rpx;
-    line-height:52rpx;
-    text-align:center;
-    border-radius:10rpx;
-    font-size:26rpx;
-    color:#999;
-    background-color: #FFF;
 }
-.payMoneyBtn{
-     position: fixed;
-    bottom:0;  
-    width: 100%;
-    height: 100rpx;
-    line-height: 100rpx;
-    text-align: center;
-    background-color: #FFF;
-    /* color: #ff3939; */
-    font-size: 32rpx;
-    margin-top: 24rpx;
+.product_list2 .product_right .money{
+    font-size: 24rpx;
+    color: #ff3939;
+    margin-top: 16rpx;
 }
-.payMoneyBtn::after{
-    border:0;
-}
-/*确认收货  */
-.confirm_btn{
-    width: 100%;
-    height: 100rpx;
-    background-color: pink;
-    position: fixed;
-    bottom: 0;
-}
-.confirm_btn .confirm_btn_left,.confirm_btn .confirm_btn_right{
-    float: left;
+.product_list2 .product_right .money .text{
     width: 50%;
+    display: inline-block;
+}
+.product_list2 .product_right .money .num{
+    font-size: 24rpx;
+    color: #ff3939;
+    width: 50%;
+    text-align: right;
+    display: inline-block;
+}
+/*我的订单  */
+.my_order{
+    background-color: #FFF;
+}
+.click_right{
+    padding-left: 24rpx;
+    margin-top: 24rpx;
+    background-color: #FFF;
+}
+.click_right .aaa{
     height: 100%;
-    text-align: center;
+    padding-right: 24rpx;
     line-height: 100rpx;
-}
-.confirm_btn .confirm_btn_left{
-     color: #ff3939; 
-    background-color: #FFF;
-}
-.confirm_btn_left .btn{
-    width: 330rpx;
-    height: 98rpx;
+    border-bottom: 2rpx solid #e7e7e7;
+    position: relative;
     font-size: 28rpx;
-    background-color: #FFF;
-    line-height: 98rpx;
-    /* color: #ff3939; */
+    color: #333;
+    overflow: hidden;
 }
-.confirm_btn_left .btn::after {
-    border: 0;
-}
-.confirm_btn .confirm_btn_right{
-    color: #FFF;
-    background-color: #ff3939;
-}
-.confirm_btn_right .btn2{
-    /* background-color: #ff3939; */
-    font-size: 28rpx;
-    height: 100rpx;
+.click_right .bbb{
+    display: inline-block;
+    height: 100%;
     line-height: 100rpx;
-    color: #FFF;
+    position: absolute;
+    top: 0;
+    right: 24rpx;
 }
-.confirm_btn_right .btn2::after{
-    border: 0;
+.click_right .ccc{
+    display: inline-block;
+    height: 100%;
+    line-height: 100rpx;
+    position: absolute;
+    top: 0;
+    right: 60rpx;
+    font-size: 28rpx;
+    color: #ff3939;
 }
 </style>

@@ -109,7 +109,7 @@
                         <view class="text">我的消息</view>
                     </view>
                 </view>
-                <view class="goods_stadu_list">
+                <view class="goods_stadu_list" @tap="goToorderDetail">
                     <view class="num_box">
                         <!-- {{one_num}} -->
                         <view class="notice_img_box">
@@ -161,6 +161,9 @@ export default class myPage extends wepy.page {
     },
     goTomyAddressPage(){
       this.$navigate('./addressMassege');
+    },
+    goToorderDetail(){
+      this.$navigate('./orderDetail');
     }
   };
 
