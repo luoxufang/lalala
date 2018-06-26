@@ -24,9 +24,6 @@ page{
   overflow: hidden;
   font-size: 0;
 }
-product:last-child{
-  border-bottom: 1rpx solid #e0e0e0;
-}
 </style>
 
 <script>
@@ -42,10 +39,15 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/myPage',
       'pages/myindex',
       'pages/myAuction',
-      'pages/myPage',
-      'pages/index'
+      
+      'pages/index',
+      'pages/myNews',
+      'pages/addressMassege',
+      'pages/addressDetail',
+      'pages/orderDetail'
     ],
     window: {
       backgroundTextStyle: 'light',

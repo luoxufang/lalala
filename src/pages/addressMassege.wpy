@@ -1,0 +1,180 @@
+<template>
+  <view class="myAddressPage myContainer">
+    <view class="aa" wx:for="{{clist}}" wx:key="index">
+
+      <view class="top" bindtap="choose_address" data-ciid="{{item.ciid}}"  data-type="2" >
+        <view class="a0">
+            <view class="a1">{{item.ccp_name}}</view>
+            <view class="a2">{{item.ccp_phone}}</view>
+            <view class="clear"></view>
+        </view>
+        <view class="a4">{{item.c_address}}</view>
+      </view>
+
+      <view class="a5">
+        <view class="left">
+          <!-- <icon  wx:if="{{item.stadus ? true :false}}" class="a7" type="success" size="17" color="{{color}}"/>
+          <view wx:else bindtap="choose_address" data-index='{{index}}' data-ciid = "{{item.ciid}}" class="a8" ></view> -->
+
+          <image wx:if="{{item.stadus ? true :false}}" class="a7" src="../assets/images/ad_default2@3x.png" data-ciid="{{item.ciid}}"/>
+          <image wx:else bindtap="choose_address" class="a8" src="../assets/images/ad_default@3x.png" data-ciid="{{item.ciid}}"/>
+
+          <text bindtap="choose_address" data-ciid = "{{item.ciid}}">默认地址</text>
+        </view>
+        
+        <view class="center">
+          <image src="../assets/images/us_edit@3x.png" class="a6" data-ciid="{{item.ciid}}" bindtap="delete_ciid"/>编辑
+        </view>
+        <view class="right">
+          <image src='../assets/images/ad_delete@3x.png' class='edit' data-ciid='{{item.ciid}}' data-type="2" bindtap='address_deal'/>删除
+        </view>
+      </view>
+
+    </view>
+    
+     <view class="button" @tap="address_deal({{type}})">添加地址</view>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class AddressMassege extends wepy.page {
+  config = {
+    navigationBarTitleText: '我的地址'
+  };
+  data = {
+    clist:[
+      {
+        stadus: 1,
+        ccp_name:'张坤',
+        ccp_phone:'18878554163',
+        c_address:'深圳市宝安区固戍地铁站a口'
+      },
+      {
+        stadus: 0,
+        ccp_name:'张坤',
+        ccp_phone:'18878554163',
+        c_address:'深圳市宝安区固戍地铁站a口'
+      }
+    ]
+  }
+
+  methods = {
+    address_deal(){
+      this.$navigate('./addressDetail');
+    }
+  }
+}
+</script>
+
+<style lang="less" >
+.aa {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 22rpx;
+}
+.aa .title {
+  height: 86rpx;
+  line-height: 86rpx;
+  color: #333333;
+  font-size: 28rpx;
+}
+
+.top{
+  padding: 20rpx;
+  line-height: 56rpx;
+  border-bottom: 1rpx solid #E0E0E0;
+  .a0 {
+    display: flex;
+    line-height: 56rpx;
+    .a1{
+      flex: 1;
+      font-size: 30rpx;
+      color: rgb(0, 0, 0);
+    }
+    .a2{
+      flex: 1;
+      font-size: 30rpx;
+      color: rgb(0, 0, 0);
+      text-align: right;
+    }
+  }
+  .a4{
+    font-size: 28rpx;
+    color: rgb(102, 102, 102);
+  }
+}
+
+.a5 {
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #999999;
+  padding: 0 20rpx;
+  display: flex;
+  text{
+    font-size: 28rpx;
+    color: rgb(34, 34, 34);
+  }
+  .left{
+    flex: 5;
+  }
+  .center{
+    flex: 2;
+    font-size: 28rpx;
+    color: rgb(102, 102, 102);
+    .a6 {
+      margin-right: 16rpx;
+      position: relative;
+      top: 8rpx;
+      width: 33rpx;
+      height: 36rpx;
+    }
+  }
+  .right{
+    flex: 2;
+    font-size: 28rpx;
+    color: rgb(102, 102, 102);
+    padding-left: 10rpx;
+    .edit {
+      margin-right: 16rpx;
+      
+      position: relative;
+      top: 6rpx;
+      width: 34rpx;
+      height: 34rpx;
+    }
+  }
+}
+.a7 {
+  margin-right: 12rpx;
+  position: relative;
+  top: 4rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.button {
+  margin:  0 20rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 32rpx;
+  color: #fff;
+  width: 710rpx;
+  border-radius: 12rpx;
+  background-color: #d91f54;
+  text-align: center;
+  position: fixed;
+  bottom: 30rpx;
+}
+.a8 {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 12rpx;
+  position: relative;
+  top: 4rpx;
+  border: 1rpx solid #999999;
+  border-radius: 100%;
+}
+</style>

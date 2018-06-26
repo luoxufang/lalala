@@ -1,0 +1,118 @@
+<template>
+  <view class="myNewsPage myContainer">
+
+    <view class="news_box">
+      <view class="images_box">
+        <view class="box_img">
+          <image mode="aspectFill" src="../assets/images/news_chat@2x.png" class="images"/>
+          <view class="red_notice_number">1</view>
+        </view>
+      </view>
+
+      <view class="news_right">
+        <view class="title_time">
+          <view>我是标题</view>
+          <view>刚刚</view>
+        </view>
+        <view class="content">我是内容内容内容！！我是内容内容内容！！我是内容内容内容！！我是内容内容内容！！</view>
+      </view>
+    </view>
+
+    <view class="news_box">
+      <view class="images_box">
+        <view class="box_img">
+          <image mode="aspectFill" src="../assets/images/news_tz@2x.png" class="images"/>
+          <view class="red_notice_number">1</view>
+        </view>
+      </view>
+
+      <view class="news_right">
+        <view class="title_time">
+          <view>我是标题</view>
+          <view>刚刚</view>
+        </view>
+        <view class="content">我是内容内容内容！！我是内容内容内容！！我是内容内容内容！！我是内容内容内容！！</view>
+      </view>
+    </view>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class myNews extends wepy.page {
+  config = {
+    navigationBarTitleText: '我的消息'
+  };
+  data = {
+    
+  };
+
+  onLoad() {}
+}
+</script>
+
+<style lang="less" >
+.news_box{
+  padding: 0 20rpx;
+  display: flex;
+  .images_box{
+    flex: 1;
+    padding: 20rpx 0;
+    .box_img{
+      font-size: 0;
+      position: relative;
+      image{
+        width: 88rpx;
+        height: 88rpx;
+      }
+      .red_notice_number{
+        width: 30rpx;
+        height: 30rpx;
+        background-color: red;
+        color: #fff;
+        font-size: 22rpx;
+        border-radius: 50%;
+        text-align: center;
+        line-height:  30rpx;
+        position: absolute;
+        top: -6rpx;
+        right: -6rpx;
+      }
+    }
+    
+  }
+  .news_right{
+    flex: 6;
+    margin-left: 20rpx;
+    padding: 20rpx 0;
+    border-bottom: 1rpx solid #E0E0E0;
+    .title_time{
+      display: flex;
+      view:nth-child(1){
+        flex: 1;
+        font-size: 30rpx;
+        color: rgb(51, 51, 51);
+      }
+      view:nth-child(2){
+        flex: 1;
+        font-size: 22rpx;
+        color: rgb(136, 136, 136);
+        line-height: 40rpx;
+        text-align: right;
+      }
+    }
+    .content{
+      font-size: 24rpx;
+      color: rgb(136, 136, 136);
+      margin-top: 8rpx;
+      width: 500rpx;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+</style>

@@ -91,7 +91,7 @@
                 </view>
             </view>
             <view class="goods_stadu">
-                <view class="goods_stadu_list">
+                <view class="goods_stadu_list" @tap="goTomyAddressPage">
                     <view class="num_box">
                         <!-- {{one_num}} -->
                         <view class="notice_img_box">
@@ -100,7 +100,7 @@
                         <view class="text">我的地址</view>
                     </view>
                 </view>
-                <view class="goods_stadu_list">
+                <view class="goods_stadu_list" @tap="goTomyNews">
                     <view class="num_box">
                         <!-- {{one_num}} -->
                         <view class="notice_img_box">
@@ -155,6 +155,12 @@ export default class myPage extends wepy.page {
   methods = {
     plus() {
       this.mynum++;
+    },
+    goTomyNews(){
+      this.$navigate('./myNews');
+    },
+    goTomyAddressPage(){
+      this.$navigate('./addressMassege');
     }
   };
 
