@@ -28,19 +28,17 @@
               <view class="product_right">
                   <view class="title">{{item.goods_title}}</view>
                   <view class="colour" wx:if="{{item.main_style_name!==''}}">{{item.main_style_name}}：{{item.main_style_tags}}<span wx:if="{{item.sub_style_name!==''}}">；{{item.sub_style_name}}:{{item.sub_style_tags}}</span></view>
+                  <view class="rectangle_box"><view class="rectangle">5.5折优惠</view></view>
                   <view class="money">
-                      ￥<span class="text">{{item.discount_price}}</span>
-                      <!-- <span class="number">x{{item.buy_num}}</span> -->
-                      <span class="number">成交价：￥119</span>
+                    ￥<span class="text">{{item.discount_price}}</span>
+                    <!-- <span class="number">x{{item.buy_num}}</span> -->
+                    <span class="number">成交价：￥19</span>
                   </view>
               </view> 
           </view>
         </navigator> 
         <view class="btn_detail" wx:if="{{item.orders_status == '1'}}">
-            <!-- <view class="total">
-                <span style="margin-right:10rpx;">共{{item.orders_goods_num}}件商品</span>
-                <span class="num">合计：￥{{item.orders_real_pay_price}}</span>
-            </view> -->
+            
             <view class="product_choose">
                         
               <button class="go_fuqian commonColor commonBorder" form-type="submit" bindtap="go_payment" data-orderid="{{item.oid}}" data-status="{{item.orders_status}}" data-oedercode="{{item.orders_encode}}">去支付</button>
@@ -48,16 +46,10 @@
             </view>
         </view>
         <view class="btn_detail" wx:elif="{{item.orders_status == '2'}}">
-            <!-- <view class="total">
-              <span style="margin-right:10rpx;">共{{item.orders_goods_num}}件商品</span>
-              <span class="num">合计：￥{{item.orders_real_pay_price}}</span>
-            </view> -->
+            
         </view>
         <view class="btn_detail" wx:elif="{{item.orders_status == '3'}}">
-            <view class="total">
-                <span style="margin-right:10rpx;">共{{item.orders_goods_num}}件商品</span>
-                <span class="num">合计：￥{{item.orders_real_pay_price}}</span>
-            </view>
+            
             <view class="product_choose">
                 <button class="go_fuqian commonColor commonBorder" form-type="submit" bindtap="confirm_receipt" data-orderid="{{item.oid}}" data-oedercode="{{item.orders_encode}}">确认收货</button>
                 <navigator url='/pages/express_info/express_info?ordercode={{item.orders_encode}}&orderid={{item.oid}}'>
@@ -67,18 +59,9 @@
             </view> 
         </view>
         <view class="btn_detail" wx:elif="{{item.orders_status == '4'}}">
-            <view class="total">
-              <span style="margin-right:10rpx;">共{{item.orders_goods_num}}件商品</span>
-              <span class="num">合计：￥{{item.orders_real_pay_price}}</span>
-            </view>
+            
         </view>
-
       </view>
-
-      <!-- <view style="position:relative;display:block;width:50px;height:50px;">
-        <view style="display:block;position:absolute;left:10px;top:10px;width:0;height:0;border-style:solid;border-width:20px;border-color:transparent #00f transparent transparent;"></view>
-        <view style="display:block;position:absolute;left:16px;top:10px;;width:0;height:0;border-style:solid;border-width:20px;border-color:transparent #fff transparent transparent;"></view>
-      </view> -->
 
       <view class="product_list_wepy">
         
@@ -277,7 +260,6 @@ export default class myAuction extends wepy.page {
 .product_list {
   background-color: #f7f7f7;
   padding: 26rpx 24rpx;
-  font-size: 0;
 }
 .product_list:last-child {
   /* border: 0; */
@@ -285,6 +267,9 @@ export default class myAuction extends wepy.page {
 .product_left,
 .product_right {
   float: left;
+}
+.product_left{
+  font-size: 0;
 }
 .product_left image {
   width: 142rpx;
@@ -298,7 +283,7 @@ export default class myAuction extends wepy.page {
   font-size: 26rpx;
   color: rgb(153, 153, 153);
 
-  width: 450rpx;
+  width: 92%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -315,7 +300,6 @@ export default class myAuction extends wepy.page {
 .product_right .money {
   font-size: 24rpx;
   color: rgb(153, 153, 153);
-  margin-top: 16rpx;
   position: relative;
 }
 .product_right .money .text {
@@ -327,19 +311,8 @@ export default class myAuction extends wepy.page {
   right: 0;
   color: rgb(34, 34, 34);
 }
-.total {
-  height: 84rpx;
-  line-height: 84rpx;
-  color: #333;
-  text-align: right;
-  padding: 0 24rpx;
-}
-.total .num {
-  font-size: 30rpx;
-}
 .product_choose {
-  padding: 24rpx;
-  padding-bottom: 26rpx;
+  padding: 20rpx 24rpx;
 }
 .product_choose .cancel {
   width: 152rpx;
@@ -375,7 +348,36 @@ export default class myAuction extends wepy.page {
   border: 0;
 }
 //气泡css样式
-
+/*圆角矩形*/ 
+.rectangle_box:after{
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.rectangle{
+  float: right;
+  min-width: 100rpx;
+  text-align: center;
+  border-radius: 6rpx;  
+  position: relative;  
+  background-color: rgb(254, 192, 42);
+  font-size: 20rpx;
+  color:#fff;
+}  
+/*小三角*/  
+.rectangle::before{  
+  content: "";
+  width: 0;
+  height: 0;
+  border: 8rpx solid rgb(254, 192, 42);
+  border-color: rgb(254, 192, 42) transparent transparent transparent;
+  position:absolute;
+  bottom: -12rpx;
+  left: 44rpx;
+}  
 //产品列表样式
 .product_list_wepy {
   margin-top: 20rpx;

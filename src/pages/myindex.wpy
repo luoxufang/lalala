@@ -2,27 +2,27 @@
   <view class="myIndex myContainer">
     <!-- top  tabBar -->
     <!-- <view class="fixed_box"> -->
-      <view class="choose_box">
-        <view class="left_box">
-          <view class='tab_box'>
-            <view class="tab">
-              <!-- 注意，使用for属性，而不是使用wx:for属性 -->
-                <repeat for="{{top_classify}}" key="index" index="index" item="item">
-                  <view class="tab_a {{item.tcid == currentTcid ? 'tab0':''}}"
-                  @tap.stop="bindViewTap({{item.tcid}})">
-                    <view class='tab_a_view'>{{item.tc_name}}</view>
-                    <view wx:if="{{item.tcid == currentTcid}}" class="fff_view"></view>
-                  </view>
-                </repeat>
-            </view>
+    <view class="choose_box">
+      <view class="left_box">
+        <view class='tab_box'>
+          <view class="tab">
+            <!-- 注意，使用for属性，而不是使用wx:for属性 -->
+              <repeat for="{{top_classify}}" key="index" index="index" item="item">
+                <view class="tab_a {{item.tcid == currentTcid ? 'tab0':''}}"
+                @tap.stop="bindViewTap({{item.tcid}})">
+                  <view class='tab_a_view'>{{item.tc_name}}</view>
+                  <view wx:if="{{item.tcid == currentTcid}}" class="fff_view"></view>
+                </view>
+              </repeat>
           </view>
         </view>
-        <view class="right_box">
-            <view class="img_box">
-              <image mode="aspectFill" src="../assets/images/index_search@3x.png" class="seachImag"/>
-            </view>
-        </view>
       </view>
+      <view class="right_box">
+          <view class="img_box">
+            <image mode="aspectFill" src="../assets/images/index_search@3x.png" class="seachImag"/>
+          </view>
+      </view>
+    </view>
     <!-- </view> -->
     <!-- 轮播图 -->
     <view class="big_box">
@@ -229,7 +229,6 @@ export default class myIndex extends wepy.page {
   -webkit-overflow-scrolling:touch;
 }
 .tab .tab_a{
-  /* width: 16.666%; */
   padding: 0 44rpx 0 4rpx;
   text-align: center;
   float: left;
@@ -247,9 +246,6 @@ export default class myIndex extends wepy.page {
     right: 18rpx;
     z-index: 1002;
   }
-}
-.tab .tab_a:last-child{
-  padding-right: 0rpx;
 }
 .tab_a.tab0{
   color: #fff;

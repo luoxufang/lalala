@@ -1,0 +1,543 @@
+<template>
+    <view class="allOrders myContainer">
+      <!-- 顶部tab -->
+      <view class="choose_box">
+        <view class="left_box">
+          <view class='tab_box'>
+            <view class="tab">
+              <!-- 注意，使用for属性，而不是使用wx:for属性 -->
+                <repeat for="{{top_classify}}" key="index" index="index" item="item">
+                  <view class="tab_a {{item.tcid == currentTcid ? 'tab0':''}}"
+                  @tap.stop="bindViewTap({{item.tcid}})">
+                    <view class='tab_a_view'>{{item.tc_name}}</view>
+                    <view wx:if="{{item.tcid == currentTcid}}" class="fff_view"></view>
+                  </view>
+                </repeat>
+            </view>
+          </view>
+        </view>
+        <view class="right_box">
+            <view class="img_box">
+              <image mode="aspectFill" src="../assets/images/index_search@3x.png" class="seachImag"/>
+            </view>
+        </view>
+      </view>
+      <!--等待买家付款  -->
+      <view class="orderList1" wx:for="{{msg.orders}}" wx:key="index" @tap="orderDetail_fn">
+
+        <view class="time_and_stadus" wx:if="{{item.orders_status == '1'}}">
+           <span class="time">订单编号：20180625</span>
+            <span class="stadus commonColor">等待买家付款</span>
+        </view>
+        <view class="time_and_stadus"  wx:elif="{{item.orders_status == '3'}}">
+            <span class="time">订单编号：20180625</span>
+            <span class="stadus commonColor">等待卖家发货</span>
+        </view>
+        <view class="time_and_stadus"  wx:elif="{{item.orders_status == '2'}}">
+          <span class="time">订单编号：20180625</span>
+          <span class="stadus commonColor">等待买家收货</span>
+        </view>
+        <view class="time_and_stadus"  wx:elif="{{item.orders_status == '4'}}">
+          <span class="time">订单编号：20180625</span>
+          <span class="stadus commonColor">交易完成</span>
+        </view>
+        <view class="time_and_stadus"  wx:elif="{{item.orders_status == '5'}}">
+          <span class="time">订单编号：20180625</span>
+          <span class="stadus commonColor">等待买家退货</span>
+        </view>
+        <view class="time_and_stadus"  wx:elif="{{item.orders_status == '6'}}">
+          <span class="time">订单编号：20180625</span>
+          <span class="stadus commonColor">申请售后中</span>
+        </view>
+
+        <navigator url="/pages/order_detail/order_detail?status={{item.orders_status}}&orders_number={{item.orders_encode}}"> 
+          <view class="product_list" wx:for="{{item.orders_goods_list}}" wx:key="index">
+              
+            <view class="product_left">
+                <image src="{{item.banner_list}}" mode="aspectFill"/>
+            </view>
+            <view class="product_right">
+              <view class="title">{{item.goods_title}}</view>
+              <view class="colour" wx:if="{{item.main_style_name!==''}}">{{item.main_style_name}}：{{item.main_style_tags}}<span wx:if="{{item.sub_style_name!==''}}">；{{item.sub_style_name}}:{{item.sub_style_tags}}</span></view>
+              <view class="rectangle_box"><view class="rectangle">5.5折优惠</view></view>
+              <view class="money">
+                <span style="text-decoration:line-through;">￥<span class="text">{{item.discount_price}}</span></span>
+                <!-- <span class="number">x{{item.buy_num}}</span> -->
+                <span class="number">成交价：￥19</span>
+              </view>
+            </view> 
+          </view>
+        </navigator>
+
+        <view class="btn_detail" wx:if="{{item.orders_status == '1'}}">
+          <view class="product_choose"> 
+            <button class="go_fuqian commonColor commonBorder" form-type="submit"  @tap.stop="go_payment" data-orderid="{{item.oid}}" data-status="{{item.orders_status}}" data-oedercode="{{item.orders_encode}}">去支付</button>
+            <button class="cancel" form-type="submit"  @tap.stop="cancel_order" data-orderid="{{item.oid}}" data-oedercode="{{item.orders_encode}}">取消订单</button>
+          </view>
+        </view>
+        <view class="btn_detail" wx:elif="{{item.orders_status == '2'}}">
+          <view class="product_choose"> 
+            <button class="go_fuqian commonColor commonBorder4" form-type="submit" @tap.stop="go_payment({{item.oid}},{{item.orders_status}},{{item.orders_encode}})">提醒发货</button>
+            <button class="cancel" form-type="submit"  @tap.stop="cancel_order" data-orderid="{{item.oid}}" data-oedercode="{{item.orders_encode}}">申请售后</button>
+          </view>
+        </view>
+        <view class="btn_detail" wx:elif="{{item.orders_status == '3'}}">
+          <view class="product_choose">
+            <button class="go_fuqian commonColor commonBorder" form-type="submit"  @tap.stop="confirm_receipt" data-orderid="{{item.oid}}" data-oedercode="{{item.orders_encode}}">确认收货</button>
+            <navigator url='/pages/express_info/express_info?ordercode={{item.orders_encode}}&orderid={{item.oid}}'>
+                <button class="cancel" form-type="submit"  @tap.stop="lianxi_kefu">查看物流</button>
+            </navigator>
+            <button class="cancel" form-type="submit" open-type='contact' @tap.stop="lianxi_kefu">申请售后</button> 
+          </view>
+        </view>
+        <view class="btn_detail" wx:elif="{{item.orders_status == '4'}}">
+          <view class="product_choose">
+            <button class="go_fuqian commonColor commonBorder4" form-type="submit" @tap.stop="go_payment({{item.oid}},{{item.orders_status}},{{item.orders_encode}})">评价</button>
+            <button class="cancel" form-type="submit"  @tap.stop="cancel_order" data-orderid="{{item.oid}}" data-oedercode="{{item.orders_encode}}">申请售后</button>
+          </view>
+        </view>
+        <view class="btn_detail" wx:elif="{{item.orders_status == '5'}}">
+          <view class="product_choose">
+            <button class="go_fuqian commonColor commonBorder5" form-type="submit" @tap.stop="go_payment({{item.oid}},{{item.orders_status}},{{item.orders_encode}})">退货信息</button>
+          </view>
+        </view>
+        <view class="btn_detail" wx:elif="{{item.orders_status == '6'}}">
+          <view class="product_choose">
+            <button class="go_fuqian commonColor commonBorder5" form-type="submit" @tap.stop="go_payment({{item.oid}},{{item.orders_status}},{{item.orders_encode}})">取消申请</button>
+          </view>
+        </view>
+
+      </view>
+      
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Product from '@/components/product';
+export default class allOrders extends wepy.page {
+  config = {
+    navigationBarTitleText: '全部订单'
+  };
+
+  data = {
+    hello: 'hello world',
+    mynum: 20,
+    msg: {
+      orders: [
+        {
+          oid: '386',
+          orders_encode: '20180625001606671',
+          orders_real_pay_price: '0.1',
+          orders_sum_fare_price: '0',
+          orders_discount_price: '0.1',
+          orders_status: '1',
+          orders_create_time: '2018-06-25 00:16:06',
+          remarks: '',
+          orders_goods_num: 1,
+          orders_goods_list: [
+            {
+              olid: '460',
+              orders_id: '386',
+              gid: '10000054',
+              ssid: '279',
+              msid: '10000322',
+              goods_title:
+                'MACHENIKE 机械师F117 F6 i7笔记本电脑GTX1060独显游戏本手提',
+              goods_name: '',
+              fare_price: '0',
+              banner_list:
+                'https://shop1.helpmake.cn/upload/images/banner/15046908614506.jpg',
+              main_style_name: '套餐',
+              sub_style_name: '颜色',
+              main_style_tags: ' 官方标配',
+              sub_style_tags: '银色',
+              rel_m_price: '0.1',
+              discount_price: '0.1',
+              commission: '0',
+              buy_num: '1',
+              create_time: '2018-06-25 00:16:06'
+            }
+          ]
+        },
+        {
+          oid: '386',
+          orders_encode: '20180625001606671',
+          orders_real_pay_price: '0.1',
+          orders_sum_fare_price: '0',
+          orders_discount_price: '0.1',
+          orders_status: '6',
+          orders_create_time: '2018-06-25 00:16:06',
+          remarks: '',
+          orders_goods_num: 1,
+          orders_goods_list: [
+            {
+              olid: '460',
+              orders_id: '386',
+              gid: '10000054',
+              ssid: '279',
+              msid: '10000322',
+              goods_title:
+                'MACHENIKE 机械师F117 F6 i7笔记本电脑GTX1060独显游戏本手提',
+              goods_name: '',
+              fare_price: '0',
+              banner_list:
+                'https://shop1.helpmake.cn/upload/images/banner/15046908614506.jpg',
+              main_style_name: '套餐',
+              sub_style_name: '颜色',
+              main_style_tags: ' 官方标配',
+              sub_style_tags: '银色',
+              rel_m_price: '0.1',
+              discount_price: '0.1',
+              commission: '0',
+              buy_num: '1',
+              create_time: '2018-06-25 00:16:06'
+            }
+          ]
+        }
+      ]
+    },
+    top_classify:[
+        {tc_name:'全部',tcid : '0'},
+        {tc_name:'待付款',tcid : '1'},
+        {tc_name:'待收货',tcid : '2'},
+        {tc_name:'待发货',tcid : '3'},
+        {tc_name:'待评价',tcid : '4'},
+        {tc_name:'售后退换',tcid : '5'},
+      ],
+      currentTcid: 0,//默认让第一人显示
+  };
+
+  computed = {
+    now() {
+      return +new Date();
+    }
+  };
+
+  methods = {
+    plus () {
+      this.mynum++
+    },
+    bindViewTap(event) {
+      console.log(event)
+      let self = this;
+      self.currentTcid = event;
+      for(let i=0; i<self.msg.orders.length;i++){
+        if(self.currentTcid == '0'){
+          self.msg.orders[0].orders_status = 1;
+          self.msg.orders[1].orders_status = 2;
+        }else if(self.currentTcid == '5'){
+          self.msg.orders[0].orders_status = 5;
+          self.msg.orders[1].orders_status = 6;
+        }else{
+          self.msg.orders[i].orders_status =  self.currentTcid;
+        }
+      }
+      
+    },
+    orderDetail_fn(){
+      this.$navigate('./orderDetail');
+    }
+  }
+  events = {};
+  
+  onLoad (option){
+    console.log(option.stadus)
+    let self = this;
+    if(option.stadus == '0'){
+      self.methods.bindViewTap(option.stadus);
+    }else{
+      self.methods.bindViewTap(option.stadus);
+    }
+    this.$apply();
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.allOrders{
+  background-color: #f5f5f5;
+  padding-top: 80rpx;
+}
+//顶部选项样式
+.fixed_box{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.choose_box:after{
+  content:"";
+  height:0;
+  line-height:0;
+  display:block;
+  visibility:hidden;
+  clear:both;
+}
+.choose_box{
+  display: flex;
+  width: 100%;
+  height: 80rpx;
+  // padding: 20rpx 0;
+  background-color: #d91f54;
+  font-size: 30rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  .left_box{
+    float: left;
+    color: rgba(255, 255, 255, 0.5);
+    width: 84%;
+    height: 100%;
+    padding-left: 30rpx;
+    box-sizing: border-box;
+    line-height: 80rpx;
+    overflow: hidden;
+  }
+  
+  .right_box{
+    float: right;
+    width: 16%;
+    height: 100%;
+    position: relative;
+    .img_box{
+      width: 36rpx;
+      height: 39rpx;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      overflow: hidden;
+      -webkit-transition-property: -webkit-transform,opacity;
+      transition-property: transform,opacity;
+      transform: translate(-50%, -50%);
+      .seachImag{
+        width: 36rpx;
+        height: 39rpx;
+      }
+    }
+  }
+}
+.tab_box{
+  width: 100%;
+  overflow: hidden;
+} 
+.tab{
+  height: 78rpx;
+  line-height: 78rpx;
+  // border-bottom: 2rpx solid #E7E7E7;
+  opacity: 0.8;
+  font-size: 28rpx;
+  white-space:nowrap; 
+  overflow-y:hidden; 
+  overflow-x:auto; 
+  padding: 0px 0px 68rpx 0px;
+  -webkit-overflow-scrolling:touch;
+}
+.tab .tab_a{
+  padding: 0 44rpx 0 4rpx;
+  text-align: center;
+  float: left;
+  font-size: 30rpx;
+  display:inline-block; 
+  float:none;
+  position: relative;
+  .fff_view{
+    width: 10rpx;
+    height: 10rpx;
+    border: 1rpx solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 14rpx;
+    right: 18rpx;
+    z-index: 1002;
+  }
+}
+.tab_a.tab0{
+  color: #fff;
+}
+/*全部  */
+.swiper-tab:after,
+.product_choose:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.ddd {
+  padding-bottom: 48rpx;
+}
+.orderList0 {
+  background-color: #fff;
+  margin-top: 24rpx;
+}
+.orderList1 {
+  background-color: #fff;
+  margin-top: 24rpx;
+}
+.time_and_stadus:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.time_and_stadus {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 24rpx;
+}
+.time_and_stadus .time {
+  float: left;
+  color: rgb(34, 34, 34);
+  font-size: 24rpx;
+}
+.time_and_stadus .stadus {
+  float: right;
+  color: rgb(254, 172, 42);
+  font-size: 24rpx;
+}
+
+.product_list:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.product_list {
+  background-color: #f7f7f7;
+  padding: 26rpx 24rpx;
+}
+.product_list:last-child {
+  /* border: 0; */
+}
+.product_left,
+.product_right {
+  float: left;
+}
+.product_left{
+  font-size: 0;
+}
+.product_left image {
+  width: 142rpx;
+  height: 142rpx;
+}
+.product_right {
+  width: 520rpx;
+  padding-left: 30rpx;
+}
+.product_right .title {
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
+
+  width: 92%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product_right .colour {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+  width: 450rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product_right .money {
+  font-size: 24rpx;
+  color: rgb(153, 153, 153);
+  position: relative;
+}
+.product_right .money .text {
+  font-size: 30rpx;
+}
+.product_right .money .number {
+  position: absolute;
+  bottom: 2rpx;
+  right: 0;
+  color: rgb(34, 34, 34);
+}
+// 订单选择 按钮
+.product_choose {
+  padding: 20rpx 24rpx;
+}
+.product_choose .cancel {
+  width: 152rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: rgb(102, 102, 102);
+  border: 2rpx solid rgb(102, 102, 102);
+  display: inline-block;
+  float: right;
+  margin-right: 24rpx;
+  background-color: #fff;
+  padding: 0 10rpx;
+}
+.product_choose .go_fuqian {
+  width: 152rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #fff;
+  // border: 2rpx solid #ff3939;
+  display: inline-block;
+  float: right;
+  background-color: #d91f54;
+  padding: 0 10rpx;
+}
+.go_fuqian.commonBorder4{
+  background-color: #fff;
+  color: #d91f54;
+  border: 2rpx solid #d91f54;
+}
+.go_fuqian.commonBorder5{
+  background-color: #fff;
+  color: rgb(102, 102, 102);
+  border: 2rpx solid rgb(102, 102, 102);
+}
+.product_choose .cancel::after,
+.product_choose .go_fuqian::after {
+  border: 0;
+}
+/* 气泡css样式 -圆角矩形*/ 
+.rectangle_box:after{
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.rectangle{
+  float: right;
+  min-width: 100rpx;
+  text-align: center;
+  border-radius: 6rpx;  
+  position: relative;  
+  background-color: rgb(254, 192, 42);
+  font-size: 20rpx;
+  color:#fff;
+}  
+/*气泡css样式 -小三角*/  
+.rectangle::before{  
+  content: "";
+  width: 0;
+  height: 0;
+  border: 8rpx solid rgb(254, 192, 42);
+  border-color: rgb(254, 192, 42) transparent transparent transparent;
+  position:absolute;
+  bottom: -12rpx;
+  left: 44rpx;
+}  
+</style>
+

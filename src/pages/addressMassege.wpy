@@ -2,7 +2,7 @@
   <view class="myAddressPage myContainer">
     <view class="aa" wx:for="{{clist}}" wx:key="index">
 
-      <view class="top" bindtap="choose_address" data-ciid="{{item.ciid}}"  data-type="2" >
+      <view class="top" bindtap="choose_address" data-ciid="{{item.ciid}}"  data-type="2">
         <view class="a0">
             <view class="a1">{{item.ccp_name}}</view>
             <view class="a2">{{item.ccp_phone}}</view>
@@ -23,16 +23,16 @@
         </view>
         
         <view class="center">
-          <image src="../assets/images/us_edit@3x.png" class="a6" data-ciid="{{item.ciid}}" bindtap="delete_ciid"/>编辑
+          <image src="../assets/images/us_edit@3x.png" class="a6" data-ciid="{{item.ciid}}" @tap.stop="address_deals({{item.ciid}})"/>编辑
         </view>
         <view class="right">
-          <image src='../assets/images/ad_delete@3x.png' class='edit' data-ciid='{{item.ciid}}' data-type="2" bindtap='address_deal'/>删除
+          <image src='../assets/images/ad_delete@3x.png' class='edit' data-ciid='{{item.ciid}}' data-type="2" @tap.stop='delete_ciid({{item.ciid}})'/>删除
         </view>
       </view>
 
     </view>
     
-     <view class="button" @tap="address_deal({{type}})">添加地址</view>
+     <view class="button" @tap="address_deals('$')">添加地址</view>
 
   </view>
 </template>
@@ -50,22 +50,44 @@ export default class AddressMassege extends wepy.page {
         stadus: 1,
         ccp_name:'张坤',
         ccp_phone:'18878554163',
-        c_address:'深圳市宝安区固戍地铁站a口'
+        c_address:'深圳市宝安区固戍地铁站a口',
+        ciid:'2'
       },
       {
         stadus: 0,
         ccp_name:'张坤',
         ccp_phone:'18878554163',
-        c_address:'深圳市宝安区固戍地铁站a口'
+        c_address:'深圳市宝安区固戍地铁站a口',
+        ciid:'5'
       }
     ]
   }
 
   methods = {
-    address_deal(){
-      this.$navigate('./addressDetail');
+    address_deals(type){
+      if(type == '$'){
+        this.$navigate('./addressDetail');
+      }else{
+        this.$navigate('./addressDetail?type='+`${type}`);
+      }
+      
+    },
+    delete_ciid(del_id){
+      wx.showModal({
+        title: '提示',
+        content: '确定删除?',
+        confirmColor:'#d91f54',
+        success: function(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
     }
   }
+
 }
 </script>
 
@@ -174,7 +196,7 @@ export default class AddressMassege extends wepy.page {
   margin-right: 12rpx;
   position: relative;
   top: 4rpx;
-  border: 1rpx solid #999999;
+  // border: 1rpx solid #999999;
   border-radius: 100%;
 }
 </style>

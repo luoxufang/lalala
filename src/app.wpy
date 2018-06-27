@@ -39,15 +39,16 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/myPage',
+      
       'pages/myindex',
       'pages/myAuction',
-      
+      'pages/myPage',
       'pages/index',
       'pages/myNews',
       'pages/addressMassege',
       'pages/addressDetail',
-      'pages/orderDetail'
+      'pages/orderDetail',
+      'pages/allOrders'
     ],
     window: {
       backgroundTextStyle: 'light',

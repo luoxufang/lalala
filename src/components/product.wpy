@@ -64,8 +64,8 @@
       // 父级传过来的静态值mytitle
       var data1 = this.data1;
       console.log(data1); 
-      // self.productList11 = this.syncList;
-      this.$apply()//类似于 告诉页面 我数据改变了
+      //在函数运行周期之外的函数里去修改数据需要手动调用$apply方法(一般在组件操作时用到)
+      this.$apply()  //通知wepy框架data数据更改需要重绘页面
     }
   }
 </script>
@@ -94,7 +94,7 @@
           font-size: 28rpx;
           color: rgb(153, 153, 153);
           flex:3;
-          padding: 12rpx 20rpx;
+          padding: 6rpx 20rpx;
           .title{
               font-size: 30rpx;
               color: #333;

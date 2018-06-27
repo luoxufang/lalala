@@ -71,7 +71,18 @@ export default class AddressDetail extends wepy.page {
       this.del_city =  regions[1]
       this.del_area = regions[2]
     }
-  };
+  }
+
+  onLoad(option) {
+    let self = this;
+    if(option.type){//如果type标志存在,着请求地址详情,且改变页面标题
+      wx.setNavigationBarTitle({
+        title: '编辑地址'
+      })
+    }else{//否则新建地址
+      //注意弹窗怎么用?
+    }
+  }
 }
 </script>
 
