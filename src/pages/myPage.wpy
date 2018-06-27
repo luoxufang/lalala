@@ -121,7 +121,7 @@
                         <view class="text">帮助</view>
                     </view>
                 </view>
-                <view class="goods_stadu_list">
+                <view class="goods_stadu_list" @tap="goToCommet">
                     <view class="num_box">
                         <!-- {{one_num}} -->
                         <view class="notice_img_box">
@@ -170,6 +170,9 @@ export default class myPage extends wepy.page {
     },
     goToallOrders(stadus){
       this.$navigate('./allOrders?stadus='+`${stadus}`);
+    },
+    goToCommet(){
+      this.$navigate('./myComment');
     }
   };
 

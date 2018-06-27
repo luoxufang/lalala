@@ -242,14 +242,14 @@ export default class allOrders extends wepy.page {
   events = {};
   
   onLoad (option){
-    console.log(option.stadus)
-    let self = this;
-    if(option.stadus == '0'){
-      self.methods.bindViewTap(option.stadus);
-    }else{
-      self.methods.bindViewTap(option.stadus);
-    }
-    this.$apply();
+    // console.log(option.stadus)
+    // let self = this;
+    // if(option.stadus == '0'){
+    //   self.methods.bindViewTap(option.stadus);
+    // }else{
+    //   self.methods.bindViewTap(option.stadus);
+    // }
+    // this.$apply();
   }
 }
 </script>

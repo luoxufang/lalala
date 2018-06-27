@@ -48,7 +48,8 @@ export default class extends wepy.app {
       'pages/addressMassege',
       'pages/addressDetail',
       'pages/orderDetail',
-      'pages/allOrders'
+      'pages/allOrders',
+      'pages/myComment'
     ],
     window: {
       backgroundTextStyle: 'light',
