@@ -145,7 +145,7 @@ export default class myPage extends wepy.page {
     navigationBarTitleText: '个人中心'
   };
 
-  mixins = [testMixin2]
+  // mixins = [testMixin2]
 
   data = {
     hello: 'hello world',
