@@ -3,31 +3,30 @@
     <form bindsubmit="formSubmit" bindreset="formReset">
       <!-- 要支付的产品列表 -->
 
-        <!-- <view class="weui-cells {{item.isSelect ? 'weui-cells_show' : ''}}">  -->
-        <view class="text1">
-          <label>产品评分</label>
-          <span class='span_box'>
-            <span class="span_box2">
-              <span class="star-icon" data-is='1' bindtap="bindCheckbox">☆</span>
-              <span class="star-icon" data-is='2' bindtap="bindCheckbox">☆</span>
-              <span class="star-icon" data-is='3' bindtap="bindCheckbox">☆</span>
-              <span class="star-icon" data-is='4' bindtap="bindCheckbox">☆</span>
-              <span class="star-icon" data-is='5' bindtap="bindCheckbox">☆</span>
-            </span>
-
-            <span class="span_box3">
-              <span wx:for="{{star_full}}" data-is='{{index+1}}' class="star-icon {{item}}" bindtap="bindCheckbox">☆</span>
-            </span>
+      <!-- <view class="weui-cells {{item.isSelect ? 'weui-cells_show' : ''}}">  -->
+      <view class="text1">
+        <label>产品评分</label>
+        <span class='span_box'>
+          <span class="span_box2">
+            <span class="star-icon" data-is='1' bindtap="bindCheckbox">☆</span>
+            <span class="star-icon" data-is='2' bindtap="bindCheckbox">☆</span>
+            <span class="star-icon" data-is='3' bindtap="bindCheckbox">☆</span>
+            <span class="star-icon" data-is='4' bindtap="bindCheckbox">☆</span>
+            <span class="star-icon" data-is='5' bindtap="bindCheckbox">☆</span>
           </span>
-        </view>
-        <!-- wx:if="{{item.isSelect ? true : false}}" -->
-        <view class="text2" >
-          <textarea class="textarea" name="message" placeholder="产品满足你的期待吗？说说你对产品的想法吧！" maxlength="220" value="{{receiver_sug}}" placeholder-style="font-size:28rpx;color:#ccc;margin:10px 0 0 10px;" bindinput='bindinput_message'></textarea>
-        </view>
 
-        <button class="commentBtn commonBg" formType="submit" style="pointer-events:{{submit}}">提交</button>
-        <!-- </view> -->
-      
+          <span class="span_box3">
+            <span wx:for="{{star_full}}" wx:key="index" data-is='{{index+1}}' class="star-icon {{item}}" bindtap="bindCheckbox">☆</span>
+          </span>
+        </span>
+      </view>
+      <!-- wx:if="{{item.isSelect ? true : false}}" -->
+      <view class="text2" >
+        <textarea class="textarea" name="message" placeholder="产品满足你的期待吗？说说你对产品的想法吧！" maxlength="220" value="{{receiver_sug}}" placeholder-style="font-size:28rpx;color:#ccc;margin:10px 0 0 10px;" bindinput='bindinput_message'></textarea>
+      </view>
+
+      <button class="commentBtn commonBg" formType="submit" style="pointer-events:{{submit}}">提交</button>
+      <!-- </view> -->
       
     </form>
   </view>
@@ -52,7 +51,9 @@
   })
 
   export default class myCommet extends wepy.page {
-  
+    config ={
+      navigationBarTitleText: '商品评价'
+    }
     data = {
       star_full: ['full', 'full', 'full', 'full', 'full'],
     }

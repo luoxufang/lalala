@@ -22,11 +22,11 @@
           <text bindtap="choose_address" data-ciid = "{{item.ciid}}">默认地址</text>
         </view>
         
-        <view class="center">
-          <image src="../assets/images/us_edit@3x.png" class="a6" data-ciid="{{item.ciid}}" @tap.stop="address_deals({{item.ciid}})"/>编辑
+        <view class="center" @tap.stop="address_deals({{item.ciid}})">
+          <image src="../assets/images/us_edit@3x.png" class="a6" data-ciid="{{item.ciid}}"/>编辑
         </view>
-        <view class="right">
-          <image src='../assets/images/ad_delete@3x.png' class='edit' data-ciid='{{item.ciid}}' data-type="2" @tap.stop='delete_ciid({{item.ciid}})'/>删除
+        <view class="right" @tap.stop='delete_ciid({{item.ciid}})'>
+          <image src='../assets/images/ad_delete@3x.png' class='edit' data-ciid='{{item.ciid}}' data-type="2"/>删除
         </view>
       </view>
 

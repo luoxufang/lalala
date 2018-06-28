@@ -31,7 +31,7 @@
           <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
           duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
               <swiper-item wx:for="{{banner_list}}" wx:key="index">
-                <navigator url="/pages/product_detail/product_detail?gid={{item.git}}">
+                <navigator url="/pages/productDetail?gid={{item.git}}">
                   <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
                 </navigator>
               </swiper-item>
@@ -45,7 +45,7 @@
       </view>
     </view>
     <!-- 产品列表 -->
-    <view class="product_list_box">
+    <view class="product_list_box" @tap="goToProductDetail">
       <image mode="aspectFill" src="../assets/images/index_product@2x.png" class="product_banner"/>
       <view class="product_info_btn">
         <view class="line_change"></view>
@@ -53,9 +53,14 @@
 
           <view class="left_view">
             <view class="title">受到官方口径的功夫</view>
-            <view class="join_this"><view class="left">参与：{{number}}</view><view class="right">多个地方</view></view>
+            <view class="join_this">
+              <view class="left">参与：{{number}}</view>
+              <view class="right">
+                <image mode="aspectFill" src="../assets/images/comment_star@2x.png" class="xingxing"/>4.0(1K+)
+              </view>
+            </view>
             <view class="result">古天乐胜出。</view>
-            <view class="bottom_info"><view class="left">第二次</view><view class="right">￥{{money}}</view></view>
+            <view class="bottom_info"><view class="left">第二次</view><view class="right" style="text-decoration:line-through;">￥{{money}}</view></view>
           </view>
 
           <view class="right_view">
@@ -96,7 +101,7 @@ export default class myIndex extends wepy.page {
       ],
       currentTcid:1,//默认让第一人显示
       number:'66',
-      money:'199'
+      money:'299'
     }
 
     computed = {
@@ -114,12 +119,12 @@ export default class myIndex extends wepy.page {
         // this.currentTcid = event.target.dataset.wepyParamsA;
         this.currentTcid = event;
         this.$apply()  //通知wepy框架data数据更改需要重绘页面
+      },
+      goToProductDetail(){
+        this.$navigate('./productDetail');
       }
     }
-
-    events = {
-
-    }
+    events = {}
 }
 </script>
 
@@ -287,11 +292,14 @@ export default class myIndex extends wepy.page {
         font-size: 28rpx;
         color: rgb(153, 153, 153);
         flex:3;
-        padding: 12rpx 20rpx;
+        padding: 16rpx 20rpx;
         .title{
             font-size: 30rpx;
             color: #333;
           }
+        .result{
+          font-size: 24rpx;
+        }
         .join_this{
           display: flex;
           font-size: 26rpx;
@@ -302,6 +310,10 @@ export default class myIndex extends wepy.page {
           .right{
             flex: 1;
             text-align: right;
+            .xingxing{
+              width: 24rpx;
+              height: 22rpx;
+            }
           }
         }
         .bottom_info{

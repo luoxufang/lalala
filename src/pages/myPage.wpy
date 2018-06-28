@@ -139,10 +139,13 @@
 
 <script>
 import wepy from 'wepy';
+import testMixin2 from '../mixins/pingfang'
 export default class myPage extends wepy.page {
   config = {
     navigationBarTitleText: '个人中心'
   };
+
+  mixins = [testMixin2]
 
   data = {
     hello: 'hello world',
@@ -177,6 +180,12 @@ export default class myPage extends wepy.page {
   };
 
   events = {};
+
+  onLoad (){
+    // this.showPingFangFont();
+  }
+
+  
 }
 </script>
 

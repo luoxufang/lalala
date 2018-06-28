@@ -24,6 +24,10 @@ page{
   overflow: hidden;
   font-size: 0;
 }
+.my_container2 image,.my_container2 swiper{
+    width: 100%;
+    height: 569rpx;
+}
 </style>
 
 <script>
@@ -49,7 +53,8 @@ export default class extends wepy.app {
       'pages/addressDetail',
       'pages/orderDetail',
       'pages/allOrders',
-      'pages/myComment'
+      'pages/myComment',
+      'pages/productDetail'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -95,6 +100,7 @@ export default class extends wepy.app {
       index: 1,
       text: '3'
     })
+
   }
 
   sleep (s) {

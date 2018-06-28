@@ -115,6 +115,9 @@
               }
             }
           }
+          .result{
+            font-size: 24rpx;
+          }
           .bottom_info{
             display: flex;
             font-size: 26rpx;

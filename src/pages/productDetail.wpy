@@ -1,0 +1,397 @@
+<template>
+  <view class="myContainer productDetail">
+    <!-- 轮播 -->
+    <view class="test_head">
+      <view class="my_container2">
+        <view style="overflow: hidden !important;font-size:0;">
+          <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+          duration="{{duration}}" circular="true" class="banner_img" indicator-active-color="rgb(217,31,84)">
+              <swiper-item wx:for="{{banner_list}}" wx:key="index">
+                <navigator url="/pages/productDetail?gid={{item.git}}">
+                  <image mode="aspectFill" src="{{item.banner}}" class="slide-image"/>
+                </navigator>
+              </swiper-item>
+          </swiper>
+        </view>
+      </view>
+    </view>
+    <!--商品信息  -->
+    <view class="product_info">
+      <view class="money_box">
+        <view class="left">当前价<text>￥199</text></view>
+        <view class="right">市场价￥366</view>
+      </view>
+      <view class="title_box">
+        <view>发射点发链接都是了多少分量的身份哦开发商的</view>
+        <view><image mode="aspectFill" src="../assets/images/product view_share@2x.png" style="width:36rpx;height:34rpx;"/></view>
+      </view>
+      <view class="join_this">
+        <view class="left">参与：{{data1.attend}}66人</view>
+        <view class="right">
+          <image mode="aspectFill" src="../assets/images/comment_star@2x.png" class="xingxing"/>
+          {{data1.xingxing}}4K(1.1)
+        </view>
+      </view>
+    </view>
+    <!-- 底部按钮 -->
+    <view class="bottom_btn">
+      <view class="bottom_btn_left">
+        <view class="shoucang">
+          <view class="publicStyle1">
+            <image mode="aspectFill" src="../assets/images/product view_collection@2x.png" style="width:32rpx;height:30rpx;" class=""/>
+            <view style="color:rgb(102,102,102);font-size:20rpx;">收藏</view>
+          </view>
+        </view>
+        <view class="notice">
+          <view class="publicStyle1">
+            <view>第二次</view>
+            <view>古天乐***胜出</view>
+          </view>
+        </view>
+      </view>
+      <view class="bottom_btn_right">
+        <view class="lineColor"></view>
+        <view class="publicStyle1">出价<text style="font-size: 40rpx;">￥199</text></view>
+      </view>
+    </view>
+    <!-- 商品详情（图片）/ 评论 / 竞拍规则 -->
+    <view class="scroll_view">
+      <view class="swiper-tab">
+        <view class="swiper-tab-list {{currentTab=='0' ? 'commonColor' : ''}}" data-current="0" data-otype="pay" bindtap="swichNav">
+          <span style="position:relative;">商品详情<span wx:if="{{currentTab=='0'}}" class="red_radius"></span></span>
+        </view>
+        <view class="swiper-tab-list {{currentTab=='1' ? 'commonColor' : ''}}" data-current="1" data-otype="deliver" bindtap="swichNav">
+          <span style="position:relative;">评论<span wx:if="{{currentTab=='1'}}" class="red_radius"></span></span>
+        </view> 
+        <view class="swiper-tab-list {{currentTab=='2' ? 'commonColor' : ''}}" data-current="2" data-otype="receive" bindtap="swichNav">
+          <span style="position:relative;">竞拍规则<span wx:if="{{currentTab=='2'}}" class="red_radius"></span></span>
+        </view>
+      </view>
+      <!-- <view class="c_t60"></view> -->
+
+      <swiper current="{{currentTab}}" class="swiper-box" duration="200" style="height:{{winHeight - 31}}px;" bindchange="bindChange">
+        <!-- <form bindsubmit="formSubmit" report-submit="true"> -->
+        <!-- 全部 -->
+        <swiper-item>
+          <!-- <scroll-view style="height:500rpx" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H"> -->
+          <view class="ddd">
+            <!-- <view class="search_no" wx:if="{{orders.length == 0}}">
+                <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
+                <text>目前还没有任何订单哟~</text>
+                <button class="btn commonColor commonBorder" form-type="submit" bindtap="navigator_classify">去逛逛</button>
+            </view>  -->
+            <image mode="widthFix" src="../assets/images/index_product@2x.png" style="width:100%;" class=""/>
+            <image mode="widthFix" src="../assets/images/index_product@2x.png" style="width:100%;" class=""/>
+          </view>
+          <!-- </scroll-view> -->
+
+        </swiper-item>
+
+        <!-- 待付款 -->
+        <swiper-item>
+          <!-- <scroll-view style="height:500rpx;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H"> -->
+            <view class="ddd">22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+              2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+              22222222222222222222222222222222222222222222222222222222222222222222222
+              2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+                <!-- <view class="search_no" wx:if="{{orderList1.length == 0}}">
+                    <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
+                    <text>目前还没有任何订单哟~~</text>
+                    <button class="btn commonColor commonBorder" form-type="submit" bindtap="navigator_classify">去逛逛</button>
+                </view> -->
+
+            </view>
+          <!-- </scroll-view> -->
+        </swiper-item>
+
+        <!-- 已付款 -->
+        <swiper-item>
+          <!-- <scroll-view style="height:500rpx" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H"> -->
+            <view class="ddd">
+                <!-- <view class="search_no" wx:if="{{orderList2.length == 0}}">
+                    <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
+                    <text>目前还没有任何订单哟~~</text>
+                    <button class="btn commonColor commonBorder" form-type="submit" bindtap="navigator_classify">去逛逛</button>
+                </view> -->
+                <view class="" style="padding:20rpx;">我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则。</view>
+            </view>
+          <!-- </scroll-view> -->
+        </swiper-item>
+
+      <!-- </form> -->
+      </swiper>
+
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class productDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '商品详情'
+  };
+  data = {
+    star_full: ['full', 'full', 'full', 'full', 'full'],
+    banner_list: [
+      {
+        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',
+        git: '1'
+      },
+      {
+        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',
+        git: '2'
+      },
+      {
+        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',
+        git: '3'
+      }
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 1000,
+    winWidth: 0,
+    winHeight: 0,
+    currentTab: 0,
+    isStatus: 'pay', //10待付款，20待发货，30待收货 40、50已完成
+    page: 0,
+    refundpage: 0
+  };
+
+  events = {};
+
+  methods = {
+    bindCheckbox: function(res) {},
+    bindChange(e) {
+      let that = this;
+      console.log(e.detail.current);
+      that.currentTab = e.detail.current;
+      // if (this.data.currentTab == 0) {
+      //   that.loadOrderWholeList();
+      // } else if (this.data.currentTab == 3){
+      //   that.loadOrderList(4)
+      // }else{
+      //   that.loadOrderList(this.data.currentTab)
+      // }
+    },
+    swichNav(e) {
+      let that = this;
+      if (that.currentTab == e.currentTarget.dataset.current) {
+        return;
+      } else {
+        var current = e.currentTarget.dataset.current;
+        that.currentTab = parseInt(current);
+        that.isStatus = e.currentTarget.dataset.otype;
+      }
+    }
+  };
+  onLoad() {
+    let that = this;
+  }
+}
+</script>
+
+<style lang="less">
+.productDetail{
+  padding-bottom: 98rpx;
+}
+.publicStyle1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+// 商品详情 / 评论
+.scroll_view {
+  position: absolute;
+  width: 100%;
+}
+.swiper-box {
+  display: block;
+  height: 500rpx;
+  width: 100%;
+  overflow: hidden;
+}
+.commonColor {
+  color: rgb(34, 34, 34) !important;
+}
+.commonBorder3 {
+  // border-bottom: 2rpx solid #d91f54;
+}
+.swiper-tab {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  line-height: 80rpx;
+  background: #fff;
+  // position: fixed;
+  // top: 0;
+  z-index: 999;
+}
+.swiper-tab:after,
+.product_choose:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.swiper-tab-list {
+  font-size: 12px;
+  display: inline-block;
+  width: 33.3%;
+  color: rgb(102, 102, 102);
+  .red_radius {
+    position: absolute;
+    top: -8rpx;
+    right: -18rpx;
+    width: 10rpx;
+    height: 10rpx;
+    border: 2rpx solid #d91f54;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
+/*默认*/
+.search_no {
+  text-align: center;
+  margin-top: 100rpx;
+}
+.search_no .font_14 {
+  padding-bottom: 30rpx;
+}
+.btn {
+  background-color: #f7f7f7;
+  /* color: #ff3939; */
+  width: 240rpx;
+  height: 68rpx;
+  font-size: 28rpx;
+  text-align: center;
+  /* border:2rpx solid #ff3939; */
+  margin-top: 30rpx;
+}
+button::after {
+  border: 0;
+}
+/*全部  */
+.ddd {
+  
+}
+.orderList0 {
+  background-color: #fff;
+  margin-top: 24rpx;
+}
+.orderList1 {
+  background-color: #fff;
+  margin-top: 24rpx;
+}
+
+// 商品信息
+.product_info {
+  padding: 48rpx 26rpx 30rpx 26rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  .money_box {
+    display: flex;
+    line-height: 56rpx;
+    .left {
+      flex: 2;
+      font-size: 28rpx;
+      color: #d91f54;
+      text {
+        font-size: 40rpx;
+      }
+    }
+    .right {
+      line-height: 62rpx;
+      flex: 3;
+      font-size: 28rpx;
+      color: rgb(153, 153, 153);
+    }
+  }
+  .title_box {
+    display: flex;
+    font-size: 30rpx;
+    color: rgb(34, 34, 34);
+    view:nth-child(1) {
+      flex: 7;
+    }
+    view:nth-child(2) {
+      flex: 1;
+      text-align: right;
+    }
+  }
+  .join_this {
+    display: flex;
+    font-size: 26rpx;
+    .left {
+      flex: 1;
+      color: rgb(153, 153, 153);
+    }
+    .right {
+      flex: 1;
+      text-align: right;
+      color: #999999;
+      .xingxing {
+        width: 24rpx;
+        height: 22rpx;
+      }
+    }
+  }
+}
+
+.bottom_btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 98rpx;
+  display: flex;
+  background-color: #fff;
+  z-index: 1000;
+  .bottom_btn_left {
+    flex: 1;
+    display: flex;
+    text-align: center;
+    font-size: 26rpx;
+    .shoucang {
+      flex: 1;
+      position: relative;
+    }
+    .notice {
+      flex: 2;
+      font-size: 24rpx;
+      position: relative;
+      .publicStyle1 {
+        width: 100%;
+      }
+      .publicStyle1 view:nth-child(1) {
+        color: rgb(254, 192, 42);
+      }
+      .publicStyle1 view:nth-child(2) {
+        width: 100%;
+        color: rgb(153, 153, 153);
+      }
+    }
+  }
+  .bottom_btn_right {
+    flex: 1;
+    background-color: #d91f54;
+    color: #fff;
+    font-size: 28rpx;
+    text-align: center;
+    position: relative;
+    .lineColor{
+      width: 100%;
+      height: 10rpx;
+      background-color: #FEC02A;
+    }
+  }
+}
+</style>
