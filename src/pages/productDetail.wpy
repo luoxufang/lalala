@@ -73,7 +73,7 @@
         <!-- <form bindsubmit="formSubmit" report-submit="true"> -->
         <!-- 全部 -->
         <swiper-item>
-          <!-- <scroll-view style="height:500rpx" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H"> -->
+          <scroll-view style="height:1000rpx" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H">
           <view class="ddd">
             <!-- <view class="search_no" wx:if="{{orders.length == 0}}">
                 <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
@@ -83,7 +83,7 @@
             <image mode="widthFix" src="../assets/images/index_product@2x.png" style="width:100%;" class=""/>
             <image mode="widthFix" src="../assets/images/index_product@2x.png" style="width:100%;" class=""/>
           </view>
-          <!-- </scroll-view> -->
+          </scroll-view>
 
         </swiper-item>
 
@@ -168,13 +168,6 @@ export default class productDetail extends wepy.page {
       let that = this;
       console.log(e.detail.current);
       that.currentTab = e.detail.current;
-      // if (this.data.currentTab == 0) {
-      //   that.loadOrderWholeList();
-      // } else if (this.data.currentTab == 3){
-      //   that.loadOrderList(4)
-      // }else{
-      //   that.loadOrderList(this.data.currentTab)
-      // }
     },
     swichNav(e) {
       let that = this;
@@ -210,12 +203,17 @@ export default class productDetail extends wepy.page {
 .scroll_view {
   position: absolute;
   width: 100%;
+  padding-bottom: 98rpx;
 }
 .swiper-box {
   display: block;
-  height: 500rpx;
+  // height: 500rpx;
   width: 100%;
-  overflow: hidden;
+  // overflow: hidden;
+  // padding-bottom: 100rpx;
+}
+.ddd {
+  
 }
 .commonColor {
   color: rgb(34, 34, 34) !important;
@@ -280,9 +278,6 @@ button::after {
   border: 0;
 }
 /*全部  */
-.ddd {
-  
-}
 .orderList0 {
   background-color: #fff;
   margin-top: 24rpx;
@@ -355,6 +350,7 @@ button::after {
   display: flex;
   background-color: #fff;
   z-index: 1000;
+  border-top: 2rpx solid #CCCCCC;
   .bottom_btn_left {
     flex: 1;
     display: flex;

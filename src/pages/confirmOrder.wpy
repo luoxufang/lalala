@@ -1,0 +1,460 @@
+<template>
+    <!--pages/order_detail/order_detail.wxml-->
+<view class="container">
+    <view class="my_container">
+      <!--地址-待付款-给修改  -->
+      <view class="click_right2 addclass2" wx:if="{{orders_info.orders_status == '1'}}">
+        <!-- <block wx:for="{{address_stadus}}"> -->
+          <navigator url="/pages/my_address/my_address?aid={{item.aid}}">
+              <view class="aaa2" style="border:0;">
+                <view class="address_box"><image class="aaaa" src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
+                <view class="detail_address_box">
+                    <view class="let_center aaaa">
+                        <view class="name_and_phone" style="">
+                          <view>{{orders_info.orders_receiver_name}}</view>
+                          <view style="">{{orders_info.orders_receiver_phone}}</view>
+                        </view>
+                        <view class="_address" style="font-size:28rpx;color:rgb(34,34,34);">{{orders_info.orders_receiver_address}}</view>
+                    </view>
+                </view>
+
+                <view class="bbb">
+                  <image class="aaaa" src="../assets/images/right.png" style="width:14rpx;height:24rpx;"/>
+                </view>
+
+              </view>
+          </navigator>
+        <!-- </block> -->
+        </view>
+      <!--待发货、待收货、交易完成-不给该地址  -->
+      <view class="click_right2 addclass2" wx:else >
+        <view class="aaa2" style="border:0;">
+
+          <view class="address_box"><image class="aaaa" src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
+          
+          <view class="detail_address_box">
+            <view class="let_center aaaa">
+                <view class="name_and_phone" style="">
+                  <view>{{orders_info.orders_receiver_name}}</view>
+                  <view style="">{{orders_info.orders_receiver_phone}}</view>
+                </view>
+                <view class="_address" style="font-size:28rpx;color:rgb(34,34,34);">{{orders_info.orders_receiver_address}}</view>
+            </view>
+          </view>
+          <view class="bbb">
+              <image class="aaaa" src="../assets/images/right.png" style="width:14rpx;height:24rpx;"/>
+          </view>
+        </view>
+      </view>
+      <view style="width:100%;height:12rpx;margin-bottom:20rpx;font-size:0;"><image class="" src="../assets/images/aa.png" style="width:100%;height:100%;"/></view>
+
+      <!-- 商品信息 -->
+    <view style="background:#fff;padding-top:22rpx;">
+      <view class="product_list" wx:for="{{orders_info.orders_goods_list}}" wx:key="index">     
+        <view class="product_left">
+            <image src="{{item.banner_list}}" mode="aspectFill"/>
+        </view>
+        <view class="product_right">
+          <view class="title">{{item.goods_title}}</view>
+          <view class="colour" wx:if="{{item.main_style_name!==''}}">{{item.main_style_name}}：{{item.main_style_tags}}<span wx:if="{{item.sub_style_name!==''}}">；{{item.sub_style_name}}:{{item.sub_style_tags}}</span></view>
+          <view class="rectangle_box"><view class="rectangle">5.5折优惠</view></view>
+          <view class="money">
+            <span style="text-decoration:line-through;">￥<span class="text">{{item.discount_price}}</span></span>
+            <!-- <span class="number">x{{item.buy_num}}</span> -->
+            <span class="number">成交价：￥19</span>
+          </view>
+        </view> 
+      </view>
+
+        <!--我是订单信息  -->
+      <view class="click_right">
+        <view class="aaa">
+          <view class="ccc" style="color:#333;right:24rpx;">商品参数</view>
+          <view class="right_click">
+            <text>请选择</text>
+            <image src="../assets/images/right.png" style="width:14rpx;height:24rpx;" />
+          </view>
+        </view>
+    
+        <view class="aaa">
+          <view class="ccc" style="color:#333;right:24rpx;">配送方式</view>
+          <view class="right_click"><text>免邮</text><image src="../assets/images/right.png" style="width:14rpx;height:24rpx;" /></view>
+        </view>
+    
+        <view class="aaa" style="border:0;line-height:normal;padding-top:20rpx;">
+          <view class="ccc" style="color:#999;right:24rpx;" >商品金额</view>
+          <view class="right_click" style="color:#222222;"><text>￥12</text></view>
+        </view>
+    
+        <view class="aaa" style="line-height:normal;padding-bottom:20rpx;">
+          <view class="ccc" style="color:#999;right:24rpx;">运费</view>
+          <view class="right_click" style="color:#222222;"><text>￥1.11</text></view>
+        </view>
+        <view class="aaa" style="border:0;">
+          <view class="ccc" style="color:#999;right:24rpx;" >总计</view>
+          <view class="right_click" style="color:#d91f54;"><text>￥199</text></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="order_code_box">
+      <view class="style_">
+        <span>配送方式</span><span>2018064012</span>
+      </view>
+      <view class="message_box">
+        <view>买家留言：</view>
+        <view>
+          <textarea bindblur="bindTextAreaBlur" style="width:100%;" auto-height placeholder="自动变高" />
+        </view>
+      </view> 
+    </view>
+    <!-- 客服 -->
+    <view class="customer_service">
+      <view class="right_click">
+        <image src="../assets/images/Order_chat@2x.png" style="width:34rpx;height:36rpx;position:relative;top:6rpx;"/>
+        <span style="color:#333;font-size:30rpx;">配送方式</span>
+      </view>
+      <view class="right_click">
+        <image src="../assets/images/right.png" style="width:14rpx;height:24rpx;"/>
+      </view>
+    </view>
+    <!-- 结算 -->
+    <view class="Settlement">
+      <view class="money_notice_box">
+        <view style="position:relative;top:6rpx;margin-top:10rpx;">￥199</view>
+        <view>
+          <image src="../assets/images/Order_Prompt@2x.png" style="width:24rpx;height:24rpx;position:relative;top:4rpx;margin-right:12rpx;"/>
+          <span style="color:rgb(102,102,102);font-size:20rpx;">十五分钟内未付款，订单将自动取消.</span>
+        </view>
+      </view>
+      <view class="settlement_btn">
+        <button class="go_fuqian" form-type="submit">结算</button>
+      </view>
+    </view>
+
+  </view>
+</view>
+</template>
+
+<script lang="">
+import wepy from 'wepy';
+export default class confirmOrder extends wepy.page {
+  config = {
+    navigationBarTitleText: '确认订单'
+  };
+
+  data = {
+    orders_info: {
+      oid: '375',
+      orders_encode: '20170928212319461',
+      orders_status: '5',
+      orders_receiver_name: '罗旭昉',
+      orders_receiver_phone: '18878554085',
+      orders_receiver_address: '广东省深圳市宝安区正海华府,广东省深圳市宝安区正海华府',
+      orders_sum_fare_price: '0',
+      orders_sum_price: '0.1',
+      orders_real_pay_price: '0.1',
+      remarks: '',
+      orders_create_time: '2017-09-28 21:23:19',
+      orders_payment_time: '2017-09-28 21:23:45',
+      orders_reduced_amount: 0,
+      orders_goods_list: [
+        {
+          olid: '449',
+          gid: '10000056',
+          goods_title: '罗技无线鼠标m280 笔记本台式机光电无线鼠标罗技M280鼠标',
+          fare_price: '0',
+          banner_list:
+            'https://shop1.helpmake.cn/upload/images/banner/15046918058438.jpg',
+          main_style_name: '套餐',
+          sub_style_name: '颜色',
+          main_style_tags: '官方标配',
+          sub_style_tags: '红色-送鼠标垫',
+          discount_price: '0.1',
+          buy_num: '1',
+          create_time: '2017-09-28 21:23:19'
+        }
+      ]
+    }
+  };
+  methods = {};
+}
+</script>
+
+<style lang="less" scoped>
+.my_container {
+  width: 100%;
+  /* height: 100%; */
+  position: relative;
+  padding-bottom: 124rpx;
+  background-color: #f7f7f7;
+}
+.aaaa {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+
+/*地址  */
+.click_right2 {
+  background-color: #fff;
+}
+.aaa2 {
+  display: flex;
+  padding: 20rpx 0;
+  .address_box {
+    flex: 1;
+    position: relative;
+  }
+  .detail_address_box {
+    flex: 7;
+    position: relative;
+    .let_center {
+      width: 100%;
+    }
+    .name_and_phone {
+      width: 100%;
+      display: flex;
+      view:nth-child(1) {
+        flex: 1;
+        font-size: 30rpx;
+        color:#333;
+      }
+      view:nth-child(2) {
+        flex: 1;
+        text-align: right;
+        font-size: 30rpx;
+        color:#333;
+      }
+    }
+  }
+  .bbb {
+    flex: 1;
+    width: 14rpx;
+    height: 138rpx;
+    position: relative;
+  }
+}
+
+// 产品 信息 模块
+.product_list:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.product_list {
+  background-color: #f7f7f7;
+  padding: 26rpx 24rpx;
+}
+.product_list:last-child {
+  /* border: 0; */
+}
+.product_left,
+.product_right {
+  float: left;
+}
+.product_left {
+  font-size: 0;
+}
+.product_left image {
+  width: 142rpx;
+  height: 142rpx;
+}
+.product_right {
+  width: 520rpx;
+  padding-left: 30rpx;
+}
+.product_right .title {
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
+
+  width: 92%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product_right .colour {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+  width: 450rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product_right .money {
+  font-size: 24rpx;
+  color: rgb(153, 153, 153);
+  position: relative;
+}
+.product_right .money .text {
+  font-size: 30rpx;
+}
+.product_right .money .number {
+  position: absolute;
+  bottom: 2rpx;
+  right: 0;
+  color: rgb(34, 34, 34);
+}
+/* 气泡css样式 -圆角矩形*/
+.rectangle_box:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.rectangle {
+  float: right;
+  min-width: 100rpx;
+  text-align: center;
+  border-radius: 6rpx;
+  position: relative;
+  background-color: rgb(254, 192, 42);
+  font-size: 20rpx;
+  color: #fff;
+}
+/*气泡css样式 -小三角*/
+.rectangle::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border: 8rpx solid rgb(254, 192, 42);
+  border-color: rgb(254, 192, 42) transparent transparent transparent;
+  position: absolute;
+  bottom: -12rpx;
+  left: 44rpx;
+}
+/*我的订单  */
+.my_order {
+  background-color: #fff;
+}
+.click_right {
+  padding: 0 24rpx;
+  background-color: #fff;
+  .aaa {
+    height: 100%;
+    line-height: 88rpx;
+    border-bottom: 2rpx solid #e7e7e7;
+    display: flex;
+    font-size: 28rpx;
+    color: #333;
+    overflow: hidden;
+    .ccc {
+      flex: 1;
+    }
+    .right_click {
+      flex: 1;
+      text-align: right;
+      color: #999;
+      image {
+        position: relative;
+        top: 2rpx;
+        margin-left: 20rpx;
+      }
+    }
+  }
+  .bbb {
+    display: inline-block;
+    height: 100%;
+    line-height: 100rpx;
+    position: absolute;
+    top: 0;
+    right: 24rpx;
+  }
+}
+.order_code_box{
+  background-color: #fff;
+  padding: 0 24rpx;
+  margin-top: 20rpx;
+  .style_{
+    line-height: 88rpx;
+    color: rgb(34, 34, 34);
+    font-size: 30rpx;
+    border-bottom: 2rpx solid #e7e7e7; 
+  }
+  .message_box{
+    display: flex;
+    font-size: 30rpx;
+    padding: 30rpx 0;
+    view:nth-child(1){
+      flex: 2;
+    }
+    view:nth-child(2){
+      flex: 5;
+      textarea{
+        font-size: 30rpx;
+      }
+    }
+  }
+}
+//客服
+.customer_service{
+  padding: 0 24rpx;
+  display: flex;
+  line-height: 88rpx;
+  margin-top: 20rpx;
+  background-color: #fff; 
+  view:nth-child(1){
+    flex: 1;
+    image{
+      margin-right: 16rpx;
+    }
+  }
+  view:nth-child(2){
+    flex: 1;
+    text-align: right;
+  }
+}
+//结算
+.Settlement{
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 98rpx;
+  background-color: #f5f5f5;
+  border-top: 2rpx solid #CCCCCC;
+  .money_notice_box{
+    flex: 2;
+    padding-right: 40rpx;
+    text-align: right;
+    view:nth-child(1){
+      font-size: 32rpx;
+      color: rgb(217, 31, 84);
+      // line-height: 60rpx; 
+    }
+    view:nth-child(2){
+      font-size: 32rpx;
+      color: rgb(102, 102, 102);
+      // line-height: 38rpx;
+    }
+  }
+  .settlement_btn{
+    flex: 1;
+    background-color: #d91f54;
+  }
+}
+.settlement_btn .go_fuqian {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 98rpx;
+  color: #fff;
+  // border: 2rpx solid #ff3939;
+  display: inline-block;
+  float: right;
+  background-color: #d91f54;
+  padding: 0 10rpx;
+}
+</style>

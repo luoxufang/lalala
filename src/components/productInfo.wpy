@@ -1,0 +1,137 @@
+<style lang="less">
+.product_list:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.product_list {
+  background-color: #f7f7f7;
+  padding: 26rpx 24rpx;
+}
+.product_list:last-child {
+  /* border: 0; */
+}
+.product_left,
+.product_right {
+  float: left;
+}
+.product_left {
+  font-size: 0;
+}
+.product_left image {
+  width: 142rpx;
+  height: 142rpx;
+}
+.product_right {
+  width: 70%;
+  padding-left: 30rpx;
+  float: right;
+}
+.product_right .title {
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
+
+  width: 96%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product_right .colour {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+  width: 450rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product_right .money {
+  font-size: 24rpx;
+  color: rgb(153, 153, 153);
+  position: relative;
+}
+.product_right .money .text {
+  font-size: 30rpx;
+}
+.product_right .money .number {
+  position: absolute;
+  bottom: 2rpx;
+  right: 0;
+  color: rgb(34, 34, 34);
+}
+//气泡css样式
+/*圆角矩形*/ 
+.rectangle_box:after{
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.rectangle{
+  float: right;
+  min-width: 100rpx;
+  text-align: center;
+  border-radius: 6rpx;  
+  position: relative;  
+  background-color: rgb(254, 192, 42);
+  font-size: 20rpx;
+  color:#fff;
+}  
+/*小三角*/  
+.rectangle::before{  
+  content: "";
+  width: 0;
+  height: 0;
+  border: 8rpx solid rgb(254, 192, 42);
+  border-color: rgb(254, 192, 42) transparent transparent transparent;
+  position:absolute;
+  bottom: -12rpx;
+  left: 44rpx;
+}
+</style>
+
+<template>
+  <view class="product_list" @tap="goTocomfirmOrder">
+    <view class="product_left">
+        <image src="{{proInfo.banner_list}}" mode="aspectFill"/>
+    </view>
+    <view class="product_right">
+      <view class="title">{{proInfo.goods_title}}</view>
+      <view class="colour" wx:if="{{proInfo.main_style_name!==''}}">{{proInfo.main_style_name}}：{{proInfo.main_style_tags}}<span wx:if="{{proInfo.sub_style_name!==''}}">；{{proInfo.sub_style_name}}:{{proInfo.sub_style_tags}}</span></view>
+      <view class="rectangle_box"><view class="rectangle">5.5折优惠</view></view>
+      <view class="money">
+        ￥<span class="text">{{proInfo.discount_price}}</span>
+        <!-- <span class="number">x{{proInfo.buy_num}}</span> -->
+        <span class="number">成交价：￥19</span>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class ProductInfo extends wepy.component {
+  props = {
+      //静态传值
+      proInfo: {}
+    };
+    methods = {
+      goTocomfirmOrder(){
+        this.$navigate('./confirmOrder');
+      }
+    }
+    onLoad () {
+      // 父级传过来的静态值mytitle
+      var proInfo = this.proInfo;
+      console.log(proInfo); 
+      //在函数运行周期之外的函数里去修改数据需要手动调用$apply方法(一般在组件操作时用到)
+      this.$apply()  //通知wepy框架data数据更改需要重绘页面
+    }
+}
+</script>

@@ -1,0 +1,29 @@
+<style lang="less">
+  .vague {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(40,40,40,0.8);
+    // background: inherit;
+    // filter: blur(100rpx);
+    .position_fixed{
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+  }
+</style>
+<template>
+  <view class="vague">
+    <view class="position_fixed"></view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Vague extends wepy.component {
+  }
+</script>

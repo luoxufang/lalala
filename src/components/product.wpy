@@ -19,7 +19,7 @@
 
           <view class="changeBtn">
             <view class="lineColor"></view>
-            <view class="clickChangeBtn" wx:if="{{data1.stadus == 1}}"><text style="font-size:24rpx;">出价</text><text style="font-size:32rpx;">￥199</text></view>
+            <view class="clickChangeBtn" @tap="goToPayMoney" wx:if="{{data1.stadus == 1}}"><text style="font-size:24rpx;">出价</text><text style="font-size:32rpx;">￥199</text></view>
             <view class="clickChangeBtn chan2" wx:elif="{{data1.stadus == 2}}"><text style="color:rgba(255,255,255,0.3);">出价成功</text></view>
             <view class="clickChangeBtn chan3" wx:elif="{{data1.stadus == 3}}"><text style="color:rgba(255,255,255,0.3);">出局</text></view>
             <view class="clickChangeBtn chan4" wx:elif="{{data1.stadus == 4}}"><text style="color:rgb(153,153,153);">￥199卖出</text></view>
@@ -59,6 +59,12 @@
       //     twoWay: true
       // }
     };
+    methods = {
+      goToPayMoney(){
+        this.$parent.tanchuang_show = true;
+        this.$parent.$apply();
+      }
+    }
 
     onLoad () {
       // 父级传过来的静态值mytitle

@@ -13,6 +13,7 @@ page{
 }
 .myContainer{
   background-color: #f5f5f5;
+  font-family: PingFangSC-Light,helvetica,'Heiti SC';
 }
 // 首页轮播
 .my_container image,.my_container swiper{
@@ -54,7 +55,8 @@ export default class extends wepy.app {
       'pages/orderDetail',
       'pages/allOrders',
       'pages/myComment',
-      'pages/productDetail'
+      'pages/productDetail',
+      'pages/confirmOrder'
     ],
     window: {
       backgroundTextStyle: 'light',
