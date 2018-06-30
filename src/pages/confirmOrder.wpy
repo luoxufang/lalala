@@ -68,7 +68,7 @@
 
         <!--我是订单信息  -->
       <view class="click_right">
-        <view class="aaa">
+        <view class="aaa" @tap="setModalStatus('1')">
           <view class="ccc" style="color:#333;right:24rpx;">商品参数</view>
           <view class="right_click">
             <text>请选择</text>
@@ -99,7 +99,7 @@
 
     <view class="order_code_box">
       <view class="style_">
-        <span>配送方式</span><span>2018064012</span>
+        <span>配送方式: </span><span>2018064012</span>
       </view>
       <view class="message_box">
         <view>买家留言：</view>
@@ -132,6 +132,61 @@
       </view>
     </view>
 
+    <!--加入购物车或立即支付动态弹窗  -->
+    <view class="drawer_screen" @tap="setModalStatus('0')" wx:if="{{showModalStatus}}"></view>
+    <view class="pay_join_tanchuang" animation="{{animationData}}" wx:if="{{showModalStatus}}">
+      <view class="scroll_box">
+        <scroll-view style="height:800rpx;position:relative;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" scroll-y="true" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H">
+          
+          <view class="product_list2">
+            <view class="product_view_left">
+                <image src="{{productInfo.banner_list}}" mode="aspectFill"/>
+            </view>
+            <view class="product_view_right">
+              <view class="mack_the_absolute">
+                <view class="money2"><span style="font-size:32rpx;color:#d91f54;margin-right:24rpx;">￥199</span><span style="text-decoration:line-through;font-size:24rpx;color:rgb(153,153,153);">￥1000</span></view>
+                <view class="choosed" wx:if="{{productInfo.main_style_options[0].main_style_tags||productInfo.sub_style_options[0].sub_style_tags}}">已选：
+                  <repeat wx:for="{{choosed_goods}}" wx:key="index">
+                      “<span>{{item}}</span>”
+                  </repeat>
+                </view>
+              </view>
+            </view>
+            <image class="image1" @tap="setModalStatus('0')" src="../assets/images/Popup_close@2x.png" style="width:44rpx;height:44rpx"/>
+          </view>
+
+          <view class="color_class">
+            <view class="title" wx:if="{{productInfo.main_style_options[0].main_style_name}}">{{productInfo.main_style_options[0].main_style_name}}</view>
+            <view class="color_list_box" wx:if="{{productInfo.main_style_options[0].main_style_tags}}">
+                <span wx:for="{{productInfo.main_style_options}}" wx:key="index" class="color_list {{currentIndex1==index?'commonColor' : ''}}" bindtap="click_choose1" data-index="{{index}}">{{item.main_style_tags}}</span>
+            </view>
+          </view>
+          
+          <view class="textrue" wx:if="{{productInfo.sub_style_options[0].sub_style_tags}}">
+            <view class="title">{{productInfo.sub_style_options[0].sub_style_name}}</view>
+            <view class="color_list_box">
+              <span  wx:for="{{productInfo.sub_style_options}}" wx:key="index" class="color_list {{currentIndex2==index?'commonColor' : ''}}" bindtap="click_choose2" data-index="{{index}}">{{item.sub_style_tags}}</span>
+            </view>
+          </view>
+          
+          <!-- <view class="pay_num" wx:if="{{$type==2}}">购买数量
+            <view class="stepper" style='top:28rpx;'>
+              <view class="minus" data-index="{{index}}" @tap="changeNum" data-alpha-beta="0">-</view>
+              <input type="number" bindblur="bindManual" value="{{buy_num}}" placeholder="{{item.buy_num}}" placeholder-style="color:red"/>
+              <view class="nomal"  data-index="{{index}}" @tap="changeNum" data-alpha-beta="1">+</view>
+            </view>
+          </view> -->
+        </scroll-view>
+
+        <!-- <form bindsubmit="formSubmit" report-submit="true"> -->
+          <view class="button_box">
+            <button class="buttom_sure_btn1" form-type="submit" style="display:{{buttom_sure_btn1}}" @tap="add_item_cart">确定</button>
+            <button class="buttom_sure_btn2" form-type="submit" style="display:{{buttom_sure_btn2}}" @tap="sure_build_orders">确定</button>
+          </view>
+        <!-- </form> -->
+      </view>
+    </view>
+
   </view>
 </view>
 </template>
@@ -150,7 +205,8 @@ export default class confirmOrder extends wepy.page {
       orders_status: '5',
       orders_receiver_name: '罗旭昉',
       orders_receiver_phone: '18878554085',
-      orders_receiver_address: '广东省深圳市宝安区正海华府,广东省深圳市宝安区正海华府',
+      orders_receiver_address:
+        '广东省深圳市宝安区正海华府,广东省深圳市宝安区正海华府',
       orders_sum_fare_price: '0',
       orders_sum_price: '0.1',
       orders_real_pay_price: '0.1',
@@ -175,9 +231,144 @@ export default class confirmOrder extends wepy.page {
           create_time: '2017-09-28 21:23:19'
         }
       ]
+    },
+    choosed_goods: [],
+    currentIndex1:0,
+    currentIndex2:0,
+    productInfo: {
+      banner_list:'https://wx.12315cs.com/upload/images/banner/15153921424645.jpg',
+      main_style_options: [
+        {
+          msid: '1523',
+          main_style_name: '商品分类',
+          main_style_tags: '银灰色',
+          rel_m_price: '450',
+          discount_price: '350',
+          sold_num: '0',
+          repertory: '1000',
+          goods_id: '10000029',
+          default_main_style: '1',
+          create_time: '2018-01-08 14:15:58'
+        },
+        {
+          msid: '1524',
+          main_style_name: '商品分类',
+          main_style_tags: '银色',
+          rel_m_price: '450',
+          discount_price: '350',
+          sold_num: '0',
+          repertory: '1000',
+          goods_id: '10000029',
+          default_main_style: '0',
+          create_time: '2018-01-08 14:15:58'
+        },
+        {
+          msid: '1525',
+          main_style_name: '商品分类',
+          main_style_tags: '玫瑰金',
+          rel_m_price: '450',
+          discount_price: '350',
+          sold_num: '0',
+          repertory: '1000',
+          goods_id: '10000029',
+          default_main_style: '0',
+          create_time: '2018-01-08 14:15:58'
+        }
+      ],
+      sub_style_options: [
+        {
+          ssid: '544',
+          sub_style_name: '净含量',
+          sub_style_tags: '200ml',
+          default_sub_style: '1',
+          goods_id: '10000029',
+          create_time: '2018-01-08 14:15:58'
+        },
+        {
+          ssid: '544',
+          sub_style_name: '净含量',
+          sub_style_tags: '300ml',
+          default_sub_style: '1',
+          goods_id: '10000029',
+          create_time: '2018-01-08 14:15:58'
+        },
+        {
+          ssid: '544',
+          sub_style_name: '净含量',
+          sub_style_tags: '400ml',
+          default_sub_style: '1',
+          goods_id: '10000029',
+          create_time: '2018-01-08 14:15:58'
+        },
+      ]
     }
   };
-  methods = {};
+  methods = {
+    // 弹窗
+    setModalStatus(types) {
+      var choosed_goods = [];
+
+      var animation = wx.createAnimation({
+        duration: 200,
+        timingFunction: 'linear',
+        delay: 0
+      });
+      var $main = wx.getStorageSync('$main_style_options') || true;
+      var $sub = wx.getStorageSync('$sub_style_options') || true;
+      if (true) {
+        choosed_goods[0] = this.productInfo.main_style_options[0].main_style_tags;
+      }
+      if (true) {
+        choosed_goods[1] = this.productInfo.sub_style_options[0].sub_style_tags;
+      }
+      console.log(choosed_goods);
+      //对初始数组进行-排空值处理
+      for (var i = 0, len = choosed_goods.length; i < len; i++) {
+        if (choosed_goods[i] == '') {
+          choosed_goods.splice(i, 1);
+          len--;
+        }
+      }
+      wx.setStorageSync('choosed_goods', choosed_goods);
+
+      this.animation = animation;
+      animation.translateY(898).step();
+
+      this.setData({
+        animationData: animation.export(),
+        choosed_goods: choosed_goods
+      });
+      this.choosed_goods = choosed_goods; 
+
+      if (types == 1) {
+        this.setData({
+          showModalStatus: true,
+          buttom_sure_btn1: 'none',
+          buttom_sure_btn2: 'block'
+        });
+      } else if (types == 2) {
+        this.setData({
+          showModalStatus: true,
+          buttom_sure_btn1: 'block',
+          buttom_sure_btn2: 'none'
+        });
+      }
+      setTimeout(
+        function() {
+          animation.translateY(0).step();
+          this.setData({
+            animationData: animation
+          });
+          if (types == 0) {
+            this.setData({
+              showModalStatus: false
+            });
+          }
+        }.bind(this),
+        200
+      );
+    }
+  };
 }
 </script>
 
@@ -222,13 +413,13 @@ export default class confirmOrder extends wepy.page {
       view:nth-child(1) {
         flex: 1;
         font-size: 30rpx;
-        color:#333;
+        color: #333;
       }
       view:nth-child(2) {
         flex: 1;
         text-align: right;
         font-size: 30rpx;
-        color:#333;
+        color: #333;
       }
     }
   }
@@ -371,51 +562,51 @@ export default class confirmOrder extends wepy.page {
     right: 24rpx;
   }
 }
-.order_code_box{
+.order_code_box {
   background-color: #fff;
   padding: 0 24rpx;
   margin-top: 20rpx;
-  .style_{
+  .style_ {
     line-height: 88rpx;
     color: rgb(34, 34, 34);
     font-size: 30rpx;
-    border-bottom: 2rpx solid #e7e7e7; 
+    border-bottom: 2rpx solid #e7e7e7;
   }
-  .message_box{
+  .message_box {
     display: flex;
     font-size: 30rpx;
     padding: 30rpx 0;
-    view:nth-child(1){
+    view:nth-child(1) {
       flex: 2;
     }
-    view:nth-child(2){
+    view:nth-child(2) {
       flex: 5;
-      textarea{
+      textarea {
         font-size: 30rpx;
       }
     }
   }
 }
 //客服
-.customer_service{
+.customer_service {
   padding: 0 24rpx;
   display: flex;
   line-height: 88rpx;
   margin-top: 20rpx;
-  background-color: #fff; 
-  view:nth-child(1){
+  background-color: #fff;
+  view:nth-child(1) {
     flex: 1;
-    image{
+    image {
       margin-right: 16rpx;
     }
   }
-  view:nth-child(2){
+  view:nth-child(2) {
     flex: 1;
     text-align: right;
   }
 }
 //结算
-.Settlement{
+.Settlement {
   display: flex;
   position: fixed;
   bottom: 0;
@@ -423,23 +614,23 @@ export default class confirmOrder extends wepy.page {
   width: 100%;
   height: 98rpx;
   background-color: #f5f5f5;
-  border-top: 2rpx solid #CCCCCC;
-  .money_notice_box{
+  border-top: 2rpx solid #cccccc;
+  .money_notice_box {
     flex: 2;
     padding-right: 40rpx;
     text-align: right;
-    view:nth-child(1){
+    view:nth-child(1) {
       font-size: 32rpx;
       color: rgb(217, 31, 84);
-      // line-height: 60rpx; 
+      // line-height: 60rpx;
     }
-    view:nth-child(2){
+    view:nth-child(2) {
       font-size: 32rpx;
       color: rgb(102, 102, 102);
       // line-height: 38rpx;
     }
   }
-  .settlement_btn{
+  .settlement_btn {
     flex: 1;
     background-color: #d91f54;
   }
@@ -456,5 +647,161 @@ export default class confirmOrder extends wepy.page {
   float: right;
   background-color: #d91f54;
   padding: 0 10rpx;
+}
+/*加入购物车及立即购买  */
+.drawer_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+.pay_join_tanchuang {
+  width: 100%;
+  height: 898rpx;
+  // overflow: hidden;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+}
+.product_list2 {
+  display: flex;
+  padding: 34rpx 30rpx;
+  border-bottom: 1rpx solid #E6E6E6;
+  .product_view_left{
+    flex: 4;
+    font-size: 0;
+    image{
+      width: 356rpx;
+      height: 274rpx;
+      border-radius: 12rpx;
+    }
+  }
+  .product_view_right{
+    flex: 3;
+    position: relative;
+    .mack_the_absolute{
+      position: absolute;
+      bottom: 0;
+    }
+    .money2{
+      
+    }
+    .choosed{
+      
+    }
+  }
+}
+.product_list2 .image1 {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  z-index: 2000;
+  padding: 16rpx;
+}
+.product_view_right .choosed {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 10rpx;
+
+  overflow: hidden;
+  text-align: left;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.color_class {
+  padding: 0 24rpx;
+}
+.color_class .title {
+  padding: 6rpx 0;
+  padding-top: 28rpx;
+  font-size: 30rpx;
+  color: rgb(34, 34, 34);
+}
+.color_list_box:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.color_list {
+  float: left;
+}
+.color_list {
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 12rpx;
+  display: inline-block;
+  padding: 0 30rpx;
+  margin-top: 14rpx;
+  margin-right: 36rpx;
+  font-size: 24rpx;
+  color: rgb(34, 34, 34);
+  background-color: rgb(240, 240, 240);
+
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.color_list.commonColor {
+  color: #fff;
+  background-color: #d91f54;
+}
+.textrue {
+  padding: 0 24rpx;
+  padding-top: 40rpx;
+}
+.textrue .title {
+  font-size: 28rpx;
+  color: #333;
+  padding: 6rpx 0;
+}
+.pay_num {
+  padding: 0 24rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-top: 20rpx;
+  position: relative;
+  padding-bottom: 28rpx;
+}
+/*底部  */
+.scroll_box {
+  height: 100%;
+  position: relative;
+}
+.button_box{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16rpx 20rpx;
+}
+.buttom_sure_btn1,
+.buttom_sure_btn2 {
+  width: 100%;
+  height: 98rpx;
+  line-height: 98rpx;
+  text-align: center;
+  background-color: #d91f54;
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+.stepper input {
+  color: #333;
 }
 </style>

@@ -1,0 +1,266 @@
+<template>
+  <view class="proSearch myContainer">
+    <view class="input_kuang">
+      <view class="input_box">
+        <view class="img_box"><image class="image" src="../assets/images/search.png" style="width:28rpx;height:29rpx;"/></view>
+        <input class="key_word" bindinput="searchValueInput" name="key_word" value="{{key_word}}" maxlength="25"  placeholder-style="font-size:24rpx;color:#999;" placeholder="请输入你要搜索的内容"/>
+        <view class="btn commonBg" @tap="do_search" style="pointer-events:{{submit}}">搜索{{text}}</view>
+      </view>
+    </view>
+
+    <view class="history_search" style="display:{{history_search}}">
+        <view class="_title">历史搜索</view>
+        <view class="key_word_list">
+          <view class="w100">
+            <button wx:for="{{key_word_list}}" bindtap="doKeySearch" data-key="{{item}}">{{item}}</button>
+          </view>
+        </view>
+        <view class="default_nothing" wx:if="{{!key_word_list}}">
+          <image src="../assets/images/search_no1.png" style="width:151rpx;height:127rpx;" />
+          <view class="">您还没有搜索记录哦~</view>
+        </view>
+    </view>
+    <view class="search_no" wx:if="{{result_list==''}}" style="display:{{search_no_tanchuang}}">
+      <view class="font_14"><image class="scimg" src="../assets/images/search_no1.png" style="width:126rpx;height:126rpx;"/></view>
+      <text style="font-size:24rpx;color:#999">没有找到您要的宝贝/(ㄒoㄒ)/~~</text>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="product_list_wepy" wx:if="{{viewShow}}">
+      <repeat for="{{list}}" key="index" index="index" item="item">
+          <product :data1="item"></product>
+      </repeat> 
+    </view>
+
+  </view>
+</template>
+<script>
+import wepy from 'wepy';
+import Product from '@/components/product';
+export default class proSearch extends wepy.page {
+  config = {
+    navigationBarTitleText: '商品搜索'
+  };
+  data = {
+    history_search:'block',
+    history_search:'block',
+    viewShow:false,
+    list: [
+      {
+        id: 1,
+        title: 'title1',
+        attend: '11',
+        collection: '11',
+        xingxing: '4.0(1K+)',
+        tradeNotice: '古天乐1***领先',
+        second:'第一次',
+        money:'199',
+        stadus:'1',
+      },
+      {
+        id: 2,
+        title: 'title2',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '古天乐2***领先',
+        second:'第一次',
+        money:'99',
+        stadus:'2',
+      },
+      {
+        id: 3,
+        title: 'title3',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '刘德华1***领先',
+        second:'第一次',
+        money:'99',
+        stadus:'3',
+      },
+      {
+        id: 4,
+        title: 'title4',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '古天乐3***领先',
+        second:'',
+        money:'99',
+        stadus:'4',
+      },
+      {
+        id: 5,
+        title: 'title5',
+        attend: '22',
+        xingxing: '2.0(1K+)',
+        tradeNotice: '古天乐4***领先',
+        second:'第一次',
+        money:'99',
+        stadus:'5',
+      }
+    ]
+  };
+  components = {
+    product: Product
+  }
+  methods = {
+    do_search(){
+      if(wx.getStorageSync('key_word')){
+        this.viewShow = true;
+        this.history_search = 'none'
+      }else{
+        wx.showToast({
+          title: '请输入搜索内容',
+          icon: 'loading',
+          duration: 800
+        })
+      }
+      
+    },
+    //输入框改变
+    searchValueInput: function (event) {
+      var that = this;
+      var value = event.detail.value;
+      wx.setStorageSync('key_word', event.detail.value)
+      if (!value) {
+        that.setData({
+          search_no_tanchuang:'none',
+          history_search: 'block',
+          result_list:''
+        });
+      }
+    }
+  };
+
+  onLoad() {
+    // this.showPingFangFont();
+    wx.setStorageSync('key_word','')
+  }
+}
+</script>
+<style lang="less">
+.input_kuang:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.input_kuang {
+  padding: 16rpx 24rpx;
+  font-size: 24rpx;
+  color: #999;
+  background-color: #d91f54;
+}
+.img_box {
+  float: left;
+  position: relative;
+  width: 44rpx;
+  height: 100%;
+  margin-right: 10rpx;
+}
+.input_box {
+  width: 600rpx;
+  height: 60rpx;
+  border: 2rpx solid #e4e4e4;
+  position: relative;
+  border-radius: 30rpx;
+  // overflow: hidden;
+  background-color: #fff;
+}
+.input_box .image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+.key_word {
+  width: 530rpx;
+  height: 60rpx;
+  float: left;
+}
+.btn {
+  position: absolute;
+  top: 0;
+  right: -96rpx;
+  width: 80rpx;
+  height: 62rpx;
+  line-height: 62rpx;
+  /* background: #ff3939; */
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center;
+  border-radius: 8rpx;
+}
+/*历史搜索  */
+.history_search ._title {
+  padding: 16rpx 24rpx 16rpx 24rpx;
+  color: rgb(153, 153, 153);
+  font-size: 28rpx;
+}
+.history_search .history_list {
+  padding-left: 80rpx;
+  position: relative;
+}
+.history_list .image1 {
+  position: absolute;
+  left: 24rpx;
+  top: 34rpx;
+}
+.history_list .image2 {
+  position: absolute;
+  top: 38rpx;
+  right: 24rpx;
+}
+.history_list .show_list {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  color: #333;
+  border-bottom: 2rpx solid #e3e3e3;
+}
+.key_word_list {
+  padding: 0 24rpx;
+}
+.w100 {
+  width: 100%;
+  padding-bottom: 10px;
+}
+.w100 button {
+  text-align: center;
+  line-height: 20px;
+  margin: 3% 2% 0 0;
+  display: inline-table;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #999;
+}
+// .aaa {
+//   width: 6rpx;
+//   height: 6rpx;
+//   background-color: #999;
+//   color: #fff;
+//   overflow: hidden;
+//   position: relative;
+//   left: 100rpx;
+//   top: 100rpx;
+//   font-size: 4rpx;
+//   text-align: center;
+//   display: inline-block;
+// }
+
+.default_nothing {
+  text-align: center;
+}
+.default_nothing image {
+  margin-top: 240rpx;
+}
+.default_nothing view {
+  margin-top: 24rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+</style>

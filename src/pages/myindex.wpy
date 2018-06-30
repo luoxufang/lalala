@@ -17,7 +17,7 @@
           </view>
         </view>
       </view>
-      <view class="right_box">
+      <view class="right_box" @tap="goToproSearch">
           <view class="img_box">
             <image mode="aspectFill" src="../assets/images/index_search@3x.png" class="seachImag"/>
           </view>
@@ -77,7 +77,7 @@
 import wepy from 'wepy'
 export default class myIndex extends wepy.page {
     config = {
-      "navigationBarTitleText": "99竞拍"
+      "navigationBarTitleText": "拍拍乐"
     };
 
     data = {
@@ -111,8 +111,8 @@ export default class myIndex extends wepy.page {
     }
 
     methods = {
-      plus () {
-        this.mynum++
+      goToproSearch () {
+        this.$navigate('./proSearch');
       },
       bindViewTap(event) {
         console.log(event)

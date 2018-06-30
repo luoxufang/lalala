@@ -56,7 +56,8 @@ export default class extends wepy.app {
       'pages/allOrders',
       'pages/myComment',
       'pages/productDetail',
-      'pages/confirmOrder'
+      'pages/confirmOrder',
+      'pages/proSearch'
     ],
     window: {
       backgroundTextStyle: 'light',
