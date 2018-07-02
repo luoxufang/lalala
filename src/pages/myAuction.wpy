@@ -221,9 +221,6 @@ export default class myAuction extends wepy.page {
   };
 
   methods = {
-    plus() {
-      this.mynum++;
-    },
     goToPayMoney(){
       this.tanchuang_show = true;
     },

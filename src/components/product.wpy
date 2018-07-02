@@ -1,7 +1,7 @@
 <template>
   <view class="product_box_wepy">
     <view class="aaa">
-      <image mode="aspectFill" src="../assets/images/index_product@2x.png" class="seachImag"/>
+      <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class="seachImag"/>
     </view>
     <view class="bbb">
       <view class="is_info_btn">

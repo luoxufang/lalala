@@ -136,15 +136,15 @@ export default class productDetail extends wepy.page {
     star_full: ['full', 'full', 'full', 'full', 'full'],
     banner_list: [
       {
-        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',
+        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png',
         git: '1'
       },
       {
-        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',
+        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png',
         git: '2'
       },
       {
-        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_banner@3x.png ',
+        banner: 'http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png',
         git: '3'
       }
     ],

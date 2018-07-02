@@ -46,7 +46,7 @@
     </view>
     <!-- 产品列表 -->
     <view class="product_list_box" @tap="goToProductDetail">
-      <image mode="aspectFill" src="../assets/images/index_product@2x.png" class="product_banner"/>
+      <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class="product_banner"/>
       <view class="product_info_btn">
         <view class="line_change"></view>
         <view class="is_info_btn">

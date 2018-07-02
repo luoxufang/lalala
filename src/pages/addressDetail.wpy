@@ -14,19 +14,20 @@
 
         <view class="inp_1">
           <label>所在地区</label>
-          <picker mode="region" @tap="bindRegionChange" value="{{region}}">
+          <!-- <picker mode="region" @tap="bindRegionChange" value="{{region}}">
             <view class="mapAddress" >
                 {{del_province}}
-                <!-- <image src="../assets/images/right.png" style="width:14rpx;height:24rpx;margin-left:16rpx;"/> -->
                 {{del_city}}
-                <!-- <image src="../assets/images/right.png" style="width:14rpx;height:24rpx;margin-left:16rpx;"/> -->
                 {{del_area}}<image src="../assets/images/right.png" style="width:14rpx;height:24rpx;margin-left:16rpx;"/>
             </view>
-          </picker>
+          </picker> -->
+          <view class="input">
+            <view @tap="openAddressPicker" style="color:#999;margin-left:20rpx;">{{province ? province.name : '省'}} - {{city ? city.name : '市' }} - {{area ? area.name : '区' }}</view>
+            <areaPicker @areaArray.user="areaPickerArray"></areaPicker>
+          </view>
           <input hidden="true" class="mapAddress"  name="address" value="{{my_address}}"  />
-          <!-- <input name="name"  placeholder="请输入您的姓名" maxlength="6" class="name" placeholder-style="font-size:28rpx;color:#999999;"/> -->
-          
         </view>
+        
         <view class="inp_1" style=" border: none">
           <label>详细地址</label>
           <input name="del_detail"  placeholder="请输入详细地址" maxlength="100" class="phone" value="{{receiver_address_detail}}" placeholder-style="font-size:28rpx;color:#999999;opacity: 0.5;"/>
@@ -45,7 +46,12 @@
 
 <script>
 import wepy from 'wepy';
-
+// import tip from '@/utils/tip'
+import api from "@/api/api"
+import {
+  USER_SPECICAL_INFO
+} from '@/utils/constant';
+import AreaPicker from "../components/common/wepy-area-picker"
 export default class AddressDetail extends wepy.page {
   config = {
     navigationBarTitleText: '新增收货地址'
@@ -56,9 +62,22 @@ export default class AddressDetail extends wepy.page {
     del_area:'',
     text: '保存',
     checked: 'true',
-    region: ['广东省', '广州市', '海珠区']
+    region: ['广东省', '广州市', '海珠区'],
+    editInfo: {
+      default: {},
+      type: Object
+    },
+    id: '',
+    province: '',
+    city: '',
+    area: '',
+    provinceCode: '',
+    cityCode: '',
+    areaCode: ''
   };
-
+  components = {
+    areaPicker: AreaPicker
+  }
   methods = {
     bindRegionChange(e) {
       console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -70,6 +89,37 @@ export default class AddressDetail extends wepy.page {
       this.del_province = regions[0]
       this.del_city =  regions[1]
       this.del_area = regions[2]
+    },
+    refresh(val) {
+      console.log(val);
+      if (val == undefined) return;
+      console.log("val.....", val);
+      this.editInfo = val;
+      console.log(this.editInfo);
+      this.id = this.editInfo.id;
+      if(this.editInfo.isDef==1){
+        this.isDefult=true
+      }
+      console.log("==========ee=========");
+      console.log(this.isDefult);
+      this.province = { code: this.editInfo.provinceCode, name: this.editInfo.provinceName };
+      this.city = { code: this.editInfo.areaCode, name:this.editInfo.areaName };
+      this.area = { code: this.editInfo.cityCode, name: this.editInfo.cityName };
+
+      this.$apply();
+    },
+    openAddressPicker() {
+      this.$invoke('areaPicker', 'openAddressPicker');
+    },
+    areaPickerArray(province, city, area) {
+      this.province = province;
+      this.city = city;
+      this.area = area;
+
+      this.provinceCode = province.code;
+      this.cityCode = city.code;
+      this.areaCode = area.code;
+      this.$apply();
     }
   }
 
@@ -82,6 +132,12 @@ export default class AddressDetail extends wepy.page {
     }else{//否则新建地址
       //注意弹窗怎么用?
     }
+  }
+  onShow (){
+    this.province = { code: '120000', name: '天津市' };
+    this.city = { code: '120100', name: '天津市' };
+    this.area = { code: '120101', name: '和平区' };
+    this.$invoke('areaPicker', 'setAddressPickerValue', this.province, this.city, this.area);
   }
 }
 </script>
