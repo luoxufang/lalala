@@ -25,6 +25,41 @@
         <textarea class="textarea" name="message" placeholder="产品满足你的期待吗？说说你对产品的想法吧！" maxlength="220" value="{{receiver_sug}}" placeholder-style="font-size:28rpx;color:#ccc;margin:10px 0 0 10px;" bindinput='bindinput_message'></textarea>
       </view>
 
+      <!-- 添加banner -->
+      <view class="s_title banner_s_title">
+          置顶图 <view class="float_right ff7224">
+          第一张为首图，4：3显示效果最佳</view>
+      </view>
+      <view class="s_div h100">
+          <view class="weui-uploader">
+              <view class="weui-uploader__bd">
+                  <block wx:if="{{banner_list.length>=4}}">
+                      <block wx:for="{{banner_list}}">
+                          <view class="ul weui-uploader__files upload_part1 banner_list" num="4"
+                                id="uploaderFiles">
+                              <view class="li weui-uploader__file">
+                                  <view class="span delete_img" bindtap="deteleImg" data-img="{{item}}"></view>
+                                  <image src="{{item}}" mode="aspectFill" bindtap="preview_image" data-img="{{item}}"></image>
+                              </view>
+                          </view>
+                      </block>
+                  </block>
+                  <block wx:else>
+                      <block wx:for="{{banner_list}}">
+                          <view class="ul weui-uploader__files upload_part1 banner_list" num="4"
+                                id="uploaderFiles">
+                              <view class="li weui-uploader__file">
+                                  <view class="span delete_img" bindtap="deteleImg" data-img="{{item}}"></view>
+                                  <image src="{{item}}" mode="aspectFill" bindtap="preview_image" data-img="{{item}}"></image>
+                              </view>
+                          </view>
+                      </block>
+                      <view class="weui-uploader__input-box  input-box uploader_part1" style="opacity: ; display: ;" bindtap="upload_image"></view>
+                  </block>
+              </view>
+          </view>
+      </view>
+
       <button class="commentBtn commonBg" formType="submit" style="pointer-events:{{submit}}">提交</button>
       <!-- </view> -->
       
@@ -84,6 +119,74 @@
 
         that.setData({
           star_full: star_full
+        })
+      },
+      upload_image: function () {
+        var that = this;
+        var $banner_length = wx.getStorageSync("banner_list_2").length;
+        wx.chooseImage({
+          count: 4 - $banner_length,
+          sizeType: ["compressed"],
+          success: function (res) {
+            var tempFilePaths = res.tempFilePaths
+            console.log(tempFilePaths);
+            for (var i = 0, len = tempFilePaths.length; i < len; i++) {
+              wx.uploadFile({
+                url: 'https://wx.helpmake.cn/user/upload_image_2', //仅为示例，非真实的接口地址
+                filePath: tempFilePaths[i],
+                name: 'img',
+                formData: {
+                  "uid": wx.getStorageSync("uid"),
+                  "types": "2"
+                },
+                header: {
+                  'content-type': 'application/json'
+                },
+                success: function (res) {
+                  var $img_url = JSON.parse(res.data).msg.url;
+                  var $banner_list = wx.getStorageSync("banner_list_2");
+                  $banner_list.push($img_url);
+                  that.setData({
+                    banner_list: $banner_list
+                  });
+                  wx.setStorageSync("banner_list_2", $banner_list);
+                },
+                fail: function (res) {
+                  console.log(res);
+                },
+                complete: function (res) {
+                  // console.log(res);
+                }
+              })
+              if (i == len - 1) {
+                wx.hideLoading();
+              }
+            }
+          },
+          fail: function () {
+            wx.hideLoading();
+          }
+        })
+      },
+      deteleImg: function (res) {
+        console.log(res.target.dataset.img);
+        var $banner_list = wx.getStorageSync("banner_list_2");
+        for (var len = $banner_list.length, i = 0; i < len; i++) {
+          if ($banner_list[i] == res.target.dataset.img) {
+            $banner_list.splice(i, 1);
+            wx.setStorageSync("banner_list_2", $banner_list);
+            this.setData({
+              banner_list: $banner_list
+            })
+          }
+        }
+      },
+      preview_image: function (res) {
+        console.log(res.target);
+        console.log(res.target.dataset.img);
+        wx.previewImage({
+          current: res.target.dataset.img, // 当前显示图片的http链接
+          urls: wx.getStorageSync("banner_list_2") // 需要预览的图片http链接列表
         })
       }
     }
@@ -213,5 +316,100 @@ button::after {border:0;}
     width: 50%;
     overflow: hidden;
     text-shadow: 0 0 2px rgba(0,0,0,0.7);
+}
+// 这是上次图片样式
+.s_title {
+    padding: 24rpx 28rpx 20rpx 24rpx;
+    font-size: 28rpx;
+    color: #878787;
+}
+.banner_s_title{
+    background-color: #F9F9F9;
+}
+.s_div {
+    background-color: #ffffff;
+    padding-left: 28rpx;
+}
+.s_div {
+    background-color: #ffffff;
+    padding-left: 28rpx;
+    margin-bottom: 8rpx;
+}
+.h100 {
+    height: 200rpx;
+}
+.weui-uploader__bd {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.banner_list {
+    position: relative;
+    top: -6rpx;
+}
+.weui-uploader__file {
+    float: left;
+    margin-top: 24rpx;
+    margin-right: 8rpx;
+    width: 158rpx;
+    height: 158rpx;
+    background: no-repeat center center;
+    background-size: cover;
+    position: relative;
+    border: 2rpx solid #EFEFEF;
+}
+.delete_img {
+    position: absolute;
+    display: block;
+    width: 32rpx;
+    height: 32rpx;
+    border-radius: 16rpx;
+    font-size: 20rpx;
+    color: #ffffff;
+    right: 0px;
+    top: 0px;
+    padding: 8rpx;
+    background: url(http://wx.helpmake.cn/html/images/delete_img.png) no-repeat center;
+}
+.weui-uploader__file image {
+    width: 158rpx;
+    height: 158rpx;
+}
+input {
+    border: none;
+}
+.weui-uploader__input-box {
+    float: left;
+    position: relative;
+    margin-top: 20rpx;
+    width: 154rpx;
+    height: 154rpx;
+    border: 2rpx solid #D9D9D9;
+}
+.weui-uploader__input-box:after, .weui-uploader__input-box:before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background-color: #D9D9D9;
+}
+.weui-uploader__input-box:before {
+    width: 4rpx;
+    height: 79rpx;
+}
+.weui-uploader__input {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+.weui-uploader__input-box:after {
+    width: 79rpx;
+    height: 4rpx;
 }
 </style>
