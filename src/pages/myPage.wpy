@@ -169,7 +169,7 @@ export default class myPage extends wepy.page {
       this.$navigate('./addressMassege?id=fuck');
     },
     goToorderDetail(){
-      this.$navigate('./orderDetail');
+      this.$navigate('./logistics');
     },
     goToallOrders(stadus){
       this.$navigate('./allOrders?stadus='+`${stadus}`);

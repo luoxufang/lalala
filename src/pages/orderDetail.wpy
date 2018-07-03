@@ -10,7 +10,7 @@
           </view>
           <view class="and_img">
             <view class="aaaa">
-              <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
+              <image src="http://p3scq6rcn.bkt.clouddn.com/wfh@2x.png" style="width:260rpx;height:170rpx;"/>
             </view>
           </view>
         </view>
@@ -22,7 +22,7 @@
           </view>
           <view class="and_img">
             <view class="aaaa">
-              <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
+              <image src="http://p3scq6rcn.bkt.clouddn.com/wfh@2x.png" style="width:260rpx;height:170rpx;"/>
             </view>
           </view>
         </view>
@@ -32,7 +32,7 @@
           </view>
           <view class="and_img">
             <view class="aaaa">
-              <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
+              <image src="http://p3scq6rcn.bkt.clouddn.com/jycg@2x.png" style="width:260rpx;height:170rpx;"/>
             </view>
           </view>
         </view>
@@ -43,7 +43,7 @@
           </view>
           <view class="and_img">
             <view class="aaaa">
-              <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
+              <image src="http://p3scq6rcn.bkt.clouddn.com/fh8@2x.png" style="width:260rpx;height:170rpx;"/>
             </view>
           </view>
         </view>
@@ -53,7 +53,7 @@
           </view>
           <view class="and_img">
             <view class="aaaa">
-              <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
+              <image src="http://p3scq6rcn.bkt.clouddn.com/sqsh@2x.png" style="width:260rpx;height:170rpx;"/>
             </view>
           </view>
         </view>
@@ -63,7 +63,7 @@
           </view>
           <view class="and_img">
             <view class="aaaa">
-              <image src="../assets/images/us_delivery@3x.png" style="width:49rpx;height:39rpx;top:8rpx;"/>
+              <image src="http://p3scq6rcn.bkt.clouddn.com/fh8@2x.png" style="width:260rpx;height:170rpx;"/>
             </view>
           </view>
         </view>
@@ -72,7 +72,7 @@
           <!-- <block wx:for="{{address_stadus}}"> -->
             <navigator url="/pages/my_address/my_address?aid={{item.aid}}">
                 <view class="aaa2" style="border:0;">
-                  <view class="address_box"><image class="aaaa" src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
+                  <view class="address_box"><image class="aaaa" src="../assets/images/address.png" style="width:36rpx;height:48rpx;"/></view>
                   <view class="detail_address_box">
                       <view class="let_center aaaa">
                           <view class="name_and_phone" style="font-size:28rpx;color:#333;">
@@ -95,7 +95,7 @@
         <view class="click_right2 addclass2" wx:else >
           <view class="aaa2" style="border:0;">
 
-            <view class="address_box"><image class="aaaa" src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
+            <view class="address_box"><image class="aaaa" src="../assets/images/address.png" style="width:36rpx;height:48rpx;"/></view>
             
             <view class="detail_address_box">
               <view class="let_center aaaa">
@@ -218,7 +218,7 @@ export default class orderDetail extends wepy.page {
     orders_info: {
       oid: '375',
       orders_encode: '20170928212319461',
-      orders_status: '5',
+      orders_status: '1',
       orders_receiver_name: '罗旭昉',
       orders_receiver_phone: '18878554085',
       orders_receiver_address: '广东省深圳市宝安区正海华府',
@@ -272,7 +272,7 @@ export default class orderDetail extends wepy.page {
 .icon_title {
   display: flex;
   width: 100%;
-  height: 148rpx;
+  height: 209rpx;
   padding-left: 50rpx;
   box-sizing: border-box;
   border-bottom: 2rpx solid #e7e7e7;

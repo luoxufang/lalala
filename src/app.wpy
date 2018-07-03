@@ -44,7 +44,7 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
-      
+      'pages/authorize',
       'pages/myindex',
       'pages/myAuction',
       'pages/myPage',
@@ -57,7 +57,8 @@ export default class extends wepy.app {
       'pages/myComment',
       'pages/productDetail',
       'pages/confirmOrder',
-      'pages/proSearch'
+      'pages/proSearch',
+      'pages/logistics'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -71,19 +72,19 @@ export default class extends wepy.app {
       "list": [{
         "pagePath": "pages/myindex",
         "text": "首页",
-        "iconPath": "./assets/images/btn_1.png",
-        "selectedIconPath": "./assets/images/btn1.png"
+        "iconPath": "./assets/images/index2@2x.png",
+        "selectedIconPath": "./assets/images/index@2x.png"
       },
       {
         "pagePath": "pages/myAuction",
         "text": "我的竞拍",
-        "iconPath": "./assets/images/btn_2.png",
-        "selectedIconPath": "./assets/images/btn2.png"
+        "iconPath": "./assets/images/wdjp@2x.png",
+        "selectedIconPath": "./assets/images/wdjp2@2x.png"
       }, {
         "pagePath": "pages/myPage",
         "text": "个人中心",
-        "iconPath": "./assets/images/btn_4.png",
-        "selectedIconPath": "./assets/images/btn4.png"
+        "iconPath": "./assets/images/us2@2x.png",
+        "selectedIconPath": "./assets/images/us@2x.png"
       }]
     }
   }
@@ -95,10 +96,11 @@ export default class extends wepy.app {
   constructor () {
     super()
     this.use('requestfix')
+    this.use('promisify');
   }
 
   onLaunch() {
-    this.testAsync();
+    // this.testAsync();
     wx.setTabBarBadge({
       index: 1,
       text: '3'

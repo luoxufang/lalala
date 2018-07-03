@@ -1,0 +1,196 @@
+<!--组件测试-->
+<template>
+  <view class="myContainer">
+    <view class='head_cont'>
+      <image src="../assets/images/logistics_image@2x.png" style="width:100rpx;height:100rpx;margin-right:24rpx;"/>
+      <view class="code_and_company">
+        <view>物流公司：{{info_list.express_name}}</view>
+        <view>订单编号：{{info_list.express_number}}</view>
+      </view>
+      <view class="phone_view">
+        <image src="../assets/images/logistics_phone@2x.png" style="width:36rpx;height:40rpx;"/>
+        <view class="phone">电话</view>
+      </view>
+    </view>
+
+    <view class='my_express_info'>
+      <view class='list' wx:for="{{info_list.list}}" wx:key="index">
+        <view class="list_left">08-12</view>
+        <view class='list_child_box'>
+          <view class='list_child'>{{item.status}}</view>
+          <view class='is_time'>{{item.time}}</view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</template>
+<script>
+import wepy from 'wepy';
+import api from '@/api/api'
+import {
+  SYSTEM_INFO,
+  USER_SPECICAL_INFO
+} from '@/utils/constant';
+export default class exchangeGoods2 extends wepy.page {
+  config = {
+    navigationBarTitleText: '订单物流',
+  }
+  data = {
+    list:[],
+    orderNo:"",
+    orderExpress:{},
+    expresses:{},
+    info_list:{
+      express_name:'韵达快递',
+      express_number:'201808401235',
+      express_tel:'',
+      deliverystatus:'1',
+      list:[
+        {status:'已发货',time:'2018-08'},
+        {status:'到达深圳宝安区',time:'2018-08'},
+        {status:'固戍地铁站',time:'2018-08'},
+      ]
+    }
+  }
+  async getOrderExpressInfo() {
+    console.log("order88No")
+    let that = this;
+    let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+    const json = await api.orderExpressInfo({
+      query: {
+        orderNo: this.orderNo
+      }
+    });
+    if (json.data.code == 0) {
+      that.list=json.data.list;
+      that.orderExpress=json.data.orderExpress;
+      that.expresses=json.data.expresses;
+      console.log("========list返回数据========");
+      console.log(that.list);
+    } else {
+      tip.error(json.data.msg)
+    }
+
+    that.$apply();
+  }
+
+
+  onLoad(options) {
+    // this.orderNo=options.orderNo;
+    // console.log(this.orderNo);
+    // this.getOrderExpressInfo();
+  }
+  computed = {
+
+  }
+  methods = {
+
+  }
+
+  events = {
+
+  }
+
+}
+
+</script>
+<style lang="less">
+.head_cont{
+  display: flex;
+  align-items: center;
+  padding: 60rpx 46rpx;
+  background-color: #fff;
+  .code_and_company{
+    flex: 1;
+    view:nth-child(1){
+      font-size: 30rpx;
+      color: rgb(32, 32, 32);
+    }
+    view:nth-child(2){
+      font-size: 26rpx;
+      color: rgb(153, 153, 153);
+      margin-top: 10rpx;
+    }
+  }
+  .phone_view{
+    .phone{
+      font-size: 26rpx;
+      color: rgb(153, 153, 153);
+    }
+  }
+}
+.my_express_info{
+    padding: 24rpx;
+    background-color: #FFF;
+    margin-top: 24rpx;
+}
+.my_express_info .list:first-child .list_child_box .list_child{
+    // color: #FFB202;
+}
+.my_express_info .list:first-child .list_child_box .is_time{
+    // color: #FFB202;
+}
+.my_express_info .list:last-child .list_child_box{
+    border-bottom: 0;
+}
+.list_left{
+  flex: 1;
+  font-size: 26rpx;
+  color: rgb(34, 34, 34);
+  padding: 24rpx 20rpx;
+  text-align: center;
+}
+.list {
+  display: flex;
+}
+.list_child_box{
+  // border-bottom: 2rpx dashed #E7E7E7;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: rgb(34, 34, 34);
+  flex: 2;
+  position: relative;
+  padding-left: 60rpx;
+}
+.list .list_child{
+  font-size: 28rpx;
+  color: #999;
+}
+.is_time{
+  color: #999;
+}
+
+.list_child_box::before {
+  content: '';
+  position: absolute;
+  top: 50rpx;
+  left: 18rpx;
+  height: 100rpx;
+  width: 0rpx;
+  background-color: #999;
+  z-index: 100;
+  border-left: 2rpx dashed #d7e4ed;
+}
+
+.my_express_info .list:last-child .list_child_box::before {
+  height: 0;
+}
+
+.list_child_box::after {
+  content: '';
+  position: absolute;
+  top: 30rpx;
+  left: 4px;
+  height: 20rpx;
+  width: 20rpx;
+  border-radius: 50%;
+  background-color: #BBB;
+}
+
+.my_express_info .list:first-child .list_child_box::after {
+  background-color: #d91f54;
+  box-shadow: 0 0 20rpx #d91f54;
+}
+
+</style>
