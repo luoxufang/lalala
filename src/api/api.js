@@ -3,18 +3,25 @@ import {
   } from '@/utils/wxRequest';
   
   let env = "-test" //-dev 或者 -test
-  // const apiMall = 'https://sujiefs.com/'
-  const apiMall = 'http://localhost:8080/'
+  const apiMall = 'https://www.qiushicx.com/'
+  // const apiMall = 'http://localhost:8080/'
   
   /**
    * 获取发现好商品接口
    * @param  {[type]} params [description]
-   * @return {[type]}        [description]
+   * @return {[type]}        [description] http://auction.qiushicx.com/pai/user/login.action
    */
   const getDiscoverList = (params) => wxRequest(params, apiMall + '/goods/list?cateidOne=1&cateidTwo=0&price=0&sales=2');
   
+
+  
   //微信的jscode换取sessionKey
-  const wxJsCode2Session = (params) => wxRequest(params, apiMall + "/paishop/weixin/login.action");
+  const wxJsCode2Session = (params) => wxRequest(params, apiMall + "paishop/weixin/login.action");
+
+
+
+
+
   const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2session?jsoncallback=?");
   
   //商品接口---begin

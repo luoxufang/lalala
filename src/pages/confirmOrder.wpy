@@ -5,9 +5,9 @@
       <!--地址-待付款-给修改  -->
       <view class="click_right2 addclass2" wx:if="{{orders_info.orders_status == '1'}}">
         <!-- <block wx:for="{{address_stadus}}"> -->
-          <navigator url="/pages/my_address/my_address?aid={{item.aid}}">
+          <navigator url="/pages/addressDetail?type={{orders_info.aid}}">
               <view class="aaa2" style="border:0;">
-                <view class="address_box"><image class="aaaa" src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
+                <view class="address_box"><image class="aaaa" src="../assets/images/address.png" style="width:30rpx;height:38rpx;"/></view>
                 <view class="detail_address_box">
                     <view class="let_center aaaa">
                         <view class="name_and_phone" style="">
@@ -30,7 +30,7 @@
       <view class="click_right2 addclass2" wx:else >
         <view class="aaa2" style="border:0;">
 
-          <view class="address_box"><image class="aaaa" src="../assets/images/us_ad@3x.png" style="width:36rpx;height:48rpx;"/></view>
+          <view class="address_box"><image class="aaaa" src="../assets/images/address.png" style="width:30rpx;height:38rpx;"/></view>
           
           <view class="detail_address_box">
             <view class="let_center aaaa">
@@ -104,7 +104,8 @@
       <view class="message_box">
         <view>买家留言：</view>
         <view>
-          <textarea bindblur="bindTextAreaBlur" style="width:100%;" auto-height placeholder="自动变高" />
+          <!-- <textarea bindblur="bindTextAreaBlur" style="width:100%;" auto-height placeholder="自动变高" /> -->
+          <input maxlength="150" class="textarea" type="text" bindblur="bindManual" value="{{buy_num}}" placeholder="请输入留言(限150字)" placeholder-style=""/>
         </view>
       </view> 
     </view>
@@ -201,8 +202,9 @@ export default class confirmOrder extends wepy.page {
   data = {
     orders_info: {
       oid: '375',
+      aid:'11',
       orders_encode: '20170928212319461',
-      orders_status: '5',
+      orders_status: '1',
       orders_receiver_name: '罗旭昉',
       orders_receiver_phone: '18878554085',
       orders_receiver_address:
@@ -578,11 +580,13 @@ export default class confirmOrder extends wepy.page {
     padding: 30rpx 0;
     view:nth-child(1) {
       flex: 2;
+      line-height: 54rpx;
     }
     view:nth-child(2) {
       flex: 5;
-      textarea {
+      .textarea {
         font-size: 30rpx;
+        line-height: 54rpx;
       }
     }
   }

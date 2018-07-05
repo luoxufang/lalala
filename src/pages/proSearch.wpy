@@ -3,11 +3,11 @@
     <view class="input_kuang">
       <view class="input_box">
         <view class="img_box"><image class="image" src="../assets/images/search.png" style="width:28rpx;height:29rpx;"/></view>
-        <input class="key_word" bindinput="searchValueInput" name="key_word" value="{{key_word}}" maxlength="25"  placeholder-style="font-size:24rpx;color:#999;" placeholder="请输入你要搜索的内容"/>
-        <view class="btn commonBg" @tap="do_search" style="pointer-events:{{submit}}">搜索{{text}}</view>
+        <input class="key_word" bindinput="searchValueInput" name="key_word" value="{{key_word}}" maxlength="25" confirm-type="search" bindconfirm="do_search"  placeholder-style="font-size:28rpx;color:#999;" placeholder="请输入你要搜索的内容"/>
+        <view class="btn commonBg" @tap="do_search" style="pointer-events:{{submit}}">取消{{text}}</view>
       </view>
     </view>
-
+    
     <view class="history_search" style="display:{{history_search}}">
         <view class="_title">历史搜索</view>
         <view class="key_word_list">
@@ -103,10 +103,11 @@ export default class proSearch extends wepy.page {
     product: Product
   }
   methods = {
-    do_search(){
+    async do_search(){
       if(wx.getStorageSync('key_word')){
         this.viewShow = true;
-        this.history_search = 'none'
+        this.history_search = 'none';
+
       }else{
         wx.showToast({
           title: '请输入搜索内容',
@@ -114,7 +115,6 @@ export default class proSearch extends wepy.page {
           duration: 800
         })
       }
-      
     },
     //输入框改变
     searchValueInput: function (event) {
@@ -131,13 +131,36 @@ export default class proSearch extends wepy.page {
     }
   };
 
-  onLoad() {
-    // this.showPingFangFont();
-    wx.setStorageSync('key_word','')
+  async onLoad() {
+    wepy.setStorageSync('key_word','');
+
+    wepy.connectSocket({
+      url: 'ws://localhost:8080'
+    })
+
+    wepy.onSocketOpen(function (res) {
+      console.log('WebSocket连接已打开！')
+
+      wepy.sendSocketMessage({
+        data: 'Hello,World:' + Math.round(Math.random() * 0xFFFFFF).toString(),
+      })
+    })
+
+    wepy.onSocketMessage(function (res) {
+      console.log(res)
+    })
+
+    wepy.onSocketClose(function (res) {
+      console.log('WebSocket连接已关闭！')
+    })
+
   }
 }
 </script>
 <style lang="less">
+.proSearch{
+  padding-top: 96rpx;
+}
 .input_kuang:after {
   clear: both;
   content: '.';
@@ -147,17 +170,22 @@ export default class proSearch extends wepy.page {
   visibility: hidden;
 }
 .input_kuang {
+  width: 100%;
+  box-sizing: border-box;
   padding: 16rpx 24rpx;
   font-size: 24rpx;
   color: #999;
   background-color: #d91f54;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }
 .img_box {
   float: left;
   position: relative;
-  width: 44rpx;
+  width: 62rpx;
   height: 100%;
-  margin-right: 10rpx;
 }
 .input_box {
   width: 600rpx;
@@ -178,7 +206,7 @@ export default class proSearch extends wepy.page {
   transform: translate(-50%, -50%);
 }
 .key_word {
-  width: 530rpx;
+  width: 514rpx;
   height: 60rpx;
   float: left;
 }

@@ -5,36 +5,77 @@
 
       <!-- <view class="weui-cells {{item.isSelect ? 'weui-cells_show' : ''}}">  -->
       <view class="text1">
-        <label>产品评分</label>
+        <label>描述服务：</label>
         <span class='span_box'>
           <span class="span_box2">
-            <span class="star-icon" data-is='1' bindtap="bindCheckbox">☆</span>
-            <span class="star-icon" data-is='2' bindtap="bindCheckbox">☆</span>
-            <span class="star-icon" data-is='3' bindtap="bindCheckbox">☆</span>
-            <span class="star-icon" data-is='4' bindtap="bindCheckbox">☆</span>
-            <span class="star-icon" data-is='5' bindtap="bindCheckbox">☆</span>
+            <span class="star-icon" data-is='1' bindtap="bindCheckbox1">☆</span>
+            <span class="star-icon" data-is='2' bindtap="bindCheckbox1">☆</span>
+            <span class="star-icon" data-is='3' bindtap="bindCheckbox1">☆</span>
+            <span class="star-icon" data-is='4' bindtap="bindCheckbox1">☆</span>
+            <span class="star-icon" data-is='5' bindtap="bindCheckbox1">☆</span>
           </span>
-
           <span class="span_box3">
-            <span wx:for="{{star_full}}" wx:key="index" data-is='{{index+1}}' class="star-icon {{item}}" bindtap="bindCheckbox">☆</span>
+            <span wx:for="{{star_full}}" wx:key="index" data-is='{{index+1}}' class="star-icon {{item}}" bindtap="bindCheckbox1">☆</span>
           </span>
         </span>
+        <span wx:if="{{integer1 == '5'}}" class="nine_style">非常好</span>
+        <span wx:elif="{{integer1 == '4'}}" class="nine_style">好</span>
+        <span wx:elif="{{integer1 == '3'}}" class="nine_style">一般</span>
+        <span wx:elif="{{integer1 == '2'}}" class="nine_style">差</span>
+        <span wx:else="{{integer1 == '1'}}" class="nine_style">很差</span>
       </view>
+      <view class="text1">
+        <label>服务态度：</label>
+        <span class='span_box'>
+          <span class="span_box2">
+            <span class="star-icon" data-is='1' bindtap="bindCheckbox2">☆</span>
+            <span class="star-icon" data-is='2' bindtap="bindCheckbox2">☆</span>
+            <span class="star-icon" data-is='3' bindtap="bindCheckbox2">☆</span>
+            <span class="star-icon" data-is='4' bindtap="bindCheckbox2">☆</span>
+            <span class="star-icon" data-is='5' bindtap="bindCheckbox2">☆</span>
+          </span>
+          <span class="span_box3">
+            <span wx:for="{{star_full2}}" wx:key="index" data-is='{{index+1}}' class="star-icon {{item}}" bindtap="bindCheckbox2">☆</span>
+          </span>
+        </span>
+        <span wx:if="{{integer2 == '5'}}" class="nine_style">非常好</span>
+        <span wx:elif="{{integer2 == '4'}}" class="nine_style">好</span>
+        <span wx:elif="{{integer2 == '3'}}" class="nine_style">一般</span>
+        <span wx:elif="{{integer2 == '2'}}" class="nine_style">差</span>
+        <span wx:else="{{integer2 == '1'}}" class="nine_style">很差</span>
+      </view>
+      <view class="text1">
+        <label>物流服务：</label>
+        <span class='span_box'>
+          <span class="span_box2">
+            <span class="star-icon" data-is='1' bindtap="bindCheckbox3">☆</span>
+            <span class="star-icon" data-is='2' bindtap="bindCheckbox3">☆</span>
+            <span class="star-icon" data-is='3' bindtap="bindCheckbox3">☆</span>
+            <span class="star-icon" data-is='4' bindtap="bindCheckbox3">☆</span>
+            <span class="star-icon" data-is='5' bindtap="bindCheckbox3">☆</span>
+          </span>
+          <span class="span_box3">
+            <span wx:for="{{star_full3}}" wx:key="index" data-is='{{index+1}}' class="star-icon {{item}}" bindtap="bindCheckbox3">☆</span>
+          </span>
+        </span>
+        <span wx:if="{{integer3 == '5'}}" class="nine_style">非常好</span>
+        <span wx:elif="{{integer3 == '4'}}" class="nine_style">好</span>
+        <span wx:elif="{{integer3 == '3'}}" class="nine_style">一般</span>
+        <span wx:elif="{{integer3 == '2'}}" class="nine_style">差</span>
+        <span wx:else="{{integer3 == '1'}}" class="nine_style">很差</span>
+      </view>
+      
       <!-- wx:if="{{item.isSelect ? true : false}}" -->
       <view class="text2" >
-        <textarea class="textarea" name="message" placeholder="产品满足你的期待吗？说说你对产品的想法吧！" maxlength="220" value="{{receiver_sug}}" placeholder-style="font-size:28rpx;color:#ccc;margin:10px 0 0 10px;" bindinput='bindinput_message'></textarea>
+        <textarea class="textarea" name="message" placeholder="产品满足你的期待吗？说说你对产品的想法吧！" maxlength="220" value="{{receiver_sug}}" placeholder-style="font-size:30rpx;color:rgb(153,153,153);margin:10px 0 0 10px;" bindinput='bindinput_message'></textarea>
       </view>
 
       <!-- 添加banner -->
-      <view class="s_title banner_s_title">
-          置顶图 <view class="float_right ff7224">
-          第一张为首图，4：3显示效果最佳</view>
-      </view>
       <view class="s_div h100">
           <view class="weui-uploader">
               <view class="weui-uploader__bd">
                   <block wx:if="{{banner_list.length>=4}}">
-                      <block wx:for="{{banner_list}}">
+                      <block wx:for="{{banner_list}}" wx:key="index">
                           <view class="ul weui-uploader__files upload_part1 banner_list" num="4"
                                 id="uploaderFiles">
                               <view class="li weui-uploader__file">
@@ -45,7 +86,7 @@
                       </block>
                   </block>
                   <block wx:else>
-                      <block wx:for="{{banner_list}}">
+                      <block wx:for="{{banner_list}}" wx:key="index">
                           <view class="ul weui-uploader__files upload_part1 banner_list" num="4"
                                 id="uploaderFiles">
                               <view class="li weui-uploader__file">
@@ -91,37 +132,59 @@
     }
     data = {
       star_full: ['full', 'full', 'full', 'full', 'full'],
+      star_full2: ['full', 'full', 'full', 'full', 'full'],
+      star_full3: ['full', 'full', 'full', 'full', 'full'],
+      CLS_ON: 'full',
+      integer1:'5',
+      integer2:'5',
+      integer3:'5',
     }
-
     events = {
       'index-broadcast': (...args) => {
         let $event = args[args.length - 1]
         console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
       }
     }
-
     watch = {
       num (curVal, oldVal) {
         console.log(`旧值：${oldVal}，新值：${curVal}`)
       }
     }
-
     methods = {
-      bindCheckbox: function (res) {
+      bindCheckbox1 (res) {
         var star_full =[];
         let integer = res.currentTarget.dataset.is;
-        wx.setStorageSync('$star', integer)
+        wx.setStorageSync('star_xing1', integer)
         let that = this;
         for (let i = 0; i < integer; i++) {
-          star_full.push(that.data.CLS_ON)
+          star_full.push(that.CLS_ON)
         }
-        console.log(star_full)
-
-        that.setData({
-          star_full: star_full
-        })
+        that.star_full =  star_full;
+        that.integer1 = integer;
       },
-      upload_image: function () {
+      bindCheckbox2 (res) {
+        var star_full2 =[];
+        let integer = res.currentTarget.dataset.is;
+        wx.setStorageSync('star_xing2', integer)
+        let that = this;
+        for (let i = 0; i < integer; i++) {
+          star_full2.push(that.CLS_ON)
+        }
+        that.star_full2 =  star_full2;
+        that.integer2 = integer;
+      },
+      bindCheckbox3 (res) {
+        var star_full3 =[];
+        let integer = res.currentTarget.dataset.is;
+        wx.setStorageSync('star_xing3', integer)
+        let that = this;
+        for (let i = 0; i < integer; i++) {
+          star_full3.push(that.CLS_ON)
+        }
+        that.star_full3 =  star_full3;
+        that.integer3 = integer;
+      },
+      upload_image () {
         var that = this;
         var $banner_length = wx.getStorageSync("banner_list_2").length;
         wx.chooseImage({
@@ -193,11 +256,21 @@
     onLoad(){
       let that = this;
       // wx.setStorageSync('$order_id', $order_id)
-      wx.setStorageSync('$star', 5) //初始化星星数
+      wx.setStorageSync('star_xing1', 5) //初始化星星数
+      wx.setStorageSync('star_xing2', 5) //初始化星星数
+      wx.setStorageSync('star_xing3', 5) //初始化星星数
     }
   }
 </script>
 <style lang="less">
+.text1:after,.span_box2:after,.span_box3:after{
+  content:"";
+  height:0;
+  line-height:0;
+  display:block;
+  visibility:hidden;
+  clear:both;
+}
 .text1{
   font-size: 28rpx;
   padding:0 24rpx; 
@@ -205,25 +278,23 @@
   height: 100rpx;
   line-height: 100rpx;
   background-color: #FFF;
+  display: flex;
 }
 /*星星  */
-.text1 .image{
-    float: left;
-    width:80rpx;
-    height:80rpx;
-    position: relative;
-}
 .text1 label{
-    float: left;
+  font-size: 30rpx;
+  color: rgb(32, 32, 32);
 }
 .text1 .span_box{
-    float: left;
-    margin-left: 36rpx;
     position: relative;
     z-index: 10;
+    flex:1;
 }
 .text1 .span_box2{
-    float: left;
+    // flex:1;
+    .nice_style{
+      font-size:30rpx;color:rgb(153,153,153);
+    }
 }
 .text1 .span_box2 .span{
     display: inline-block;
@@ -254,7 +325,7 @@
   width: 100%;
   height: 210rpx;
   background: #fff;
-  /* margin-top: 24rpx; */
+  margin-top: 24rpx;
 }
 .imagea{
    margin-top: 10rpx;
@@ -283,6 +354,7 @@ button::after {border:0;}
 	height:180rpx;
   width:750rpx;
   padding: 20rpx;
+  color: rgb(153, 153, 153);
   box-sizing: border-box;
   display:-webkit-box;
   display:-webkit-flex;
@@ -299,13 +371,14 @@ button::after {border:0;}
     font-size: 28px;
     position: relative;
     margin: 0 6rpx;
+    margin-right: 30rpx;
 }
 .star-icon.full:before {
     color: #FDE16D;
     content: '\2605'; /* Full star in UTF8 */
     position: absolute;
     left: 0;
-    text-shadow: 0 0 2px rgba(0,0,0,0.7);
+    // text-shadow: 0 0 2px rgba(0,0,0,0.7);
  }
 
  .star-icon.half:before {
@@ -315,14 +388,10 @@ button::after {border:0;}
     left: 0;
     width: 50%;
     overflow: hidden;
-    text-shadow: 0 0 2px rgba(0,0,0,0.7);
+    // text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }
 // 这是上次图片样式
-.s_title {
-    padding: 24rpx 28rpx 20rpx 24rpx;
-    font-size: 28rpx;
-    color: #878787;
-}
+
 .banner_s_title{
     background-color: #F9F9F9;
 }

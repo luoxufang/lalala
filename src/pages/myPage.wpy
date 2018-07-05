@@ -1,5 +1,5 @@
 <template>
-  <view class="myContainer">
+  <view class="myindexPage myContainer">
     <view class="header">
       <view class="header_box">
         <view class="head">
@@ -18,7 +18,7 @@
       </view>
       <view class="color_box">
         <view class="radius_box"></view>
-    </view>
+      </view>
     </view>
 
     <!-- 全部订单 -->
@@ -118,12 +118,11 @@
                         <view class="notice_img_box">
                           <image src="../assets/images/us_help@3x.png" style="width:40rpx;height:40rpx;"/>
                         </view>
-                        <view class="text">帮助</view>
+                        <view class="text">商家入驻</view>
                     </view>
                 </view>
                 <view class="goods_stadu_list" @tap="goToCommet">
                     <view class="num_box">
-                        <!-- {{one_num}} -->
                         <view class="notice_img_box">
                           <image src="../assets/images/us_setting@3x.png" style="width:40rpx;height:40rpx;"/>
                         </view>
@@ -144,9 +143,7 @@ export default class myPage extends wepy.page {
   config = {
     navigationBarTitleText: '个人中心'
   };
-
   // mixins = [testMixin2]
-
   data = {
     hello: 'hello world',
     three_num:''
@@ -159,9 +156,6 @@ export default class myPage extends wepy.page {
   };
 
   methods = {
-    plus() {
-      this.mynum++;
-    },
     goTomyNews(){
       this.$navigate('./myNews');
     },
@@ -190,8 +184,12 @@ export default class myPage extends wepy.page {
 </script>
 
 <style lang="less" scoped>
+.myindexPage{
+  padding-top: 290rpx;
+}
 .myContainer{
   height: 100%;
+  box-sizing: border-box;
 }
 //封装的less
 .border-radius(@values) {
@@ -223,6 +221,10 @@ export default class myPage extends wepy.page {
   background: -o-linear-gradient(top, #d91f54 0%,#fe4f63 100%);
   background: -ms-linear-gradient(top, #d91f54 0%,#fe4f63 100%);
   background: linear-gradient(to bottom, #d91f54 0%,#fe4f63 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 .header_box {
   display: flex;
@@ -271,15 +273,15 @@ export default class myPage extends wepy.page {
 }
 .color_box {
   width: 100%;
-  height: 100rpx;
+  height: 120rpx;
   overflow: hidden;
   position: relative;
 }
 /*我的订单  */
 .all_order_box{
-  margin: 20rpx;
+  margin: 20rpx 30rpx;
   position: relative;
-  top: -80rpx;
+  top: -100rpx;
 }
 .my_order{
     background-color: #FFF;

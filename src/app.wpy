@@ -101,11 +101,12 @@ export default class extends wepy.app {
 
   onLaunch() {
     // this.testAsync();
-    wx.setTabBarBadge({
+  }
+  async onLoad(){
+    wepy.setTabBarBadge({
       index: 1,
       text: '3'
     })
-
   }
 
   sleep (s) {

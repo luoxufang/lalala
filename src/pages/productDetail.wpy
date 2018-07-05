@@ -67,55 +67,54 @@
           <span style="position:relative;">竞拍规则<span wx:if="{{currentTab=='2'}}" class="red_radius"></span></span>
         </view>
       </view>
-      <!-- <view class="c_t60"></view> -->
 
-      <swiper current="{{currentTab}}" class="swiper-box" duration="200" style="height:{{winHeight - 31}}px;" bindchange="bindChange">
+      <swiper current="{{currentTab}}" class="swiper-box" duration="200" style="height:{{winHeight - winHeight*0.15588}}px;" bindchange="bindChange">
         <!-- <form bindsubmit="formSubmit" report-submit="true"> -->
-        <!-- 全部 -->
+        <!-- 商品详情 -->
         <swiper-item>
-          <scroll-view style="height:1000rpx" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H">
+          <scroll-view style="height:100%;" scroll-y="true" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H">
           <view class="ddd">
-            <!-- <view class="search_no" wx:if="{{orders.length == 0}}">
-                <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
-                <text>目前还没有任何订单哟~</text>
-                <button class="btn commonColor commonBorder" form-type="submit" bindtap="navigator_classify">去逛逛</button>
-            </view>  -->
-            <image mode="widthFix" src="../assets/images/index_product@2x.png" style="width:100%;" class=""/>
-            <image mode="widthFix" src="../assets/images/index_product@2x.png" style="width:100%;" class=""/>
+            <image mode="widthFix" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" style="width:100%;" class=""/>
+            <image mode="widthFix" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" style="width:100%;" class=""/>
           </view>
           </scroll-view>
 
         </swiper-item>
 
-        <!-- 待付款 -->
+        <!-- 评论 -->
         <swiper-item>
-          <!-- <scroll-view style="height:500rpx;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H"> -->
-            <view class="ddd">22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-              2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-              22222222222222222222222222222222222222222222222222222222222222222222222
-              2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-                <!-- <view class="search_no" wx:if="{{orderList1.length == 0}}">
-                    <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
-                    <text>目前还没有任何订单哟~~</text>
-                    <button class="btn commonColor commonBorder" form-type="submit" bindtap="navigator_classify">去逛逛</button>
-                </view> -->
+          <scroll-view style="height:100%;background:#fff;" scroll-y="true" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H">
+            <view class="ddd addclass">
+              
+              <view class="comment_list">
+                <view class="comment_head">
+                  <image mode="aspectFill" src="../assets/images/us_image@3x.png" class=""/>
+                </view>
+                <view class="comment_cont">
+                  <view class="name">二狗子11</view>
+                  <view class="time">2018/08/40</view>
+                  <view class="cont">绿卡技术分类收集东方第三方势力对抗肌肤发生的浪费，大数据的方法是就死定了!</view>
+                  <view class="image_list_box">
+                    <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class=""/>
+                    <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class=""/>
+                    <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class=""/>
+                    <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class=""/>
+                    <image mode="aspectFill" src="http://p3scq6rcn.bkt.clouddn.com/index_product@2x.png" class=""/>
+                  </view>
+                </view>
+              </view>
 
             </view>
-          <!-- </scroll-view> -->
+          </scroll-view>
         </swiper-item>
 
-        <!-- 已付款 -->
+        <!-- 竞拍规则 -->
         <swiper-item>
-          <!-- <scroll-view style="height:500rpx" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H"> -->
+          <scroll-view style="height:100%;" scroll-y="true" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="" bindscroll="scroll" scroll-top="{{scrollTo}}" class="my_table_list scroll-view_H">
             <view class="ddd">
-                <!-- <view class="search_no" wx:if="{{orderList2.length == 0}}">
-                    <view class="font_14"><image class="scimg" src="/images/search_no.png" style="width:189rpx;height:189rpx;"></image></view>
-                    <text>目前还没有任何订单哟~~</text>
-                    <button class="btn commonColor commonBorder" form-type="submit" bindtap="navigator_classify">去逛逛</button>
-                </view> -->
-                <view class="" style="padding:20rpx;">我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则。</view>
+              <view class="" style="padding:20rpx;">我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则，我是竞拍规则。</view>
             </view>
-          <!-- </scroll-view> -->
+          </scroll-view>
         </swiper-item>
 
       <!-- </form> -->
@@ -127,7 +126,6 @@
 
 <script>
 import wepy from 'wepy';
-
 export default class productDetail extends wepy.page {
   config = {
     navigationBarTitleText: '商品详情'
@@ -182,6 +180,14 @@ export default class productDetail extends wepy.page {
   };
   onLoad() {
     let that = this;
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.winWidth =  res.windowWidth;
+        that.winHeight = res.windowHeight;
+        console.log(res.windowHeight)
+      }
+    })
   }
 }
 </script>
@@ -201,9 +207,7 @@ export default class productDetail extends wepy.page {
 }
 // 商品详情 / 评论
 .scroll_view {
-  position: absolute;
   width: 100%;
-  padding-bottom: 98rpx;
 }
 .swiper-box {
   display: block;
@@ -212,8 +216,58 @@ export default class productDetail extends wepy.page {
   // overflow: hidden;
   // padding-bottom: 100rpx;
 }
-.ddd {
-  
+.ddd.addclass{
+  padding: 0 26rpx;
+  background-color: #fff;
+}
+.ddd .comment_list{
+  padding: 50rpx 0;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  .comment_head{
+    flex: 1;
+    image{
+      width:80rpx;
+      height:80rpx;
+    }
+  }
+  .comment_cont{
+    flex: 7;
+    padding-left: 26rpx;
+    .name{
+      font-size: 26rpx;
+      color: rgb(217, 31, 84);
+    }
+    .time{
+      font-size: 22rpx;
+      color: rgb(153, 153, 153);
+      margin: 10rpx 0 20rpx 0;
+    }
+    .cont{
+      font-size: 28rpx;
+      color: rgb(34, 34, 34);
+      margin-bottom: 20rpx;
+    }
+    .image_list_box{
+      display: grid;
+      grid-template-columns:repeat(3,1fr);
+      // grid-gap:20px;
+      font-size: 0;
+      image{
+        // flex: 1;
+        // margin-right: 14rpx;
+        width:188rpx;
+        height:140rpx;
+        //width:188rpx;height:140rpx;
+      }
+      image:nth-child(3n){
+        margin-right: 0;
+      }
+    }
+  }
+}
+.comment_list:last-child{
+  border: 0; 
 }
 .commonColor {
   color: rgb(34, 34, 34) !important;
@@ -346,7 +400,7 @@ button::after {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 98rpx;
+  height: 108rpx;
   display: flex;
   background-color: #fff;
   z-index: 1000;

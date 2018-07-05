@@ -40,11 +40,12 @@ export default class Authorize extends wepy.page {
 
         let rlt = await api.wxJsCode2Session({
           query: {
-            jsCode: res.code,
-            nickName: e.detail.userInfo.nickName
+            code: res.code
           }
         });
-
+        wepy.switchTab({
+          url: '/pages/myindex'
+        });
         if (rlt.data.result) {
           let data = rlt.data;
           if (data.data.openid) {
@@ -64,6 +65,10 @@ export default class Authorize extends wepy.page {
             // })
           }
         }
+      }else{
+        wepy.switchTab({
+          url: '/pages/myindex'
+        });
       }
     }
   }
