@@ -13,13 +13,9 @@ import {
    */
   const getDiscoverList = (params) => wxRequest(params, apiMall + '/goods/list?cateidOne=1&cateidTwo=0&price=0&sales=2');
   
-
   
   //微信的jscode换取sessionKey
   const wxJsCode2Session = (params) => wxRequest(params, apiMall + "paishop/weixin/login.action");
-
-
-
 
 
   const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2session?jsoncallback=?");

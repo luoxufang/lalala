@@ -4,7 +4,7 @@
       <view class="input_box">
         <view class="img_box"><image class="image" src="../assets/images/search.png" style="width:28rpx;height:29rpx;"/></view>
         <input class="key_word" bindinput="searchValueInput" name="key_word" value="{{key_word}}" maxlength="25" confirm-type="search" bindconfirm="do_search"  placeholder-style="font-size:28rpx;color:#999;" placeholder="请输入你要搜索的内容"/>
-        <view class="btn commonBg" @tap="do_search" style="pointer-events:{{submit}}">取消{{text}}</view>
+        <view class="btn commonBg" @tap="comeBallPage()" style="pointer-events:{{submit}}">取消{{text}}</view>
       </view>
     </view>
     
@@ -103,7 +103,12 @@ export default class proSearch extends wepy.page {
     product: Product
   }
   methods = {
-    async do_search(){
+    comeBallPage(){
+      wx.navigateBack({
+        delta: 1
+      })
+    },
+    do_search(){
       if(wx.getStorageSync('key_word')){
         this.viewShow = true;
         this.history_search = 'none';
